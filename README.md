@@ -1,20 +1,16 @@
-[README.md](https://github.com/user-attachments/files/34127447/README.md)
-# STRIDE v1.4 — Bottom Tab Navigation
+[README.md](https://github.com/user-attachments/files/34134002/README.md)
+# STRIDE v1.6 — Visual Motion UI
 
-## Changes
-- Minimal home screen: centered STRIDE logo and Start Walking button
-- Fixed bottom navigation inspired by the provided reference: Home, Live, Coach, Sessions
-- Each navigation tab shows a separate screen, rather than exposing other sections by scrolling
-- Start Walking opens Live and requests motion-sensor access on a direct tap
-- Preserves step estimates, live rhythm feedback, English/Korean voice choice and rate, simulations, and CSV exports
+## Features
+- English interface with four tabs: Home, Live, Settings, Sessions.
+- Live waveform in the main Live tab.
+- Animated walking figure synced to detected steps and cadence, not a true skeletal tracker.
+- Relative phone tilt (DeviceOrientation when permitted), experimental lateral motion proxy, and rhythm labels.
+- Voice language, voice selection, speaking speed and Wizard-of-Oz simulation moved to Settings.
+- Existing sensor tracking, English/Korean TTS and CSV export retained.
 
-## Deploy
-Replace `index.html` in your existing GitHub Pages repository and commit. Updating README.md is optional. Refresh iPhone Safari after deployment.
+## Update GitHub Pages
+Replace the repository root `index.html` and commit. `README.md` replacement is optional. Reload Safari and test.
 
-## Testing
-1. On Home, swiping should not reveal Live/Coach/Sessions.
-2. Tap each bottom tab to switch screens.
-3. Start Walking should move to Live and request sensor access (if needed).
-4. Verify Stop Tracking, voice coaching, and CSV exports.
-
-**Research note:** Device-derived step timing is experimental and not a diagnosis. Simulated load and posture situations are not sensor measurements.
+## Scientific limitations
+The animated figure is a visualization driven by sensor-derived estimates. The phone does **not** detect full-body pose, spinal alignment, pelvic alignment or plantar pressure. Relative tilt uses the phone's initial angle as a reference; changing the phone position invalidates it. Lateral motion proxy varies with phone orientation. The step counter is exploratory and not clinically validated. Keep the phone secured near the waist for tests.
