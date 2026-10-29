@@ -1,33 +1,14 @@
-[README.md](https://github.com/user-attachments/files/34125479/README.md)
-# STRIDE | Bilingual Voice Coaching Research Prototype (v1.1)
+# STRIDE v1.2.1 — Voice Selection Update
 
-STRIDE is an English-language, mobile-friendly research web app. Its manually triggered coaching scenarios support **English and Korean spoken feedback** using the browser's Web Speech API.
+This update preserves the v1.2 live gait analytics, simulation, bilingual coaching, and CSV features.
 
-## Publish on GitHub Pages
+## New
+- Select English or Korean and then choose from voices that the device/browser exposes for that language.
+- Adjust speaking rate from 0.75x to 1.15x.
+- Status messages indicate when no compatible voice is available.
 
-1. Create or open a public repository named `stride-research`.
-2. Upload the included `index.html` to the **root directory**. If an older `index.html` is present, replace its contents or upload the revised file using GitHub's edit interface.
-3. Go to **Settings → Pages → Build and deployment → Deploy from a branch**.
-4. Set branch to `main` and folder to `/(root)`, then save.
-5. Open `https://YOUR-USERNAME.github.io/stride-research/`.
+## Publish
+Replace the repository-root `index.html` on GitHub, commit, then refresh the GitHub Pages URL.
 
-## Test bilingual speech
-
-1. Open **02 / Coaching Simulation**.
-2. Select a simulated gait condition.
-3. Set **Coaching voice language** to **English** or **한국어 (Korean)**.
-4. Select **Play Voice Coaching**. Use **Stop Voice** to stop speech.
-
-The interface remains English in both language modes. Available voice quality and pronunciation depend on the voices installed on your device and supported by the browser.
-
-## Test device motion
-
-Open the site over HTTPS on a smartphone and choose **Start Sensor / Request Permission**. Device/browser support varies, especially on iOS. Walking step counts and cadence are preliminary estimates, not validated measurements.
-
-## Research and safety notes
-
-- The live-motion view uses actual browser device-motion readings **if supported**.
-- Right-foot loading and trunk-lean scenarios are **manual simulations**, not actual diagnoses or sensor detections.
-- Coaching uses predefined decision rules and text-to-speech, **not a trained AI model**.
-- No data is sent to any server by this HTML file. CSV export creates a local file.
-- Do not look at the phone while walking. Not for clinical or medical use.
+## Limitations
+Web Speech API voice quality depends on the operating system and browser. This app does not include or generate new neural voices. iOS may not expose all downloaded enhanced voices in Safari; voice availability varies by device.
