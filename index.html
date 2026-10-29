@@ -4,17 +4,64 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>STRIDE | Gait Coaching Research Prototype</title>
 <style>
-:root{color-scheme:dark;--bg:#0b0d10;--card:#171b20;--line:#30363d;--lime:#c3ff60;--dim:#a9b1ba}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f8f9;font:15px/1.5 system-ui,-apple-system,Arial,sans-serif}main{max-width:940px;margin:auto;padding:28px 18px 70px}.nav{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;letter-spacing:4px;font-size:22px}.tag{color:var(--lime);border:1px solid #476225;border-radius:100px;padding:5px 10px;font-size:11px}.hero{padding:46px 0 22px}.eyebrow{color:var(--lime);letter-spacing:2px;font-size:12px;font-weight:800}h1{font-size:clamp(35px,7vw,62px);line-height:1.08;margin:12px 0;letter-spacing:-2px}p{color:var(--dim)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:19px;min-width:0}.full{grid-column:1/-1}h2{font-size:17px;margin:0 0 12px}.muted{color:var(--dim);font-size:13px}.value{font-size:35px;font-weight:850;letter-spacing:-1px}.unit{color:var(--dim);font-size:12px;margin-left:5px}.pill{display:inline-block;background:#313c24;color:var(--lime);border-radius:20px;padding:5px 9px;font-size:12px}button{background:var(--lime);color:#0b1004;border:0;border-radius:11px;padding:12px 15px;font:inherit;font-weight:800;cursor:pointer;margin:5px 7px 5px 0}button.alt{background:#30363d;color:white}button:disabled{opacity:.5;cursor:not-allowed}.status{min-height:24px;color:var(--lime);font-size:13px}canvas{display:block;width:100%;height:155px;border-radius:9px;background:#0e1216}.metrics{display:flex;gap:22px;flex-wrap:wrap}.submetric{flex:1;min-width:115px}.log{max-height:140px;overflow:auto;color:#d9e0e7;font-size:13px}.log div{border-bottom:1px solid #30363d;padding:7px 0}.foot{margin-top:26px;color:#89929d;font-size:12px}select{font:inherit;background:#252c32;color:white;border:1px solid #4b555f;border-radius:8px;padding:9px;width:100%}@media(max-width:610px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.hero{padding-top:30px}.value{font-size:30px}}
+:root{color-scheme:dark;--bg:#0b0d10;--card:#171b20;--line:#30363d;--lime:#c3ff60;--dim:#a9b1ba;--white:#f7f8f9}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font:15px/1.5 system-ui,-apple-system,Arial,sans-serif}main{max-width:940px;margin:auto;padding:0 18px 70px}.brand{font-weight:900;letter-spacing:7px;font-size:clamp(58px,15vw,104px);line-height:1}.brand .dot{color:var(--lime)}.miniBrand{font-weight:900;letter-spacing:3px;font-size:20px;margin-bottom:14px}.splash{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px 0}.splash-inner{display:flex;flex-direction:column;align-items:center;gap:28px}.startPrimary{background:var(--lime);color:#0b1004;border:0;border-radius:999px;padding:16px 28px;font:inherit;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 10px 30px rgba(195,255,96,.12)}.content{padding-top:14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:19px;min-width:0}.full{grid-column:1/-1}h2{font-size:17px;margin:0 0 12px}.muted{color:var(--dim);font-size:13px}.value{font-size:35px;font-weight:850;letter-spacing:-1px}.unit{color:var(--dim);font-size:12px;margin-left:5px}.pill{display:inline-block;background:#313c24;color:var(--lime);border-radius:20px;padding:5px 9px;font-size:12px}button{background:var(--lime);color:#0b1004;border:0;border-radius:11px;padding:12px 15px;font:inherit;font-weight:800;cursor:pointer;margin:5px 7px 5px 0}button.alt{background:#30363d;color:white}button:disabled{opacity:.5;cursor:not-allowed}.status{min-height:24px;color:var(--lime);font-size:13px}canvas{display:block;width:100%;height:155px;border-radius:9px;background:#0e1216}.metrics{display:flex;gap:22px;flex-wrap:wrap}.submetric{flex:1;min-width:115px}.log{max-height:140px;overflow:auto;color:#d9e0e7;font-size:13px}.log div{border-bottom:1px solid #30363d;padding:7px 0}select{font:inherit;background:#252c32;color:white;border:1px solid #4b555f;border-radius:8px;padding:9px;width:100%}input[type="range"]{width:100%;accent-color:var(--lime)}.sectionSpacer{height:8px}@media(max-width:610px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.value{font-size:30px}.splash-inner{gap:24px}.startPrimary{width:min(88vw,280px)}}
 </style>
 </head>
-<body><main>
-<header class="nav"><div class="brand">STRIDE<span style="color:var(--lime)">.</span></div><div class="tag">RESEARCH PROTOTYPE v1.2.1</div></header>
-<section class="hero"><div class="eyebrow">WALK SMARTER. FEEL BETTER.</div><h1>Every step<br><span style="color:var(--lime)">tells a story.</span></h1><p>A context-aware gait coaching concept for everyday movement. Live device measurements and research simulations are clearly separated.</p></section>
-<div class="grid">
-<section class="card full"><h2>01 / Live Motion Sensor <span class="pill">LIVE SENSOR</span></h2><p class="muted">Secure your smartphone near your waist in a consistent orientation. If motion sensors are unavailable, use Simulation Mode instead.</p><button id="start">Start Sensor / Request Permission</button><button id="stop" class="alt" disabled>Stop Tracking</button><button id="reset" class="alt">Reset Metrics</button><div id="status" class="status" aria-live="polite">Ready · Sensor not running</div><div class="metrics"><div class="submetric"><span class="muted">Movement signal</span><div><span id="mag" class="value">—</span><span class="unit">m/s²*</span></div></div><div class="submetric"><span class="muted">Estimated steps</span><div><span id="steps" class="value">0</span></div></div><div class="submetric"><span class="muted">Estimated cadence</span><div><span id="cadence" class="value">—</span><span class="unit">steps/min</span></div></div><div class="submetric"><span class="muted">Rhythm variation</span><div><span id="variation" class="value">—</span><span class="unit">CV %</span></div></div><div class="submetric"><span class="muted">Session duration</span><div><span id="elapsed" class="value">0:00</span></div></div></div><canvas id="plot" width="850" height="220" aria-label="Recent motion signal"></canvas><label style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="liveCoach" style="width:18px;height:18px"> <span class="muted">Enable live rhythm coaching (experimental; max 1 message every 30 seconds)</span></label><p id="liveCoachInfo" class="muted">Live feedback requires enough recent steps. It does not assess posture, foot pressure, or orthopedic conditions.</p><button id="exportSensor" class="alt">Export Motion CSV</button><p class="muted">*Approximate motion signal derived from acceleration magnitude with a smoothed baseline. Step estimates and rhythm variation are unvalidated experimental measures, highly dependent on device placement and walking conditions. CV is the coefficient of variation of recent detected step intervals.</p></section>
-<section class="card"><h2>02 / Coaching Simulation <span class="pill">SIMULATION</span></h2><p class="muted">These scenarios are manually selected, not detected by the sensors. They are intended for Wizard-of-Oz UX research.</p><label for="scenario" class="muted">Choose a simulated gait condition</label><select id="scenario"><option value="steady">Stable walking rhythm</option><option value="uneven">Irregular walking rhythm</option><option value="right">Right-foot loading (simulated)</option><option value="posture">Forward trunk lean (simulated)</option></select><label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label><select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select><label for="voiceChoice" class="muted" style="display:block;margin-top:14px">Available voice</label><select id="voiceChoice" aria-label="Available voice"><option value="auto">Automatic (device default)</option></select><label for="voiceRate" class="muted" style="display:block;margin-top:14px">Speaking speed: <span id="rateValue">0.95×</span></label><input id="voiceRate" type="range" min="0.75" max="1.15" step="0.05" value="0.95" style="width:100%;accent-color:var(--lime)"><p id="voiceStatus" class="muted" aria-live="polite">Loading device voices…</p><button id="coach">Play Voice Coaching</button><button id="quiet" class="alt">Stop Voice</button><p id="message" style="color:#fff;min-height:44px">Your coaching message will appear here.</p></section>
-<section class="card"><h2>03 / Session Notes</h2><p class="muted">Compare coaching messages and export recorded events. Data stays in this browser until you choose to export it.</p><button id="csv" class="alt">Export Event CSV</button><button id="clear" class="alt">Clear Log</button><div id="log" class="log" aria-live="polite"><div>No events recorded yet.</div></div></section>
-</div><div class="foot">STRIDE • SUNY Korea Research Challenge concept • Not a medical device • No clinical diagnosis or treatment claims. Sensor and simulation results are clearly separated.</div>
+<body>
+<main>
+<section class="splash" id="home">
+  <div class="splash-inner">
+    <div class="brand" aria-label="STRIDE">STRIDE<span class="dot">.</span></div>
+    <button id="startWalkingHero" class="startPrimary">Start Walking</button>
+  </div>
+</section>
+
+<section class="content" id="app">
+  <div class="grid">
+    <section class="card full" id="liveSection">
+      <div class="miniBrand">STRIDE<span style="color:var(--lime)">.</span></div>
+      <h2>01 / Live Motion Sensor <span class="pill">LIVE SENSOR</span></h2>
+      <p class="muted">Secure your smartphone near your waist in a consistent orientation. If motion sensors are unavailable, use Simulation Mode instead.</p>
+      <button id="start">Start Sensor / Request Permission</button><button id="stop" class="alt" disabled>Stop Tracking</button><button id="reset" class="alt">Reset Metrics</button>
+      <div id="status" class="status" aria-live="polite">Ready · Sensor not running</div>
+      <div class="metrics">
+        <div class="submetric"><span class="muted">Movement signal</span><div><span id="mag" class="value">—</span><span class="unit">m/s²*</span></div></div>
+        <div class="submetric"><span class="muted">Estimated steps</span><div><span id="steps" class="value">0</span></div></div>
+        <div class="submetric"><span class="muted">Estimated cadence</span><div><span id="cadence" class="value">—</span><span class="unit">steps/min</span></div></div>
+        <div class="submetric"><span class="muted">Rhythm variation</span><div><span id="variation" class="value">—</span><span class="unit">CV %</span></div></div>
+        <div class="submetric"><span class="muted">Session duration</span><div><span id="elapsed" class="value">0:00</span></div></div>
+      </div>
+      <canvas id="plot" width="850" height="220" aria-label="Recent motion signal"></canvas>
+      <label style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="liveCoach" style="width:18px;height:18px"> <span class="muted">Enable live rhythm coaching (experimental; max 1 message every 30 seconds)</span></label>
+      <p id="liveCoachInfo" class="muted">Live feedback requires enough recent steps. It does not assess posture, foot pressure, or orthopedic conditions.</p>
+      <button id="exportSensor" class="alt">Export Motion CSV</button>
+      <p class="muted">*Approximate motion signal derived from acceleration magnitude with a smoothed baseline. Step estimates and rhythm variation are unvalidated experimental measures, highly dependent on device placement and walking conditions. CV is the coefficient of variation of recent detected step intervals.</p>
+    </section>
+
+    <section class="card">
+      <h2>02 / Coaching Simulation <span class="pill">SIMULATION</span></h2>
+      <p class="muted">These scenarios are manually selected, not detected by the sensors. They are intended for Wizard-of-Oz UX research.</p>
+      <label for="scenario" class="muted">Choose a simulated gait condition</label>
+      <select id="scenario"><option value="steady">Stable walking rhythm</option><option value="uneven">Irregular walking rhythm</option><option value="right">Right-foot loading (simulated)</option><option value="posture">Forward trunk lean (simulated)</option></select>
+      <label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label>
+      <select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select>
+      <label for="voiceChoice" class="muted" style="display:block;margin-top:14px">Available voice</label>
+      <select id="voiceChoice" aria-label="Available voice"><option value="auto">Automatic (device default)</option></select>
+      <label for="voiceRate" class="muted" style="display:block;margin-top:14px">Speaking speed: <span id="rateValue">0.95×</span></label>
+      <input id="voiceRate" type="range" min="0.75" max="1.15" step="0.05" value="0.95">
+      <p id="voiceStatus" class="muted" aria-live="polite">Loading device voices…</p>
+      <button id="coach">Play Voice Coaching</button><button id="quiet" class="alt">Stop Voice</button>
+      <p id="message" style="color:#fff;min-height:44px">Your coaching message will appear here.</p>
+    </section>
+
+    <section class="card">
+      <h2>03 / Session Notes</h2>
+      <p class="muted">Compare coaching messages and export recorded events. Data stays in this browser until you choose to export it.</p>
+      <button id="csv" class="alt">Export Event CSV</button><button id="clear" class="alt">Clear Log</button>
+      <div id="log" class="log" aria-live="polite"><div>No events recorded yet.</div></div>
+    </section>
+  </div>
+</section>
 </main>
 <script>
 const $ = id => document.getElementById(id);
@@ -75,7 +122,6 @@ function updateRhythm(t){
   const cv=100*std/mean;
   $('cadence').textContent=(60000/mean).toFixed(0);
   $('variation').textContent=cv.toFixed(1);
-  // Exploratory UX trigger, not a validated clinical threshold.
   if($('liveCoach').checked && intervals.length>=6 && cv>25 && t-lastLiveCoach>30000 && t-(sessionStart||t)>10000){
     const lang=$('voiceLanguage').value;
     const msg=lang==='ko-KR'?'걸음 간격이 불규칙하게 추정됩니다. 안전한 장소에서 편안한 속도로 걸어보세요.':'Your step timing appears variable. If it is safe, try walking at a comfortable, steady pace.';
@@ -107,9 +153,9 @@ function stopSensor(){
   $('start').disabled=false;$('stop').disabled=true;
   $('status').textContent='Tracking stopped · data retained for export';record('system','Sensor stopped');
 }
-$('start').onclick=async()=>{
-  if(running)return;
-  if(!('DeviceMotionEvent' in window)){$('status').textContent='Motion sensors unavailable in this browser.';return}
+async function startSensor(){
+  if(running)return true;
+  if(!('DeviceMotionEvent' in window)){$('status').textContent='Motion sensors unavailable in this browser.';return false}
   try{
     if(typeof DeviceMotionEvent.requestPermission==='function'){
       const p=await DeviceMotionEvent.requestPermission();if(p!=='granted')throw Error('Motion sensor permission denied');
@@ -126,12 +172,18 @@ $('start').onclick=async()=>{
       else $('status').textContent='LIVE SENSOR · Receiving motion data';
       if(performance.now()-lastStep>4500){stepTimes=[];$('cadence').textContent='—';$('variation').textContent='—'}
     },500);
-  }catch(err){$('status').textContent='Could not start sensor: '+err.message}
-};
+    return true;
+  }catch(err){$('status').textContent='Could not start sensor: '+err.message;return false}
+}
+$('start').onclick=startSensor;
 $('stop').onclick=stopSensor;
 $('reset').onclick=()=>{
   if(running)stopSensor();stepTimes=[];baseline=null;filtered=0;lastStep=0;armed=true;sessionSteps=0;sessionStart=null;lastReceived=0;motionRows.length=0;values.fill(0);
   $('mag').textContent='—';$('steps').textContent='0';$('cadence').textContent='—';$('variation').textContent='—';$('elapsed').textContent='0:00';draw();record('system','Metrics and motion data reset');
+};
+$('startWalkingHero').onclick=async()=>{
+  document.getElementById('liveSection').scrollIntoView({behavior:'smooth',block:'start'});
+  await startSensor();
 };
 const scripts={
   'en-US':{steady:'Your walking rhythm appears steady in this simulation.',uneven:'Simulated irregular rhythm. Stay aware of your surroundings and try walking at a comfortable, consistent pace.',right:'Simulation only: Increased right-foot loading is shown. This is not a measured imbalance or diagnosis.',posture:'Simulation only: Forward trunk lean is shown. This is not a measured posture assessment.'},
@@ -150,4 +202,5 @@ function downloadCsv(name,headers,rows){
 $('csv').onclick=()=>downloadCsv('stride-events.csv','timestamp,type,detail',events.map(e=>[e.timestamp,e.type,e.detail]));
 $('exportSensor').onclick=()=>downloadCsv('stride-motion.csv','timestamp,elapsed_seconds,accel_x,accel_y,accel_z,motion_signal,estimated_steps',motionRows);
 $('clear').onclick=()=>{events.length=0;$('log').replaceChildren();const d=document.createElement('div');d.textContent='No events recorded yet.';$('log').appendChild(d)};
-</script></body></html>
+</script>
+</body></html>
