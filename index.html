@@ -8,55 +8,146 @@
 </style>
 </head>
 <body><main>
-<header class="nav"><div class="brand">STRIDE<span style="color:var(--lime)">.</span></div><div class="tag">RESEARCH PROTOTYPE v1</div></header>
+<header class="nav"><div class="brand">STRIDE<span style="color:var(--lime)">.</span></div><div class="tag">RESEARCH PROTOTYPE v1.2.1</div></header>
 <section class="hero"><div class="eyebrow">WALK SMARTER. FEEL BETTER.</div><h1>Every step<br><span style="color:var(--lime)">tells a story.</span></h1><p>A context-aware gait coaching concept for everyday movement. Live device measurements and research simulations are clearly separated.</p></section>
 <div class="grid">
-<section class="card full"><h2>01 / Live Motion Sensor <span class="pill">LIVE SENSOR</span></h2><p class="muted">Secure your smartphone near your waist in a consistent orientation. If motion sensors are unavailable, use Simulation Mode instead.</p><button id="start">Start Sensor / Request Permission</button><button id="stop" class="alt" disabled>Stop Tracking</button><button id="reset" class="alt">Reset Metrics</button><div id="status" class="status" aria-live="polite">대기 중 · LIVE SENSOR 데이터가 아닙니다</div><div class="metrics"><div class="submetric"><span class="muted">Movement signal</span><div><span id="mag" class="value">—</span><span class="unit">m/s²*</span></div></div><div class="submetric"><span class="muted">Estimated steps</span><div><span id="steps" class="value">0</span></div></div><div class="submetric"><span class="muted">Estimated cadence</span><div><span id="cadence" class="value">—</span><span class="unit">steps/min</span></div></div></div><canvas id="plot" width="850" height="220" aria-label="Recent motion signal"></canvas><p class="muted">*Approximate motion signal derived from acceleration magnitude with a smoothed baseline. Step estimates use an experimental threshold algorithm and are not validated medical measurements.</p></section>
-<section class="card"><h2>02 / Coaching Simulation <span class="pill">SIMULATION</span></h2><p class="muted">These scenarios are manually selected, not detected by the sensors. They are intended for Wizard-of-Oz UX research.</p><label for="scenario" class="muted">Choose a simulated gait condition</label><select id="scenario"><option value="steady">Stable walking rhythm</option><option value="uneven">Irregular walking rhythm</option><option value="right">Right-foot loading (simulated)</option><option value="posture">Forward trunk lean (simulated)</option></select><label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label><select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select><button id="coach">Play Voice Coaching</button><button id="quiet" class="alt">Stop Voice</button><p id="message" style="color:#fff;min-height:44px">Your coaching message will appear here.</p></section>
+<section class="card full"><h2>01 / Live Motion Sensor <span class="pill">LIVE SENSOR</span></h2><p class="muted">Secure your smartphone near your waist in a consistent orientation. If motion sensors are unavailable, use Simulation Mode instead.</p><button id="start">Start Sensor / Request Permission</button><button id="stop" class="alt" disabled>Stop Tracking</button><button id="reset" class="alt">Reset Metrics</button><div id="status" class="status" aria-live="polite">Ready · Sensor not running</div><div class="metrics"><div class="submetric"><span class="muted">Movement signal</span><div><span id="mag" class="value">—</span><span class="unit">m/s²*</span></div></div><div class="submetric"><span class="muted">Estimated steps</span><div><span id="steps" class="value">0</span></div></div><div class="submetric"><span class="muted">Estimated cadence</span><div><span id="cadence" class="value">—</span><span class="unit">steps/min</span></div></div><div class="submetric"><span class="muted">Rhythm variation</span><div><span id="variation" class="value">—</span><span class="unit">CV %</span></div></div><div class="submetric"><span class="muted">Session duration</span><div><span id="elapsed" class="value">0:00</span></div></div></div><canvas id="plot" width="850" height="220" aria-label="Recent motion signal"></canvas><label style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="liveCoach" style="width:18px;height:18px"> <span class="muted">Enable live rhythm coaching (experimental; max 1 message every 30 seconds)</span></label><p id="liveCoachInfo" class="muted">Live feedback requires enough recent steps. It does not assess posture, foot pressure, or orthopedic conditions.</p><button id="exportSensor" class="alt">Export Motion CSV</button><p class="muted">*Approximate motion signal derived from acceleration magnitude with a smoothed baseline. Step estimates and rhythm variation are unvalidated experimental measures, highly dependent on device placement and walking conditions. CV is the coefficient of variation of recent detected step intervals.</p></section>
+<section class="card"><h2>02 / Coaching Simulation <span class="pill">SIMULATION</span></h2><p class="muted">These scenarios are manually selected, not detected by the sensors. They are intended for Wizard-of-Oz UX research.</p><label for="scenario" class="muted">Choose a simulated gait condition</label><select id="scenario"><option value="steady">Stable walking rhythm</option><option value="uneven">Irregular walking rhythm</option><option value="right">Right-foot loading (simulated)</option><option value="posture">Forward trunk lean (simulated)</option></select><label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label><select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select><label for="voiceChoice" class="muted" style="display:block;margin-top:14px">Available voice</label><select id="voiceChoice" aria-label="Available voice"><option value="auto">Automatic (device default)</option></select><label for="voiceRate" class="muted" style="display:block;margin-top:14px">Speaking speed: <span id="rateValue">0.95×</span></label><input id="voiceRate" type="range" min="0.75" max="1.15" step="0.05" value="0.95" style="width:100%;accent-color:var(--lime)"><p id="voiceStatus" class="muted" aria-live="polite">Loading device voices…</p><button id="coach">Play Voice Coaching</button><button id="quiet" class="alt">Stop Voice</button><p id="message" style="color:#fff;min-height:44px">Your coaching message will appear here.</p></section>
 <section class="card"><h2>03 / Session Notes</h2><p class="muted">Compare coaching messages and export recorded events. Data stays in this browser until you choose to export it.</p><button id="csv" class="alt">Export Event CSV</button><button id="clear" class="alt">Clear Log</button><div id="log" class="log" aria-live="polite"><div>No events recorded yet.</div></div></section>
 </div><div class="foot">STRIDE • SUNY Korea Research Challenge concept • Not a medical device • No clinical diagnosis or treatment claims. Sensor and simulation results are clearly separated.</div>
 </main>
 <script>
-const $=id=>document.getElementById(id);const graph=$('plot'),ctx=graph.getContext('2d');const values=Array(130).fill(0),events=[];let running=false,lastStep=0,peakArmed=true,stepTimes=[],baseline=null,lastEventAt=0;
-function record(type,detail){events.push({timestamp:new Date().toISOString(),type,detail});$('log').innerHTML=events.slice(-10).reverse().map(e=>`<div>${e.timestamp.slice(11,19)} · ${e.type}: ${e.detail.replaceAll('<','&lt;')}</div>`).join('')}
-function draw(){ctx.clearRect(0,0,850,220);ctx.strokeStyle='#29323b';ctx.lineWidth=1;for(let y=40;y<220;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(850,y);ctx.stroke()}ctx.beginPath();values.forEach((v,i)=>{const x=i*850/(values.length-1),y=205-Math.min(6,v)*30;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.strokeStyle='#c3ff60';ctx.lineWidth=3;ctx.stroke()};draw();
-function sensorHandler(e){const a=e.accelerationIncludingGravity||e.acceleration;if(!a||![a.x,a.y,a.z].every(Number.isFinite))return;const t=performance.now();const magnitude=Math.hypot(a.x,a.y,a.z);if(baseline===null)baseline=magnitude;baseline=.94*baseline+.06*magnitude;const dynamic=Math.abs(magnitude-baseline);$('mag').textContent=dynamic.toFixed(2);values.push(dynamic);values.shift();draw();if(dynamic<0.65)peakArmed=true;if(peakArmed&&dynamic>1.4&&t-lastStep>360){peakArmed=false;lastStep=t;stepTimes.push(t);stepTimes=stepTimes.filter(x=>t-x<=15000);$('steps').textContent=String(+$('steps').textContent+1);if(stepTimes.length>=3){let intervals=stepTimes.slice(1).map((v,i)=>v-stepTimes[i]);let avg=intervals.reduce((a,b)=>a+b,0)/intervals.length;$('cadence').textContent=(60000/avg).toFixed(0)}if(t-lastEventAt>5000){record('sensor','Candidate step event detected');lastEventAt=t}}}
-$('start').onclick=async()=>{if(running)return;if(!('DeviceMotionEvent'in window)){$('status').textContent='Motion sensors are not available in this browser.';return}try{if(typeof DeviceMotionEvent.requestPermission==='function'){const permission=await DeviceMotionEvent.requestPermission();if(permission!=='granted')throw new Error('Motion sensor permission was denied')}window.addEventListener('devicemotion',sensorHandler);running=true;$('start').disabled=true;$('stop').disabled=false;$('status').textContent='Connecting to sensor · Move the phone gently to check the signal';record('system','Sensor started');setTimeout(()=>{if(running&&$('mag').textContent==='—')$('status').textContent='No motion values received. Check your device and browser permissions.';else if(running)$('status').textContent='LIVE SENSOR 신호 수신 중'},1500)}catch(err){$('status').textContent='Could not start sensor: '+err.message}};
-$('stop').onclick=()=>{window.removeEventListener('devicemotion',sensorHandler);running=false;$('start').disabled=false;$('stop').disabled=true;$('status').textContent='Stop Tracking';record('system','Sensor stopped')};
-$('reset').onclick=()=>{stepTimes=[];baseline=null;lastStep=0;peakArmed=true;values.fill(0);$('mag').textContent='—';$('steps').textContent='0';$('cadence').textContent='—';draw();record('system','Reset Metrics')};
-const scripts={
-  'en-US':{
-    steady:'Your walking rhythm appears steady in this simulation.',
-    uneven:'Simulated irregular rhythm. Stay aware of your surroundings and try walking at a comfortable, consistent pace.',
-    right:'Simulation only: Increased right-foot loading is shown. This is not a measured imbalance or diagnosis.',
-    posture:'Simulation only: Forward trunk lean is shown. This is not a measured posture assessment.'
-  },
-  'ko-KR':{
-    steady:'시뮬레이션에서 안정적인 보행 리듬이 표시되었습니다.',
-    uneven:'가상 상황에서 보행 리듬이 불규칙하게 나타났습니다. 주변을 살피며 편안하고 일정한 속도로 걸어보세요.',
-    right:'시뮬레이션 전용: 오른발 하중 집중 상황이 표시되었습니다. 실제 측정이나 진단 결과는 아닙니다.',
-    posture:'시뮬레이션 전용: 상체 전방 기울임이 표시되었습니다. 실제 자세 측정이나 진단 결과는 아닙니다.'
+const $ = id => document.getElementById(id);
+const graph = $('plot'), ctx = graph.getContext('2d');
+const values = Array(130).fill(0), events = [], motionRows = [];
+let running=false, baseline=null, filtered=0, armed=true, lastStep=0, stepTimes=[], sessionStart=null, lastReceived=0, lastLiveCoach=0, lastEventAt=0, tick=null, sessionSteps=0;
+const MAX_ROWS=18000;
+function record(type, detail){
+  const item={timestamp:new Date().toISOString(),type,detail}; events.push(item);
+  $('log').replaceChildren(...events.slice(-10).reverse().map(e=>{
+    const d=document.createElement('div');d.textContent=`${e.timestamp.slice(11,19)} · ${e.type}: ${e.detail}`;return d;
+  }));
+}
+function draw(){
+  ctx.clearRect(0,0,850,220);ctx.strokeStyle='#29323b';ctx.lineWidth=1;
+  for(let y=40;y<220;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(850,y);ctx.stroke()}
+  ctx.beginPath();values.forEach((v,i)=>{const x=i*850/(values.length-1), y=205-Math.min(6,v)*30;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});
+  ctx.strokeStyle='#c3ff60';ctx.lineWidth=3;ctx.stroke();
+}
+draw();
+let availableVoices=[];
+function refreshVoices(){
+  if(!('speechSynthesis' in window)){ $('voiceStatus').textContent='Speech synthesis is not supported in this browser.';return; }
+  availableVoices=speechSynthesis.getVoices();
+  const lang=$('voiceLanguage').value;
+  const compatible=availableVoices.filter(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  const select=$('voiceChoice'); const previous=select.value;select.replaceChildren();
+  const automatic=document.createElement('option');automatic.value='auto';automatic.textContent='Automatic (device default)';select.appendChild(automatic);
+  compatible.forEach(v=>{const o=document.createElement('option');o.value=v.voiceURI;o.textContent=`${v.name} (${v.lang})${v.localService?' · on-device':''}`;select.appendChild(o)});
+  if([...select.options].some(o=>o.value===previous))select.value=previous;
+  $('voiceStatus').textContent=compatible.length?`${compatible.length} ${lang==='ko-KR'?'Korean':'English'} voice(s) available. Try each voice for the most natural sound.`:`No ${lang==='ko-KR'?'Korean':'English'} voices are exposed by this browser. Install a compatible system voice or try another browser/device.`;
+}
+function speak(msg,lang){
+  if(!('speechSynthesis' in window))return false;
+  const choice=$('voiceChoice').value;
+  const v=availableVoices.find(v=>v.voiceURI===choice && v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  const candidates=availableVoices.filter(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  if(!v && !candidates.length){$('voiceStatus').textContent='No matching language voice detected; the browser may fall back to an unnatural voice.';}
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(msg);u.lang=lang;u.rate=Number($('voiceRate').value);u.pitch=1;
+  if(v)u.voice=v;
+  else if(candidates.length)u.voice=candidates.find(v=>v.lang.toLowerCase()===lang.toLowerCase())||candidates[0];
+  speechSynthesis.speak(u);return true;
+}
+if('speechSynthesis' in window){
+  refreshVoices();
+  speechSynthesis.addEventListener?.('voiceschanged',refreshVoices);
+  window.addEventListener('pageshow',refreshVoices);
+}
+$('voiceRate').addEventListener('input',()=>{$('rateValue').textContent=Number($('voiceRate').value).toFixed(2)+'×'});
+
+function updateRhythm(t){
+  stepTimes=stepTimes.filter(s=>t-s<=16000);
+  const intervals=[];
+  for(let i=1;i<stepTimes.length;i++)intervals.push(stepTimes[i]-stepTimes[i-1]);
+  if(intervals.length<3){$('cadence').textContent='—';$('variation').textContent='—';return}
+  const mean=intervals.reduce((a,b)=>a+b,0)/intervals.length;
+  const std=Math.sqrt(intervals.reduce((a,b)=>a+(b-mean)**2,0)/intervals.length);
+  const cv=100*std/mean;
+  $('cadence').textContent=(60000/mean).toFixed(0);
+  $('variation').textContent=cv.toFixed(1);
+  // Exploratory UX trigger, not a validated clinical threshold.
+  if($('liveCoach').checked && intervals.length>=6 && cv>25 && t-lastLiveCoach>30000 && t-(sessionStart||t)>10000){
+    const lang=$('voiceLanguage').value;
+    const msg=lang==='ko-KR'?'걸음 간격이 불규칙하게 추정됩니다. 안전한 장소에서 편안한 속도로 걸어보세요.':'Your step timing appears variable. If it is safe, try walking at a comfortable, steady pace.';
+    $('liveCoachInfo').textContent='Experimental live cue: '+msg;
+    speak(msg,lang);lastLiveCoach=t;record('live-coaching',`rhythm variability ${cv.toFixed(1)}% | ${lang}`);
   }
+}
+function sensorHandler(e){
+  const a=e.accelerationIncludingGravity||e.acceleration;
+  if(!a||![a.x,a.y,a.z].every(Number.isFinite))return;
+  const t=performance.now(), magnitude=Math.hypot(a.x,a.y,a.z);
+  if(baseline===null)baseline=magnitude;
+  baseline=.94*baseline+.06*magnitude;
+  const dynamic=Math.abs(magnitude-baseline);
+  filtered=.6*filtered+.4*dynamic;
+  lastReceived=t;
+  $('mag').textContent=filtered.toFixed(2);
+  values.push(filtered);values.shift();draw();
+  if(motionRows.length<MAX_ROWS)motionRows.push([new Date().toISOString(),((t-sessionStart)/1000).toFixed(3),a.x.toFixed(3),a.y.toFixed(3),a.z.toFixed(3),filtered.toFixed(3),sessionSteps]);
+  if(filtered<.55)armed=true;
+  if(armed&&filtered>1.05&&t-lastStep>340){
+    armed=false;lastStep=t;sessionSteps++;stepTimes.push(t);
+    $('steps').textContent=String(sessionSteps);updateRhythm(t);
+    if(t-lastEventAt>5500){record('sensor','Candidate step event detected');lastEventAt=t}
+  }
+}
+function stopSensor(){
+  window.removeEventListener('devicemotion',sensorHandler);running=false;clearInterval(tick);tick=null;
+  $('start').disabled=false;$('stop').disabled=true;
+  $('status').textContent='Tracking stopped · data retained for export';record('system','Sensor stopped');
+}
+$('start').onclick=async()=>{
+  if(running)return;
+  if(!('DeviceMotionEvent' in window)){$('status').textContent='Motion sensors unavailable in this browser.';return}
+  try{
+    if(typeof DeviceMotionEvent.requestPermission==='function'){
+      const p=await DeviceMotionEvent.requestPermission();if(p!=='granted')throw Error('Motion sensor permission denied');
+    }
+    baseline=null;filtered=0;armed=true;lastStep=0;stepTimes=[];lastLiveCoach=0;lastEventAt=0;lastReceived=0;sessionSteps=0;motionRows.length=0;values.fill(0);
+    $('steps').textContent='0';$('cadence').textContent='—';$('variation').textContent='—';$('elapsed').textContent='0:00';$('mag').textContent='—';draw();
+    sessionStart=performance.now();window.addEventListener('devicemotion',sensorHandler);running=true;
+    $('start').disabled=true;$('stop').disabled=false;$('status').textContent='Listening for motion data…';record('system','Sensor started');
+    tick=setInterval(()=>{
+      const elapsed=Math.floor((performance.now()-sessionStart)/1000);
+      $('elapsed').textContent=`${Math.floor(elapsed/60)}:${String(elapsed%60).padStart(2,'0')}`;
+      if(!lastReceived)$('status').textContent='Waiting for sensor data…';
+      else if(performance.now()-lastReceived>3000)$('status').textContent='No recent sensor data; check browser and screen state.';
+      else $('status').textContent='LIVE SENSOR · Receiving motion data';
+      if(performance.now()-lastStep>4500){stepTimes=[];$('cadence').textContent='—';$('variation').textContent='—'}
+    },500);
+  }catch(err){$('status').textContent='Could not start sensor: '+err.message}
 };
-function getSelectedScript(){return scripts[$('voiceLanguage').value][$('scenario').value]}
-function updateCoachingPreview(){$('message').textContent=getSelectedScript()}
-$('voiceLanguage').onchange=updateCoachingPreview;
-$('scenario').onchange=updateCoachingPreview;
-$('coach').onclick=()=>{
- const language=$('voiceLanguage').value, key=$('scenario').value, msg=getSelectedScript();
- $('message').textContent=msg;
- record('simulation',`${key} | ${language}`);
- if(!('speechSynthesis' in window)){$('message').textContent+=' (Speech synthesis is unavailable in this browser.)';return}
- speechSynthesis.cancel();
- const utterance=new SpeechSynthesisUtterance(msg);
- utterance.lang=language;utterance.rate=0.95;
- const voices=speechSynthesis.getVoices();
- const matching=voices.find(v=>v.lang.toLowerCase()===language.toLowerCase()) || voices.find(v=>v.lang.toLowerCase().startsWith(language.slice(0,2).toLowerCase()));
- if(matching) utterance.voice=matching;
- speechSynthesis.speak(utterance);
+$('stop').onclick=stopSensor;
+$('reset').onclick=()=>{
+  if(running)stopSensor();stepTimes=[];baseline=null;filtered=0;lastStep=0;armed=true;sessionSteps=0;sessionStart=null;lastReceived=0;motionRows.length=0;values.fill(0);
+  $('mag').textContent='—';$('steps').textContent='0';$('cadence').textContent='—';$('variation').textContent='—';$('elapsed').textContent='0:00';draw();record('system','Metrics and motion data reset');
 };
-updateCoachingPreview();
-$('quiet').onclick=()=>{if('speechSynthesis'in window)speechSynthesis.cancel()};
-$('csv').onclick=()=>{const escapeCsv=s=>'"'+String(s).replaceAll('"','""')+'"';const csv='timestamp,type,detail\n'+events.map(e=>[e.timestamp,e.type,e.detail].map(escapeCsv).join(',')).join('\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='stride-events.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),500)};
-$('clear').onclick=()=>{events.length=0;$('log').innerHTML='<div>No events recorded yet.</div>'};
+const scripts={
+  'en-US':{steady:'Your walking rhythm appears steady in this simulation.',uneven:'Simulated irregular rhythm. Stay aware of your surroundings and try walking at a comfortable, consistent pace.',right:'Simulation only: Increased right-foot loading is shown. This is not a measured imbalance or diagnosis.',posture:'Simulation only: Forward trunk lean is shown. This is not a measured posture assessment.'},
+  'ko-KR':{steady:'시뮬레이션에서 안정적인 보행 리듬이 표시되었습니다.',uneven:'가상 상황에서 보행 리듬이 불규칙하게 나타났습니다. 주변을 살피며 편안하고 일정한 속도로 걸어보세요.',right:'시뮬레이션 전용: 오른발 하중 집중 상황이 표시되었습니다. 실제 측정이나 진단 결과는 아닙니다.',posture:'시뮬레이션 전용: 상체 전방 기울임이 표시되었습니다. 실제 자세 측정이나 진단 결과는 아닙니다.'}
+};
+function updatePreview(){$('message').textContent=scripts[$('voiceLanguage').value][$('scenario').value]}
+$('voiceLanguage').onchange=()=>{updatePreview();refreshVoices()};$('scenario').onchange=updatePreview;
+$('coach').onclick=()=>{const lang=$('voiceLanguage').value,key=$('scenario').value,msg=scripts[lang][key];$('message').textContent=msg;record('simulation',`${key} | ${lang}`);if(!speak(msg,lang))$('message').textContent+=' (Speech unavailable in this browser.)'};
+$('quiet').onclick=()=>{if('speechSynthesis' in window)speechSynthesis.cancel()};updatePreview();
+function downloadCsv(name,headers,rows){
+  const esc=s=>'"'+String(s).replaceAll('"','""')+'"';
+  const csv=[headers,...rows.map(row=>row.map(esc).join(','))].join('\n');
+  const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
+  const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+$('csv').onclick=()=>downloadCsv('stride-events.csv','timestamp,type,detail',events.map(e=>[e.timestamp,e.type,e.detail]));
+$('exportSensor').onclick=()=>downloadCsv('stride-motion.csv','timestamp,elapsed_seconds,accel_x,accel_y,accel_z,motion_signal,estimated_steps',motionRows);
+$('clear').onclick=()=>{events.length=0;$('log').replaceChildren();const d=document.createElement('div');d.textContent='No events recorded yet.';$('log').appendChild(d)};
 </script></body></html>
