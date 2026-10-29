@@ -1,14 +1,21 @@
-# STRIDE v1.2.1 — Voice Selection Update
+# STRIDE v1.3 — UI Refresh
 
-This update preserves the v1.2 live gait analytics, simulation, bilingual coaching, and CSV features.
+This version updates the participant-facing first screen.
 
-## New
-- Select English or Korean and then choose from voices that the device/browser exposes for that language.
-- Adjust speaking rate from 0.75x to 1.15x.
-- Status messages indicate when no compatible voice is available.
+## What's new
+- Full-screen landing screen
+- Large centered STRIDE logo
+- Single **Start Walking** button on first screen
+- Removed extra tagline / descriptive marketing copy
+- Removed bottom SUNY Korea Research Challenge concept text
+- Preserved live sensor, bilingual voice coaching, simulation, and CSV export features
 
-## Publish
-Replace the repository-root `index.html` on GitHub, commit, then refresh the GitHub Pages URL.
+## Recommended update steps
+1. Replace the existing `index.html` in your GitHub repository.
+2. (Optional) Replace your existing `README.md` with this file.
+3. Refresh the deployed GitHub Pages site on your phone.
 
-## Limitations
-Web Speech API voice quality depends on the operating system and browser. This app does not include or generate new neural voices. iOS may not expose all downloaded enhanced voices in Safari; voice availability varies by device.
+## UX behavior
+- Tapping **Start Walking** scrolls to the Live Motion Sensor section.
+- It also tries to start motion sensing immediately.
+- On iPhone, Safari may still ask for motion permission first.
