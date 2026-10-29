@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>STRIDE | Gait Coaching Research Prototype</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0d10;--card:#171b20;--line:#30363d;--lime:#c3ff60;--dim:#a9b1ba}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f8f9;font:15px/1.5 system-ui,-apple-system,Arial,sans-serif}main{max-width:940px;margin:auto;padding:28px 18px 70px}.nav{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;letter-spacing:4px;font-size:22px}.tag{color:var(--lime);border:1px solid #476225;border-radius:100px;padding:5px 10px;font-size:11px}.hero{padding:46px 0 22px}.eyebrow{color:var(--lime);letter-spacing:2px;font-size:12px;font-weight:800}h1{font-size:clamp(35px,7vw,62px);line-height:1.08;margin:12px 0;letter-spacing:-2px}p{color:var(--dim)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:19px;min-width:0}.full{grid-column:1/-1}h2{font-size:17px;margin:0 0 12px}.muted{color:var(--dim);font-size:13px}.value{font-size:35px;font-weight:850;letter-spacing:-1px}.unit{color:var(--dim);font-size:12px;margin-left:5px}.pill{display:inline-block;background:#313c24;color:var(--lime);border-radius:20px;padding:5px 9px;font-size:12px}button{background:var(--lime);color:#0b1004;border:0;border-radius:11px;padding:12px 15px;font:inherit;font-weight:800;cursor:pointer;margin:5px 7px 5px 0}button.alt{background:#30363d;color:white}button:disabled{opacity:.5;cursor:not-allowed}.status{min-height:24px;color:var(--lime);font-size:13px}canvas{display:block;width:100%;height:155px;border-radius:9px;background:#0e1216}.metrics{display:flex;gap:22px;flex-wrap:wrap}.submetric{flex:1;min-width:115px}.log{max-height:140px;overflow:auto;color:#d9e0e7;font-size:13px}.log div{border-bottom:1px solid #30363d;padding:7px 0}.foot{margin-top:26px;color:#89929d;font-size:12px}select{font:inherit;background:#252c32;color:white;border:1px solid #4b555f;border-radius:8px;padding:9px;width:100%}@media(max-width:610px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.hero{padding-top:30px}.value{font-size:30px}}
+</style>
+</head>
+<body><main>
+<header class="nav"><div class="brand">STRIDE<span style="color:var(--lime)">.</span></div><div class="tag">RESEARCH PROTOTYPE v1</div></header>
+<section class="hero"><div class="eyebrow">WALK SMARTER. FEEL BETTER.</div><h1>Every step<br><span style="color:var(--lime)">tells a story.</span></h1><p>A context-aware gait coaching concept for everyday movement. Live device measurements and research simulations are clearly separated.</p></section>
+<div class="grid">
+<section class="card full"><h2>01 / Live Motion Sensor <span class="pill">LIVE SENSOR</span></h2><p class="muted">Secure your smartphone near your waist in a consistent orientation. If motion sensors are unavailable, use Simulation Mode instead.</p><button id="start">Start Sensor / Request Permission</button><button id="stop" class="alt" disabled>Stop Tracking</button><button id="reset" class="alt">Reset Metrics</button><div id="status" class="status" aria-live="polite">대기 중 · LIVE SENSOR 데이터가 아닙니다</div><div class="metrics"><div class="submetric"><span class="muted">Movement signal</span><div><span id="mag" class="value">—</span><span class="unit">m/s²*</span></div></div><div class="submetric"><span class="muted">Estimated steps</span><div><span id="steps" class="value">0</span></div></div><div class="submetric"><span class="muted">Estimated cadence</span><div><span id="cadence" class="value">—</span><span class="unit">steps/min</span></div></div></div><canvas id="plot" width="850" height="220" aria-label="Recent motion signal"></canvas><p class="muted">*Approximate motion signal derived from acceleration magnitude with a smoothed baseline. Step estimates use an experimental threshold algorithm and are not validated medical measurements.</p></section>
+<section class="card"><h2>02 / Coaching Simulation <span class="pill">SIMULATION</span></h2><p class="muted">These scenarios are manually selected, not detected by the sensors. They are intended for Wizard-of-Oz UX research.</p><label for="scenario" class="muted">Choose a simulated gait condition</label><select id="scenario"><option value="steady">Stable walking rhythm</option><option value="uneven">Irregular walking rhythm</option><option value="right">Right-foot loading (simulated)</option><option value="posture">Forward trunk lean (simulated)</option></select><label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label><select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select><button id="coach">Play Voice Coaching</button><button id="quiet" class="alt">Stop Voice</button><p id="message" style="color:#fff;min-height:44px">Your coaching message will appear here.</p></section>
+<section class="card"><h2>03 / Session Notes</h2><p class="muted">Compare coaching messages and export recorded events. Data stays in this browser until you choose to export it.</p><button id="csv" class="alt">Export Event CSV</button><button id="clear" class="alt">Clear Log</button><div id="log" class="log" aria-live="polite"><div>No events recorded yet.</div></div></section>
+</div><div class="foot">STRIDE • SUNY Korea Research Challenge concept • Not a medical device • No clinical diagnosis or treatment claims. Sensor and simulation results are clearly separated.</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);const graph=$('plot'),ctx=graph.getContext('2d');const values=Array(130).fill(0),events=[];let running=false,lastStep=0,peakArmed=true,stepTimes=[],baseline=null,lastEventAt=0;
+function record(type,detail){events.push({timestamp:new Date().toISOString(),type,detail});$('log').innerHTML=events.slice(-10).reverse().map(e=>`<div>${e.timestamp.slice(11,19)} · ${e.type}: ${e.detail.replaceAll('<','&lt;')}</div>`).join('')}
+function draw(){ctx.clearRect(0,0,850,220);ctx.strokeStyle='#29323b';ctx.lineWidth=1;for(let y=40;y<220;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(850,y);ctx.stroke()}ctx.beginPath();values.forEach((v,i)=>{const x=i*850/(values.length-1),y=205-Math.min(6,v)*30;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.strokeStyle='#c3ff60';ctx.lineWidth=3;ctx.stroke()};draw();
+function sensorHandler(e){const a=e.accelerationIncludingGravity||e.acceleration;if(!a||![a.x,a.y,a.z].every(Number.isFinite))return;const t=performance.now();const magnitude=Math.hypot(a.x,a.y,a.z);if(baseline===null)baseline=magnitude;baseline=.94*baseline+.06*magnitude;const dynamic=Math.abs(magnitude-baseline);$('mag').textContent=dynamic.toFixed(2);values.push(dynamic);values.shift();draw();if(dynamic<0.65)peakArmed=true;if(peakArmed&&dynamic>1.4&&t-lastStep>360){peakArmed=false;lastStep=t;stepTimes.push(t);stepTimes=stepTimes.filter(x=>t-x<=15000);$('steps').textContent=String(+$('steps').textContent+1);if(stepTimes.length>=3){let intervals=stepTimes.slice(1).map((v,i)=>v-stepTimes[i]);let avg=intervals.reduce((a,b)=>a+b,0)/intervals.length;$('cadence').textContent=(60000/avg).toFixed(0)}if(t-lastEventAt>5000){record('sensor','Candidate step event detected');lastEventAt=t}}}
+$('start').onclick=async()=>{if(running)return;if(!('DeviceMotionEvent'in window)){$('status').textContent='Motion sensors are not available in this browser.';return}try{if(typeof DeviceMotionEvent.requestPermission==='function'){const permission=await DeviceMotionEvent.requestPermission();if(permission!=='granted')throw new Error('Motion sensor permission was denied')}window.addEventListener('devicemotion',sensorHandler);running=true;$('start').disabled=true;$('stop').disabled=false;$('status').textContent='Connecting to sensor · Move the phone gently to check the signal';record('system','Sensor started');setTimeout(()=>{if(running&&$('mag').textContent==='—')$('status').textContent='No motion values received. Check your device and browser permissions.';else if(running)$('status').textContent='LIVE SENSOR 신호 수신 중'},1500)}catch(err){$('status').textContent='Could not start sensor: '+err.message}};
+$('stop').onclick=()=>{window.removeEventListener('devicemotion',sensorHandler);running=false;$('start').disabled=false;$('stop').disabled=true;$('status').textContent='Stop Tracking';record('system','Sensor stopped')};
+$('reset').onclick=()=>{stepTimes=[];baseline=null;lastStep=0;peakArmed=true;values.fill(0);$('mag').textContent='—';$('steps').textContent='0';$('cadence').textContent='—';draw();record('system','Reset Metrics')};
+const scripts={
+  'en-US':{
+    steady:'Your walking rhythm appears steady in this simulation.',
+    uneven:'Simulated irregular rhythm. Stay aware of your surroundings and try walking at a comfortable, consistent pace.',
+    right:'Simulation only: Increased right-foot loading is shown. This is not a measured imbalance or diagnosis.',
+    posture:'Simulation only: Forward trunk lean is shown. This is not a measured posture assessment.'
+  },
+  'ko-KR':{
+    steady:'시뮬레이션에서 안정적인 보행 리듬이 표시되었습니다.',
+    uneven:'가상 상황에서 보행 리듬이 불규칙하게 나타났습니다. 주변을 살피며 편안하고 일정한 속도로 걸어보세요.',
+    right:'시뮬레이션 전용: 오른발 하중 집중 상황이 표시되었습니다. 실제 측정이나 진단 결과는 아닙니다.',
+    posture:'시뮬레이션 전용: 상체 전방 기울임이 표시되었습니다. 실제 자세 측정이나 진단 결과는 아닙니다.'
+  }
+};
+function getSelectedScript(){return scripts[$('voiceLanguage').value][$('scenario').value]}
+function updateCoachingPreview(){$('message').textContent=getSelectedScript()}
+$('voiceLanguage').onchange=updateCoachingPreview;
+$('scenario').onchange=updateCoachingPreview;
+$('coach').onclick=()=>{
+ const language=$('voiceLanguage').value, key=$('scenario').value, msg=getSelectedScript();
+ $('message').textContent=msg;
+ record('simulation',`${key} | ${language}`);
+ if(!('speechSynthesis' in window)){$('message').textContent+=' (Speech synthesis is unavailable in this browser.)';return}
+ speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(msg);
+ utterance.lang=language;utterance.rate=0.95;
+ const voices=speechSynthesis.getVoices();
+ const matching=voices.find(v=>v.lang.toLowerCase()===language.toLowerCase()) || voices.find(v=>v.lang.toLowerCase().startsWith(language.slice(0,2).toLowerCase()));
+ if(matching) utterance.voice=matching;
+ speechSynthesis.speak(utterance);
+};
+updateCoachingPreview();
+$('quiet').onclick=()=>{if('speechSynthesis'in window)speechSynthesis.cancel()};
+$('csv').onclick=()=>{const escapeCsv=s=>'"'+String(s).replaceAll('"','""')+'"';const csv='timestamp,type,detail\n'+events.map(e=>[e.timestamp,e.type,e.detail].map(escapeCsv).join(',')).join('\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='stride-events.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),500)};
+$('clear').onclick=()=>{events.length=0;$('log').innerHTML='<div>No events recorded yet.</div>'};
+</script></body></html>
