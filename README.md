@@ -1,21 +1,20 @@
-# STRIDE v1.3 — UI Refresh
+[README.md](https://github.com/user-attachments/files/34127447/README.md)
+# STRIDE v1.4 — Bottom Tab Navigation
 
-This version updates the participant-facing first screen.
+## Changes
+- Minimal home screen: centered STRIDE logo and Start Walking button
+- Fixed bottom navigation inspired by the provided reference: Home, Live, Coach, Sessions
+- Each navigation tab shows a separate screen, rather than exposing other sections by scrolling
+- Start Walking opens Live and requests motion-sensor access on a direct tap
+- Preserves step estimates, live rhythm feedback, English/Korean voice choice and rate, simulations, and CSV exports
 
-## What's new
-- Full-screen landing screen
-- Large centered STRIDE logo
-- Single **Start Walking** button on first screen
-- Removed extra tagline / descriptive marketing copy
-- Removed bottom SUNY Korea Research Challenge concept text
-- Preserved live sensor, bilingual voice coaching, simulation, and CSV export features
+## Deploy
+Replace `index.html` in your existing GitHub Pages repository and commit. Updating README.md is optional. Refresh iPhone Safari after deployment.
 
-## Recommended update steps
-1. Replace the existing `index.html` in your GitHub repository.
-2. (Optional) Replace your existing `README.md` with this file.
-3. Refresh the deployed GitHub Pages site on your phone.
+## Testing
+1. On Home, swiping should not reveal Live/Coach/Sessions.
+2. Tap each bottom tab to switch screens.
+3. Start Walking should move to Live and request sensor access (if needed).
+4. Verify Stop Tracking, voice coaching, and CSV exports.
 
-## UX behavior
-- Tapping **Start Walking** scrolls to the Live Motion Sensor section.
-- It also tries to start motion sensing immediately.
-- On iPhone, Safari may still ask for motion permission first.
+**Research note:** Device-derived step timing is experimental and not a diagnosis. Simulated load and posture situations are not sensor measurements.
