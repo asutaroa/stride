@@ -227,10 +227,8 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
         <div class="profileSaveRow"><button id="saveProfile" type="button">Save profile</button><p id="nameStatus" class="muted" role="status" style="margin:0"></p></div>
       </div>
       <details class="profileSettings"><summary>Coaching settings</summary><p class="muted">Language, voice and speaking speed for automatic feedback.</p>
-      <label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label>
+      <label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">App &amp; coaching language</label>
       <select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select>
-      <label for="voiceChoice" class="muted" style="display:block;margin-top:14px">Available voice</label>
-      <select id="voiceChoice" aria-label="Available voice"><option value="auto">Automatic (device default)</option></select>
       <label for="voiceRate" class="muted" style="display:block;margin-top:14px">Speaking speed: <span id="rateValue">0.95×</span></label>
       <input id="voiceRate" type="range" min="0.75" max="1.15" step="0.05" value="0.95">
       <p id="voiceStatus" class="muted" aria-live="polite">Loading device voices…</p>
@@ -414,27 +412,36 @@ function draw(){
 }
 draw();
 let availableVoices=[];
+// One automatic voice per language. Voices still depend on installed OS/browser voices.
 function refreshVoices(){
-  if(!('speechSynthesis' in window)){ $('voiceStatus').textContent='Speech synthesis is not supported in this browser.';return; }
+  if(!('speechSynthesis' in window)){
+    $('voiceStatus').textContent='Voice playback is unavailable in this browser.';
+    return;
+  }
   availableVoices=speechSynthesis.getVoices();
   const lang=$('voiceLanguage').value;
-  const compatible=availableVoices.filter(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
-  const select=$('voiceChoice'); const previous=select.value;select.replaceChildren();
-  const automatic=document.createElement('option');automatic.value='auto';automatic.textContent='Automatic (device default)';select.appendChild(automatic);
-  compatible.forEach(v=>{const o=document.createElement('option');o.value=v.voiceURI;o.textContent=`${v.name} (${v.lang})${v.localService?' · on-device':''}`;select.appendChild(o)});
-  if([...select.options].some(o=>o.value===previous))select.value=previous;
-  $('voiceStatus').textContent=compatible.length?`${compatible.length} ${lang==='ko-KR'?'Korean':'English'} voice(s) available. Try each voice for the most natural sound.`:`No ${lang==='ko-KR'?'Korean':'English'} voices are exposed by this browser. Install a compatible system voice or try another browser/device.`;
+  const matching=availableVoices.filter(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  $('voiceStatus').textContent=matching.length?'Voice selected automatically for '+(lang==='ko-KR'?'Korean.':'English.'):'No matching voice installed; audio quality may vary.';
+}
+function automaticVoice(lang){
+  const language=lang.slice(0,2).toLowerCase();
+  const candidates=availableVoices.filter(v=>v.lang.toLowerCase().startsWith(language));
+  // Prefer a locale-exact, locally available voice. Avoid selecting foreign-language voices.
+  candidates.sort((a,b)=>{
+    const score=v=> (v.lang.toLowerCase()===lang.toLowerCase()?6:0)+(v.localService?3:0)+(v.default?1:0);
+    return score(b)-score(a);
+  });
+  return candidates[0]||null;
 }
 function speak(msg,lang){
   if(!('speechSynthesis' in window))return false;
-  const choice=$('voiceChoice').value;
-  const v=availableVoices.find(v=>v.voiceURI===choice && v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
-  const candidates=availableVoices.filter(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
-  if(!v && !candidates.length){$('voiceStatus').textContent='No matching language voice detected; the browser may fall back to an unnatural voice.';}
-  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(msg);u.lang=lang;u.rate=Number($('voiceRate').value);u.pitch=1;
-  if(v)u.voice=v;
-  else if(candidates.length)u.voice=candidates.find(v=>v.lang.toLowerCase()===lang.toLowerCase())||candidates[0];
-  speechSynthesis.speak(u);return true;
+  refreshVoices();
+  const u=new SpeechSynthesisUtterance(msg);
+  u.lang=lang;u.rate=Number($('voiceRate').value);u.pitch=1;
+  const voice=automaticVoice(lang);
+  if(voice)u.voice=voice;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+  return true;
 }
 if('speechSynthesis' in window){
   refreshVoices();
@@ -865,5 +872,103 @@ const oldSelectTab=selectTab;
 // The original tab controller remains authoritative; the two new panels use the same data-tab contract.
 const oldRenderSessions=renderSessions;
 // We update graphs at the end of loadSessions rather than manufacturing progress data.
+</script>
+
+<script id="stride-i18n">
+(()=>{
+  'use strict';
+  const KO={"Start Walking": "걷기 시작", "STRIDE / TRACKING": "STRIDE / 실시간 측정", "Live Walking": "실시간 보행", "READY": "준비", "STOP": "종료", "Start walking": "걷기 시작", "Tap to begin a session": "눌러서 측정을 시작하세요", "ESTIMATED STEPS": "추정 걸음 수", "Current walking session": "현재 보행 세션", "Walking pace": "보행 속도", "Step steadiness": "걸음 규칙성", "variation %": "변동률 %", "YOUR MOVEMENT": "움직임 분석", "Animated guide · not body tracking": "움직임 안내 애니메이션 · 실제 신체 추적 아님", "Phone position*": "휴대폰 기울기*", "Movement balance*": "좌우 움직임 신호*", "Step pattern": "걸음 패턴", "Waiting": "대기 중", "MOVEMENT GRAPH": "움직임 그래프", "Waiting for signal": "신호 대기 중", "No alert yet. Coaching activates only when sustained changes are detected.": "아직 알림이 없습니다. 변화가 일정 시간 지속되면 코칭이 시작됩니다.", "Start Tracking": "측정 시작", "Stop": "종료", "See my walking summary →": "보행 요약 보기 →", "Ready · Sensor not running": "준비 · 센서 미작동", "Voice alerts are ready": "음성 알림 준비 완료", "Alerts play only for sustained changes in step timing or phone orientation. No alert during steady walking is normal.": "걸음 간격이나 휴대폰 방향이 일정 시간 변화할 때만 알림이 나옵니다. 일정한 보행 중 알림이 없는 것은 정상입니다.", "ON": "켜짐", "Voice and language settings are in Profile. Alerts concern motion patterns, not medical posture assessment.": "음성 및 언어 설정은 프로필에서 변경할 수 있습니다. 알림은 움직임 패턴에 대한 것으로 의학적 자세 평가가 아닙니다.", "Advanced data & tools": "고급 데이터 및 도구", "Movement signal": "움직임 신호", "Reset Metrics": "측정값 초기화", "Export Motion CSV": "움직임 CSV 내보내기", "My Profile": "내 프로필", "Personalize your STRIDE experience and how feedback feels.": "STRIDE의 화면과 코칭 경험을 원하는 대로 설정하세요.", "Display name": "표시 이름", "Short label": "짧은 별명", "Daily step goal": "일일 걸음 목표", "Walking duration goal (minutes)": "걷기 시간 목표(분)", "Target step variation (%)": "목표 걸음 변동률(%)", "Coaching frequency": "코칭 빈도", "Normal": "보통", "Less often": "적게", "More often": "자주", "Coaching style": "코칭 스타일", "Gentle": "부드럽게", "Balanced": "균형 있게", "Active": "적극적으로", "Accent color": "강조 색상", "Lime": "라임", "Ocean Blue": "오션 블루", "Coral": "코랄", "Violet": "바이올렛", "Appearance": "화면 테마", "Dark mode": "다크 모드", "Light mode": "라이트 모드", "Match device": "기기 설정에 맞춤", "Your Name": "이름", "Goal · 6,000 steps/day": "목표 · 하루 6,000걸음", "Accent · Lime": "강조 색상 · 라임", "Coach · Balanced": "코칭 · 균형 있게", "Save profile": "프로필 저장", "Coaching settings": "코칭 설정", "Language, voice and speaking speed for automatic feedback.": "자동 코칭에 사용할 언어, 음성, 속도를 선택하세요.", "Coaching voice language": "앱 및 음성 언어", "English": "English", "한국어 (Korean)": "한국어", "Available voice": "사용 가능한 목소리", "Automatic (device default)": "자동 선택(기기 기본값)", "Speaking speed:": "말하기 속도:", "Loading device voices…": "기기의 음성 목록을 불러오는 중…", "Test Coaching Voice": "코칭 음성 테스트", "Test Chime + Voice": "알림음 + 음성 테스트", "Stop Voice": "음성 중지", "Voice settings apply to automatic walking alerts.": "설정한 음성이 자동 보행 알림에 적용됩니다.", "Account": "계정", "Checking session…": "로그인 상태 확인 중…", "Sign Out": "로그아웃", "Movement & Coaching Summary": "움직임 및 코칭 요약", "Understand your movement patterns and the feedback you received. These are phone-based observations, not medical posture assessments.": "움직임 패턴과 받은 코칭을 확인하세요. 휴대폰 기반 관찰 결과이며 의학적 자세 진단은 아닙니다.", "Loading your sessions…": "보행 기록을 불러오는 중…", "Latest Walk · Movement Insights": "최근 보행 · 움직임 분석", "Walking rhythm": "보행 리듬", "Consistency of detected step timing": "감지한 걸음 간격의 일정함", "Not measured": "측정 기록 없음", "Phone tilt changes": "휴대폰 기울기 변화", "Device angle, not spinal alignment": "척추 정렬이 아닌 기기 각도", "Side-to-side phone motion": "휴대폰의 좌우 움직임", "Relative movement signal, not body balance": "신체 균형이 아닌 상대적 움직임 신호", "Voice coaching alerts": "음성 코칭 알림", "Detected events during this session": "이번 세션 중 감지된 알림", "Complete a new walk to see movement insights here.": "새 보행 세션을 완료하면 움직임 분석이 표시됩니다.", "Total walks": "총 보행 횟수", "Total steps": "총 걸음 수", "Total time": "총 보행 시간", "Average pace": "평균 걸음 속도", "Goal check": "목표 달성 확인", "YOUR RECENT WALKS": "최근 보행 기록", "Estimated steps · supporting metric": "추정 걸음 수 · 참고 지표", "PACE OVER TIME": "보행 속도 변화", "RHYTHM CONSISTENCY TREND": "걸음 규칙성 추세", "DURATION BY SESSION": "세션별 걷기 시간", "Walking history": "보행 기록", "No saved sessions yet.": "저장된 보행 기록이 없습니다.", "Walking metrics are experimental estimates and are not medical assessments.": "보행 지표는 실험적인 추정값이며 의학적 진단이 아닙니다.", "Export Saved Sessions CSV": "저장된 세션 CSV 내보내기", "Export Event CSV": "이벤트 CSV 내보내기", "Clear Log": "로그 지우기", "STRIDE / INSIGHTS": "STRIDE / 분석", "Gait Analysis": "보행 분석", "Experimental, phone-based movement signals. No orthopedic diagnosis or left/right foot loading measurement.": "휴대폰으로 측정한 실험적 움직임 신호입니다. 정형외과적 진단이나 좌우 발 압력 측정은 아닙니다.", "CURRENT WALK · LIVE ESTIMATES": "현재 보행 · 실시간 추정값", "Steps": "걸음 수", "Duration": "걷기 시간", "Figures update from the same iPhone motion sensor as Live Tracking. No sensor values are simulated.": "실시간 보행 화면과 동일한 iPhone 센서 데이터를 사용합니다. 센서값은 시뮬레이션하지 않습니다.", "LIVE RHYTHM TREND": "실시간 보행 리듬 추세", "Start a walk to collect a rhythm trend.": "걷기를 시작하면 리듬 추세가 기록됩니다.", "Recent estimated steps per minute. Changes depend on phone position and step detection quality.": "최근 추정 분당 걸음 수입니다. 휴대폰 위치와 걸음 감지 품질에 따라 달라질 수 있습니다.", "MOVEMENT STABILITY · EXPERIMENTAL": "움직임 안정성 · 실험적 지표", "Phone tilt shift": "휴대폰 기울기 변화", "Side-motion signal": "측면 움직임 신호", "These describe movement of your phone, not pelvic alignment or clinical walking symmetry.": "골반 정렬이나 임상적 보행 대칭성이 아니라 휴대폰 움직임을 나타냅니다.", "SESSION-TO-SESSION RHYTHM": "세션별 걸음 리듬", "Lower variability means detected steps were more evenly spaced. It is not a health score.": "변동률이 낮으면 감지된 걸음 간격이 더 일정했다는 뜻입니다. 건강 점수는 아닙니다.", "FOOT PRESSURE EXPLORER": "발 압력 체험", "Pressure simulation": "압력 시뮬레이션", "SIMULATION MODE": "시뮬레이션 모드", "Interactive design demonstration only. The smartphone cannot read left- or right-foot pressure.": "인터랙티브 디자인 시연입니다. 스마트폰은 좌우 발 압력을 측정할 수 없습니다.", "Even loading": "균등한 하중", "More on left": "왼발에 더 많이", "More on right": "오른발에 더 많이", "Left foot": "왼발", "Right foot": "오른발", "Illustrative balanced loading. No pressure data was measured.": "균등한 하중을 표현한 예시이며 실제 압력은 측정하지 않았습니다.", "STRIDE / PRODUCT VISION": "STRIDE / 제품 비전", "Smart Sneaker": "스마트 스니커즈", "Orthopedic-Inspired Technology Meets Everyday Fashion.": "정형외과에서 영감을 받은 기술과 일상 패션의 만남", "FUTURE HARDWARE CONCEPT · NOT BUILT": "미래 하드웨어 콘셉트 · 미제작", "STRIDE / FUTURE SYSTEM": "STRIDE / 미래 시스템", "Concept illustration · not a manufactured prototype": "콘셉트 일러스트 · 실제 제작 제품 아님", "EXPLODED SYSTEM VIEW": "분해 구조도", "Where the technology could live": "기술이 들어갈 위치", "Select a proposed component to see its role in the future shoe. All hardware below is conceptual.": "부품을 선택하면 미래 신발에서의 역할을 볼 수 있습니다. 모든 하드웨어는 콘셉트입니다.", "Sensor-integrated insole": "센서 통합 인솔", "Pressure sensor matrix": "압력 센서 매트릭스", "Accelerometer": "가속도계", "Gyroscope": "자이로스코프", "BLE module": "BLE 모듈", "Battery & electronics": "배터리 및 전자 부품", "Proposed removable layer that could house sensors while maintaining everyday fit and comfort.": "일상적인 착용감과 편안함을 유지하면서 센서를 수용하도록 제안된 탈착식 층입니다.", "PROPOSED TECHNOLOGY PATHWAY": "제안 기술 흐름", "In-shoe sensors": "신발 내 센서", "Bluetooth connection": "블루투스 연결", "Gait analysis": "보행 분석", "Personalized coaching": "맞춤형 코칭", "Progress": "진행 기록", "Future development requires sensor engineering, calibration, power testing and clinical validation before orthopedic claims.": "향후 정형외과적 효과를 주장하려면 센서 설계·보정·전력 시험·임상 검증이 필요합니다.", "FASHION × FUNCTION": "패션 × 기능", "Everyday silhouette": "일상적인 실루엣", "Hidden electronics": "숨겨진 전자 장치", "Lightweight goal": "경량화 목표", "Comfort-first insole": "착용감 우선 인솔", "Replaceable components": "교체 가능한 부품", "These are design objectives, not tested product specifications.": "검증된 제품 사양이 아닌 디자인 목표입니다.", "Welcome to STRIDE": "STRIDE에 오신 것을 환영합니다", "Sign in to save your walking sessions securely across devices.": "로그인하여 여러 기기에서 보행 기록을 안전하게 저장하세요.", "Sign In": "로그인", "Create Account": "회원가입", "Email address": "이메일 주소", "Password": "비밀번호", "Forgot password?": "비밀번호를 잊으셨나요?", "Password reset link opened? Enter a new password below.": "비밀번호 재설정 링크를 열었다면 아래에 새 비밀번호를 입력하세요.", "Update Password": "비밀번호 변경", "Research prototype · Experimental motion estimates, not medical assessments. Do not upload medical diagnoses or identifying notes.": "연구용 프로토타입 · 움직임 추정은 의학적 진단이 아닙니다. 진단 정보나 개인식별 메모를 올리지 마세요.", "Home": "홈", "Live": "실시간", "Analysis": "분석", "History": "기록", "Sneaker": "스니커즈", "Profile": "프로필", "Session in progress": "보행 측정 중", "Tracking stopped": "측정 종료", "No cloud sessions yet.": "저장된 클라우드 보행 기록이 없습니다.", "Your sessions are synced to your account.": "계정에 보행 기록이 동기화되었습니다.", "Saving session…": "세션을 저장하는 중…", "Loading sessions…": "세션을 불러오는 중…", "Walking goal reached.": "걷기 목표를 달성했습니다.", "Your walking rhythm seems irregular. If safe, return to a comfortable, steady pace.": "걸음 리듬이 불규칙해 보입니다. 안전하다면 편안하고 일정한 속도로 걸어보세요.", "Your phone orientation has shifted. If safe, check that your device is secured.": "휴대전화 기울기가 변했습니다. 안전한 상황에서 기기가 잘 고정되어 있는지 확인해 주세요.", "No sessions recorded yet.": "기록된 세션이 없습니다.", "Steady": "일정함", "Variable": "변동 있음", "Highly variable": "변동 큼", "Low": "낮음", "Moderate": "보통", "High": "높음", "Sign in": "로그인", "Profile saved.": "프로필이 저장되었습니다.", "Audio test only — not a sensor alert.": "음성 테스트 · 센서 감지 알림 아님"};
+  const originalText=new WeakMap();
+  const originalAttrs=new WeakMap();
+  const langControl=document.getElementById('voiceLanguage');
+  const key='stride-app-language';
+  let current='en', busy=false;
+  const dynamicRules=[
+    [/^([0-9]+) estimated steps · ([0-9]+)s · (.+) steps\/min$/,'$1 추정 걸음 · $2초 · 분당 $3걸음'],
+    [/^([0-9]+) estimated steps$/,'$1 추정 걸음'],
+    [/^([0-9]+) alerts?$/,'알림 $1회'],
+    [/^([0-9]+) walks?$/,'보행 $1회'],
+    [/^([0-9]+) min$/,'$1분'],
+    [/^([0-9]+) steps\/min$/,'분당 $1걸음'],
+    [/^Goal · ([0-9,]+) steps\/day$/,'목표 · 하루 $1걸음'],
+    [/^Accent · (.+)$/,'강조 색상 · $1'],
+    [/^Coach · (.+)$/,'코칭 · $1'],
+    [/^Voice coaching: (.+)$/,'음성 코칭: $1'],
+  ];
+  const excludedTag=new Set(['SCRIPT','STYLE','NOSCRIPT','CODE','PRE','TEXTAREA']);
+  function translate(value){
+    let hit=KO[value];
+    if(hit!==undefined)return hit;
+    for(const [re,repl] of dynamicRules){if(re.test(value))return value.replace(re,repl)}
+    return value;
+  }
+  function localizeText(node){
+    if(!node.parentElement||excludedTag.has(node.parentElement.tagName)||node.parentElement.closest('[data-no-translate]'))return;
+    const raw=node.nodeValue;
+    if(!raw||!raw.trim())return;
+    const old=originalText.get(node);
+    if(old===undefined||(!busy&&raw!==old&&raw!==translate(old))){originalText.set(node,raw)}
+    const base=originalText.get(node);
+    const trim=base.trim();const display=current==='ko'?translate(trim):trim;
+    const output=base.replace(trim,display);
+    if(raw!==output)node.nodeValue=output;
+  }
+  function localizeAttr(el){
+    const names=['placeholder','title','aria-label'];
+    let old=originalAttrs.get(el);
+    if(!old){old={};originalAttrs.set(el,old)}
+    for(const name of names){
+      if(!el.hasAttribute(name))continue;
+      const raw=el.getAttribute(name);
+      if(!(name in old)|| (raw!==old[name]&&raw!==translate(old[name])))old[name]=raw;
+      const display=current==='ko'?translate(old[name]):old[name];
+      if(raw!==display)el.setAttribute(name,display);
+    }
+  }
+  function render(root=document.body){
+    if(busy)return;
+    busy=true;
+    try{
+      if(root.nodeType===3)localizeText(root);
+      else if(root.nodeType===1){
+        localizeAttr(root);
+        const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+        let node;while((node=walker.nextNode()))localizeText(node);
+        root.querySelectorAll('*').forEach(localizeAttr);
+      }
+    }finally{busy=false}
+  }
+  function apply(language,save=true){
+    current=language==='ko-KR'||language==='ko'?'ko':'en';
+    document.documentElement.lang=current;
+    if(langControl&&langControl.value!==(current==='ko'?'ko-KR':'en-US'))langControl.value=current==='ko'?'ko-KR':'en-US';
+    if(save){try{localStorage.setItem(key,current)}catch(e){}}
+    render();
+    if(typeof refreshVoices==='function')refreshVoices();
+  }
+  window.STRIDE_setLanguage=apply;
+  window.STRIDE_getLanguage=()=>current;
+  langControl?.addEventListener('change',()=>{
+    apply(langControl.value);
+    // Account metadata for cross-device persistence. Avoid putting login or measurements at risk if saving fails.
+    try{if(typeof db!=='undefined'&&db&&typeof activeUser!=='undefined'&&activeUser)db.auth.updateUser({data:{app_language:current}}).catch(()=>{});}catch(e){}
+  });
+  let scheduled=false;
+  const observer=new MutationObserver(()=>{if(!scheduled&&!busy){scheduled=true;requestAnimationFrame(()=>{scheduled=false;render()})}});
+  observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title']});
+  let saved='en';try{saved=localStorage.getItem(key)||'en'}catch(e){}
+  apply(saved,false);
+  // after authentication, restore cloud language if available; getUser is performed only once here.
+  window.addEventListener('load',()=>{
+    setTimeout(async()=>{
+      try{
+        if(typeof db==='undefined'||!db)return;
+        const {data}=await db.auth.getUser();
+        const cloud=data?.user?.user_metadata?.app_language;
+        if(cloud==='en'||cloud==='ko')apply(cloud);
+      }catch(e){}
+    },800);
+  });
+})();
 </script>
 </body></html>
