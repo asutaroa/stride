@@ -96,6 +96,27 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 
 .authGate{position:fixed;inset:0;z-index:200;background:#0b0d10;display:flex;align-items:center;justify-content:center;overflow:auto;padding:22px 18px env(safe-area-inset-bottom)}
 .authGate[hidden]{display:none!important}.authBox{width:min(100%,420px);background:#171b20;border:1px solid #30363d;border-radius:24px;padding:24px;box-shadow:0 22px 80px #0008}.authLogo{font-size:38px;font-weight:900;letter-spacing:5px;text-align:center;margin-bottom:20px}.authBox h2{text-align:center}.authBox>p{text-align:center}.authSwitch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:22px 0}.authSwitch button{background:#30363d;color:#fff;margin:0}.authSwitch button.authActive{background:var(--lime);color:#101410}.authBox label{display:block;color:#cbd1d7;font-size:13px;margin:13px 0 6px}.authBox input{width:100%;background:#262e34;border:1px solid #505961;border-radius:10px;color:white;font:inherit;padding:12px}.authBox .authSubmit{width:100%;margin:19px 0 4px}.authBox .authLink{background:transparent;color:#c3ff60;display:block;margin:10px auto;font-size:13px}#passwordResetPanel[hidden]{display:none}.authBox #authStatus{min-height:24px;color:#c3ff60}.accountCard{border-radius:14px;border:1px solid #30363d;padding:14px;margin-bottom:20px}
+
+/* v2.0 participant-first navigation and personalisation */
+.topControls{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:13px 18px;margin-bottom:13px}
+.roundStop{width:98px;height:98px;flex:none!important;border-radius:50%!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;background:#e65f60!important;color:#fff!important;border:5px solid #f7aaaa!important;box-shadow:0 0 0 5px #8c35351a;font-size:12px!important;letter-spacing:1px}
+.roundStop:disabled{background:#363c41!important;border-color:#565d65!important;color:#a8adb1!important;opacity:1}.stopSquare{width:23px;height:23px;background:currentColor;border-radius:5px}
+.startWrap{display:flex;flex-direction:column;align-items:flex-start;gap:7px}.startWrap #topHint{font-size:12px;color:var(--dim)}.startInline{border-radius:999px}.summaryAction{width:100%;background:var(--card);color:var(--white);border:1px solid var(--line);padding:15px;border-radius:14px;margin:4px 0 12px;text-align:center}
+.summaryMetrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.summaryMetrics .metricTile{min-height:100px}.summaryMetrics strong{display:block;font-size:27px;color:var(--lime);margin-top:10px}
+.historyBars{height:146px;display:flex;gap:10px;align-items:flex-end;justify-content:center;color:var(--dim);font-size:12px}.barColumn{height:100%;flex:1;max-width:42px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}.historyBar{background:linear-gradient(180deg,var(--lime),#6c9e36);width:100%;min-height:6px;border-radius:7px 7px 3px 3px}.barColumn small{margin-top:5px;font-size:10px}
+.profilePanel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0}.profilePanel label{display:block;margin-bottom:8px}.profilePanel input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;color:var(--white);background:var(--bg);font:inherit}.profileSettings{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:15px;margin:16px 0}.profileSettings summary{cursor:pointer;font-weight:750}.profileSettings select{margin:6px 0}
+:root[data-theme="light"]{color-scheme:light;--bg:#f5f7f1;--card:#ffffff;--line:#d5ded4;--dim:#5d6a65;--lime:#547e08;--white:#152019}
+:root[data-theme="light"] .liveWave,:root[data-theme="light"] .metricTile,:root[data-theme="light"] .motionVisual,:root[data-theme="light"] .coachControl,:root[data-theme="light"] .accountCard,:root[data-theme="light"] .advanced{background:#fff;border-color:#d5ded4;color:#152019}
+:root[data-theme="light"] .heroMetric{background:linear-gradient(145deg,#e8f4d5,#f5faed);border-color:#b6c89d}
+:root[data-theme="light"] .heroMetricLabel,:root[data-theme="light"] .heroMetricBottom,:root[data-theme="light"] .metricTileLabel,:root[data-theme="light"] .motionStat span,:root[data-theme="light"] .visualSub{color:#536658}
+:root[data-theme="light"] .bottomNav{background:#fff;border-color:#d5ded4;box-shadow:0 -6px 24px #273d181c}
+:root[data-theme="light"] .bottomNav .navItem:not(.active){color:#617169}
+:root[data-theme="light"] .liveHeading,:root[data-theme="light"] .motionStat strong,:root[data-theme="light"] .metricTileNum,:root[data-theme="light"] .waveHead,:root[data-theme="light"] .alwaysCoach strong,:root[data-theme="light"] .advanced summary{color:#152019}
+:root[data-theme="light"] .alertMessage{background:#ecf6df;color:#274326;border-color:#b1c9a4}
+:root[data-theme="light"] .authGate{background:#f5f7f1}:root[data-theme="light"] .authBox{background:#fff;color:#152019;border-color:#d5ded4;box-shadow:0 12px 55px #21362125}:root[data-theme="light"] .authBox input{background:#f3f7f0;color:#152019;border-color:#cdd6c6}:root[data-theme="light"] .authBox label{color:#425248}
+:root[data-theme="light"] select{background:#eff5e8;color:#152019;border-color:#cdd6c6}
+:root[data-theme="light"] #message{color:#152019}
+@media(max-width:390px){.roundStop{width:82px;height:82px}.topControls{gap:12px}.startInline{font-size:12px;padding:11px}}
 </style>
 </head>
 <body>
@@ -114,14 +135,15 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
         <div><div class="liveEyebrow">STRIDE / TRACKING</div><div class="liveHeading">Live Walking</div></div>
         <div class="liveIndicator waiting" id="liveBadge">READY</div>
       </div>
+      <div class="topControls"><button id="stopQuick" class="roundStop" type="button" disabled><span class="stopSquare"></span><span>STOP</span></button><div class="startWrap"><button id="startQuick" type="button" class="startInline">Start walking</button><span id="topHint">Tap to begin a session</span></div></div>
       <div class="heroMetric">
         <div class="heroMetricLabel">ESTIMATED STEPS</div>
         <div class="heroMetricNumber" id="steps">0</div>
         <div class="heroMetricBottom"><span>Current walking session</span><span id="elapsed">0:00</span></div>
       </div>
       <div class="metricTiles">
-        <div class="metricTile"><div class="metricTileLabel">Cadence</div><div class="metricTileNum"><span id="cadence">—</span><span class="metricTileUnit">steps/min</span></div></div>
-        <div class="metricTile"><div class="metricTileLabel">Rhythm variation</div><div class="metricTileNum"><span id="variation">—</span><span class="metricTileUnit">CV %</span></div></div>
+        <div class="metricTile"><div class="metricTileLabel">Walking pace</div><div class="metricTileNum"><span id="cadence">—</span><span class="metricTileUnit">steps/min</span></div></div>
+        <div class="metricTile"><div class="metricTileLabel">Walking consistency</div><div class="metricTileNum"><span id="variation">—</span><span class="metricTileUnit">timing variation %</span></div></div>
       </div>
 
       <div class="motionVisual" aria-label="Illustrative animated walker driven by estimated cadence; not full-body pose tracking">
@@ -136,17 +158,17 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
             <path id="walkLegRight" d="M72 89 L85 121 L96 150" stroke-width="8"/>
           </g>
         </svg>
-        <div><div class="visualTitle">MOTION VIEW</div><div class="visualSub">Illustrative gait animation</div>
-        <div class="motionStat"><span>Device tilt*</span><strong id="tiltStat">—</strong></div>
-        <div class="motionStat"><span>Side motion*</span><strong id="swayStat">—</strong></div>
-        <div class="motionStat"><span>Step rhythm</span><strong id="rhythmStat">Waiting</strong></div></div>
+        <div><div class="visualTitle">YOUR MOVEMENT</div><div class="visualSub">Animated guide · not body tracking</div>
+        <div class="motionStat"><span>Phone angle*</span><strong id="tiltStat">—</strong></div>
+        <div class="motionStat"><span>Side-to-side movement*</span><strong id="swayStat">—</strong></div>
+        <div class="motionStat"><span>Walking rhythm</span><strong id="rhythmStat">Waiting</strong></div></div>
       </div>
       <div class="liveWave"><div class="waveHead"><strong>LIVE MOTION</strong><span id="waveStatus">Waiting for signal</span></div>
         <canvas id="plot" width="850" height="220" aria-label="Recent movement signal chart"></canvas>
       </div>
       <div class="alertMessage" id="currentCue" role="status" aria-live="polite">Start walking to receive real-time motion feedback.</div>
-      <div class="sessionActions"><button id="start">Start Tracking</button><button id="stop" class="alt" disabled>Stop</button></div>
-      <div id="status" class="status" aria-live="polite">Ready · Sensor not running</div>
+      <div class="sessionActions" hidden><button id="start">Start Tracking</button><button id="stop" class="alt" disabled>Stop</button></div>
+      <button id="summaryLive" type="button" class="summaryAction">View my walking summary →</button><div id="status" class="status" aria-live="polite">Ready · Sensor not running</div>
       <div class="coachControl">
         <div class="alwaysCoach"><span class="soundGlyph">♫</span><span><strong>Voice coaching is on</strong><small>Chime + bilingual voice cue whenever a persistent motion alert is detected.</small></span><span class="alwaysOn">ON</span></div>
         <p id="liveCoachInfo" class="muted" style="margin:8px 0 0;font-size:11px">Voice and language settings are in Settings. Alerts concern motion patterns, not medical posture assessment.</p>
@@ -155,15 +177,18 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
         <summary>Advanced data &amp; tools</summary>
         <div class="metricTileLabel">Movement signal <strong id="mag" style="color:#fff;font-size:15px">—</strong> m/s²*</div>
 
-        <button id="reset" class="alt">Reset Metrics</button><button id="exportSensor" class="alt">Export Motion CSV</button>
+        <button id="reset" class="alt">Reset Metrics</button><button id="exportSensor" class="alt" hidden>Export Motion CSV</button>
         <p class="muted">The figure is illustrative, not camera-based pose tracking. Device tilt is relative to initial phone orientation; side motion is a device-orientation-dependent proxy, not body balance. Motion-based steps, cadence, and variability are exploratory estimates, not clinically validated measures. This app cannot assess foot pressure, posture, or orthopedic conditions. Keep your phone secured near your waist and do not look at the screen while walking.</p>
       </details>
     </section>
 
   </div>
 </section>
-    <section class="card tab-panel" data-tab="settings" id="coachPanel" hidden>
-      <h2>Settings</h2><p class="muted">Choose your coaching language, device voice, and speaking speed.</p>
+    <section class="card tab-panel" data-tab="profile" id="coachPanel" hidden>
+      <h2>My Profile</h2><p class="muted">Personalize your STRIDE experience.</p>
+      <div class="profilePanel"><label for="displayName" class="muted">Display name</label><input id="displayName" maxlength="50" placeholder="Your name" autocomplete="nickname"><button id="saveName" type="button">Save name</button><p id="nameStatus" class="muted" role="status"></p></div>
+      <div class="profilePanel"><label for="themeChoice" class="muted">Appearance</label><select id="themeChoice"><option value="dark">Dark mode</option><option value="light">Light mode</option></select></div>
+      <details class="profileSettings"><summary>Coaching settings</summary><p class="muted">Language, voice and speaking speed for automatic feedback.</p>
       <label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label>
       <select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select>
       <label for="voiceChoice" class="muted" style="display:block;margin-top:14px">Available voice</label>
@@ -172,21 +197,18 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
       <input id="voiceRate" type="range" min="0.75" max="1.15" step="0.05" value="0.95">
       <p id="voiceStatus" class="muted" aria-live="polite">Loading device voices…</p>
       <button id="coach">Test Coaching Voice</button><button id="quiet" class="alt">Stop Voice</button>
-      <p id="message" style="color:#fff;min-height:30px">Voice settings apply to automatic walking alerts.</p>
+      <p id="message" style="min-height:30px">Voice settings apply to automatic walking alerts.</p></details>
+      <div class="accountCard"><strong>Account</strong><p id="accountEmail" class="muted">Checking session…</p><button id="signOut" class="alt">Sign Out</button></div>
     </section>
 
     <section class="card tab-panel" data-tab="sessions" id="sessionsPanel" hidden>
-      <h2>My Sessions</h2>
-      <div class="accountCard"><strong>Signed-in account</strong>
-      <p id="accountEmail" class="muted">Checking session…</p>
-      <button id="signOut" class="alt">Sign Out</button>
-      <p id="syncStatus" class="muted" role="status" aria-live="polite">Sessions are stored in your account.</p></div>
-      <h2>Cloud walking sessions</h2><div id="sessionHistory"><p class="muted">No saved sessions yet.</p></div>
-      <button id="exportHistory" class="alt">Export Saved Sessions CSV</button>
-      <h2 style="margin-top:20px">Event Notes</h2>
-      <p class="muted">Compare coaching messages and export recorded events. Data stays in this browser until you choose to export it.</p>
-      <button id="csv" class="alt">Export Event CSV</button><button id="clear" class="alt">Clear Log</button>
-      <div id="log" class="log" aria-live="polite"><div>No events recorded yet.</div></div>
+      <h2>My Walking Summary</h2><p class="muted">A simple view of your saved walking sessions.</p>
+      <p id="syncStatus" class="muted" role="status" aria-live="polite">Loading your sessions…</p>
+      <div class="summaryMetrics"><div class="metricTile"><span class="metricTileLabel">Total walks</span><strong id="totalWalks">0</strong></div><div class="metricTile"><span class="metricTileLabel">Total steps</span><strong id="totalSteps">0</strong></div><div class="metricTile"><span class="metricTileLabel">Total time</span><strong id="totalMinutes">0 min</strong></div><div class="metricTile"><span class="metricTileLabel">Average pace</span><strong id="averagePace">—</strong></div></div>
+      <div class="liveWave"><div class="waveHead"><strong>YOUR RECENT WALKS</strong><span>Steps per session</span></div><div id="historyBars" class="historyBars" aria-label="Steps in recent walking sessions"></div></div>
+      <h2>Walking history</h2><div id="sessionHistory"><p class="muted">No saved sessions yet.</p></div>
+      <p class="muted">Walking metrics are experimental estimates and are not medical assessments.</p>
+      <button id="exportHistory" hidden>Export Saved Sessions CSV</button><button id="csv" hidden>Export Event CSV</button><button id="clear" hidden>Clear Log</button><div id="log" hidden></div>
     </section>
 
 <section id="authGate" class="authGate" aria-labelledby="authTitle">
@@ -209,8 +231,8 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 <nav class="bottomNav" aria-label="Main navigation">
   <button type="button" class="navItem active" data-target="home" aria-label="Home" aria-current="page"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Home</span></button>
   <button type="button" class="navItem" data-target="live" aria-label="Live tracking"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg><span>Live</span></button>
-  <button type="button" class="navItem" data-target="settings" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9l2.1 2.1m10 10 2.1 2.1M19.1 4.9 17 7m-10 10-2.1 2.1"/></svg><span>Settings</span></button>
-  <button type="button" class="navItem" data-target="sessions" aria-label="Sessions"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Sessions</span></button>
+  <button type="button" class="navItem" data-target="profile" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9l2.1 2.1m10 10 2.1 2.1M19.1 4.9 17 7m-10 10-2.1 2.1"/></svg><span>Profile</span></button>
+  <button type="button" class="navItem" data-target="sessions" aria-label="Summary"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Summary</span></button>
 </nav>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -364,8 +386,8 @@ function setLiveBadge(text,state){const b=$('liveBadge');b.textContent=text;b.cl
 function stopSensor(){
   if(running)saveCurrentSession();
   window.removeEventListener('devicemotion',sensorHandler);window.removeEventListener('deviceorientation',orientationHandler);figure.classList.remove('isWalking');running=false;clearMotionAlert();if('speechSynthesis' in window)speechSynthesis.cancel();clearInterval(tick);tick=null;
-  $('start').disabled=false;$('stop').disabled=true;
-  $('status').textContent='Tracking stopped · data retained for export';setLiveBadge('STOPPED','waiting');record('system','Sensor stopped');
+  $('start').disabled=false;$('stop').disabled=true;$('stopQuick').disabled=true;$('startQuick').disabled=false;$('topHint').textContent='Session ended';
+  $('status').textContent='Tracking stopped · view your summary in the Summary tab';setLiveBadge('STOPPED','waiting');record('system','Sensor stopped');
 }
 async function startSensor(){
   if(!activeUser){$('authGate').hidden=false;return false;}
@@ -380,7 +402,7 @@ async function startSensor(){
     unlockChime();visualReset();baseline=null;filtered=0;armed=true;lastStep=0;stepTimes=[];lastLiveCoach=0;lastEventAt=0;lastReceived=0;sessionSteps=0;motionRows.length=0;values.fill(0);
     $('steps').textContent='0';$('cadence').textContent='—';$('variation').textContent='—';$('elapsed').textContent='0:00';$('mag').textContent='—';draw();
     sessionStart=performance.now();window.addEventListener('devicemotion',sensorHandler);window.addEventListener('deviceorientation',orientationHandler);running=true;
-    $('start').disabled=true;$('stop').disabled=false;$('status').textContent='Listening for motion data…';setLiveBadge('STARTING','waiting');record('system','Sensor started');
+    $('start').disabled=true;$('stop').disabled=false;$('stopQuick').disabled=false;$('startQuick').disabled=true;$('topHint').textContent='Tracking in progress';$('status').textContent='Listening for motion data…';setLiveBadge('STARTING','waiting');record('system','Sensor started');
     tick=setInterval(()=>{
       const elapsed=Math.floor((performance.now()-sessionStart)/1000);
       $('elapsed').textContent=`${Math.floor(elapsed/60)}:${String(elapsed%60).padStart(2,'0')}`;
@@ -394,6 +416,9 @@ async function startSensor(){
 }
 $('start').onclick=()=>{unlockChime();startSensor();};
 $('stop').onclick=stopSensor;
+$('stopQuick').onclick=stopSensor;
+$('startQuick').onclick=()=>{unlockChime();startSensor();};
+$('summaryLive').onclick=()=>selectTab('sessions');
 $('reset').onclick=()=>{
   if(running)stopSensor();visualReset();stepTimes=[];baseline=null;filtered=0;lastStep=0;armed=true;sessionSteps=0;sessionStart=null;lastReceived=0;motionRows.length=0;values.fill(0);
   $('mag').textContent='—';$('steps').textContent='0';$('cadence').textContent='—';$('variation').textContent='—';$('elapsed').textContent='0:00';draw();setLiveBadge('READY','waiting');record('system','Metrics and motion data reset');
@@ -497,14 +522,39 @@ $('saveNewPassword').onclick=async()=>{
  const {error}=await db.auth.updateUser({password});
  authMessage(error?error.message:'Password changed.');if(!error)$('passwordResetPanel').hidden=true;
 };
+$('saveName').onclick=async()=>{
+ if(!db||!activeUser)return;
+ const name=$('displayName').value.trim();if(!name||name.length>50){$('nameStatus').textContent='Enter a name up to 50 characters.';return;}
+ $('saveName').disabled=true;const {data,error}=await db.auth.updateUser({data:{display_name:name}});
+ $('nameStatus').textContent=error?error.message:'Name saved to your account.';
+ if(!error&&data?.user)activeUser=data.user;$('saveName').disabled=false;
+};
+const themeKey='stride-theme';
+function applyTheme(t){document.documentElement.dataset.theme=t;$('themeChoice').value=t;try{localStorage.setItem(themeKey,t)}catch(e){}}
+$('themeChoice').addEventListener('change',e=>applyTheme(e.target.value));
+try{applyTheme(localStorage.getItem(themeKey)==='light'?'light':'dark')}catch(e){applyTheme('dark')}
 $('signOut').onclick=async()=>{
  if(running)return $('syncStatus').textContent='Stop tracking before signing out.';
  $('syncStatus').textContent='Signing out…';const {error}=await db.auth.signOut();if(error)$('syncStatus').textContent=error.message;
 };
+function renderSummary(){
+ const data=savedHistory;const total=data.reduce((a,x)=>a+(Number(x.estimated_steps)||0),0);
+ const seconds=data.reduce((a,x)=>a+(Number(x.duration_seconds)||0),0);
+ const pace=data.map(x=>Number(x.estimated_cadence)).filter(x=>Number.isFinite(x)&&x>0);
+ $('totalWalks').textContent=String(data.length);$('totalSteps').textContent=total.toLocaleString();
+ $('totalMinutes').textContent=Math.round(seconds/60)+' min';
+ $('averagePace').textContent=pace.length?Math.round(pace.reduce((a,b)=>a+b,0)/pace.length)+' /min':'—';
+ const root=$('historyBars');root.replaceChildren();const recent=data.slice(0,8).reverse();
+ const max=Math.max(1,...recent.map(x=>Number(x.estimated_steps)||0));
+ recent.forEach(x=>{const wrap=document.createElement('div');wrap.className='barColumn';
+  const bar=document.createElement('div');bar.className='historyBar';bar.style.height=(10+90*(Number(x.estimated_steps)||0)/max)+'%';bar.title=(x.estimated_steps||0)+' estimated steps';
+  const lab=document.createElement('small');lab.textContent=String(x.estimated_steps||0);wrap.append(bar,lab);root.appendChild(wrap);});
+ if(!recent.length)root.textContent='Your walks will appear here after you finish a session.';
+}
 function renderSessions(){
  const container=$('sessionHistory');container.replaceChildren();
- if(!savedHistory.length){const p=document.createElement('p');p.className='muted';p.textContent='No cloud sessions yet.';container.appendChild(p);return;}
- savedHistory.forEach(item=>{const row=document.createElement('div');row.className='savedSession';row.textContent=`${item.estimated_steps} estimated steps · ${item.duration_seconds}s · ${item.estimated_cadence??'—'} steps/min`;
+ if(!savedHistory.length){renderSummary();const p=document.createElement('p');p.className='muted';p.textContent='No cloud sessions yet.';container.appendChild(p);return;}
+ renderSummary();savedHistory.forEach(item=>{const row=document.createElement('div');row.className='savedSession';row.textContent=`${item.estimated_steps} estimated steps · ${item.duration_seconds}s · ${item.estimated_cadence??'—'} steps/min`;
  const small=document.createElement('small');small.textContent=new Date(item.created_at).toLocaleString()+' · research estimates, not clinically validated';row.appendChild(small);container.appendChild(row);});
 }
 async function loadSessions(){
@@ -523,7 +573,7 @@ async function saveCurrentSession(){
  $('syncStatus').textContent='Saving session…';
  const userAtSave=activeUser.id;
  sessionSavePromise=db.from('walking_sessions').insert(entry).then(({error})=>{
-  if(error){$('syncStatus').textContent='Cloud save failed: '+error.message+' — export motion CSV as backup.';return}
+  if(error){$('syncStatus').textContent='Cloud save failed: '+error.message+' — please retry when connected.';return}
   if(activeUser?.id===userAtSave)loadSessions();
  });
  await sessionSavePromise;
@@ -533,7 +583,7 @@ renderSessions();
 async function handleAuthSession(session){
  activeUser=session?.user||null;
  $('authGate').hidden=!!activeUser;
- if(activeUser){$('accountEmail').textContent=activeUser.email||'Signed-in account';await loadSessions();}
+ if(activeUser){$('accountEmail').textContent=activeUser.email||'Signed-in account';$('displayName').value=activeUser.user_metadata?.display_name||'';await loadSessions();}
  else{savedHistory=[];renderSessions();$('accountEmail').textContent='Not signed in';selectTab('home');}
 }
 if(!db){authMessage('Setup required: enter your Supabase URL and publishable/anon key in config.js, and run setup.sql.');}
