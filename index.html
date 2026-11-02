@@ -437,35 +437,51 @@ function draw(){
 }
 draw();
 let availableVoices=[];
-// One automatic voice per language. Voices still depend on installed OS/browser voices.
+// iOS Safari exposes only voices installed/available on the device.
+// Never silently use an English voice for Korean messages.
+function matchingVoices(lang){
+  return availableVoices.filter(v=>String(v.lang||'').toLowerCase().replace('_','-')===lang.toLowerCase());
+}
+function preferredVoice(lang){
+  const candidates=matchingVoices(lang);
+  // Prefer an enhanced-quality voice if the OS exposes one, otherwise a Korean locale voice.
+  const score=v=>{
+    const name=(v.name||'').toLowerCase();
+    return (/premium|enhanced|고품질|향상/.test(name)?30:0)
+      +(/yuna|sora|유나|소라/.test(name)&&lang==='ko-KR'?8:0)
+      +(v.localService?3:0)+(v.default?1:0);
+  };
+  return candidates.sort((a,b)=>score(b)-score(a))[0]||null;
+}
 function refreshVoices(){
   if(!('speechSynthesis' in window)){
-    $('voiceStatus').textContent='Voice playback is unavailable in this browser.';
-    return;
+    $('voiceStatus').textContent='Speech playback is unavailable in this browser.';return;
   }
   availableVoices=speechSynthesis.getVoices();
   const lang=$('voiceLanguage').value;
-  const matching=availableVoices.filter(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
-  $('voiceStatus').textContent=matching.length?'Voice selected automatically for '+(lang==='ko-KR'?'Korean.':'English.'):'No matching voice installed; audio quality may vary.';
-}
-function automaticVoice(lang){
-  const language=lang.slice(0,2).toLowerCase();
-  const candidates=availableVoices.filter(v=>v.lang.toLowerCase().startsWith(language));
-  // Prefer a locale-exact, locally available voice. Avoid selecting foreign-language voices.
-  candidates.sort((a,b)=>{
-    const score=v=> (v.lang.toLowerCase()===lang.toLowerCase()?6:0)+(v.localService?3:0)+(v.default?1:0);
-    return score(b)-score(a);
-  });
-  return candidates[0]||null;
+  const v=preferredVoice(lang);
+  $('voiceStatus').textContent=v
+    ?(lang==='ko-KR'?'한국어 음성 사용 중: ':'English voice: ')+v.name
+    :(lang==='ko-KR'?'한국어 음성이 기기에 없습니다. iPhone 설정에서 한국어 음성을 설치한 뒤 Safari를 다시 열어 주세요.':'An English voice is unavailable on this device.');
 }
 function speak(msg,lang){
   if(!('speechSynthesis' in window))return false;
   refreshVoices();
-  const u=new SpeechSynthesisUtterance(msg);
-  u.lang=lang;u.rate=Number($('voiceRate').value);u.pitch=1;
-  const voice=automaticVoice(lang);
-  if(voice)u.voice=voice;
-  speechSynthesis.cancel();speechSynthesis.speak(u);
+  const selected=preferredVoice(lang);
+  // No fallback to wrong-language voices. Safari may read Korean with an English voice otherwise.
+  if(!selected){
+    $('voiceStatus').textContent=lang==='ko-KR'
+      ?'한국어 음성을 찾지 못해 재생하지 않았습니다. iPhone 설정 → 손쉬운 사용 → 콘텐츠 말하기 → 음성 → 한국어에서 음성을 설치해 주세요.'
+      :'No compatible English voice is installed; speech was not played.';
+    return false;
+  }
+  const utterance=new SpeechSynthesisUtterance(msg);
+  utterance.lang=lang;utterance.voice=selected;
+  utterance.rate=lang==='ko-KR'?Math.min(Number($('voiceRate').value),0.95):Number($('voiceRate').value);
+  utterance.pitch=1;
+  utterance.onerror=()=>{$('voiceStatus').textContent=lang==='ko-KR'?'음성 재생에 실패했습니다. Safari에서 다시 테스트해 주세요.':'Speech playback failed. Please try again.';};
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
   return true;
 }
 if('speechSynthesis' in window){
