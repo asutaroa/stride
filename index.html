@@ -29,7 +29,7 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 .liveIndicator.error{background:#332223;border-color:#6e3838;color:#ffacae}
 .liveIndicator.error:before{color:#ffacae}
 .heroMetric{background:linear-gradient(148deg,#26341a 0%,#19231a 42%,#151a18 100%);border:1px solid #405733;border-radius:25px;padding:25px 24px 22px;margin-bottom:12px;min-height:185px;position:relative;overflow:hidden}
-.heroMetric:after{content:'';position:absolute;right:-42px;top:-100px;border:1px solid #c3ff6021;width:250px;height:250px;border-radius:50%;pointer-events:none}
+.heroMetric:after{content:'';position:absolute;right:-42px;top:-100px;border:1px solid color-mix(in srgb, var(--lime) 15%, transparent);width:250px;height:250px;border-radius:50%;pointer-events:none}
 .heroMetricLabel{color:#bfcebd;font-size:12px;font-weight:650;letter-spacing:.4px}
 .heroMetricNumber{font-size:clamp(75px,20vw,102px);font-weight:850;line-height:1.04;letter-spacing:-5px;color:var(--lime);margin:17px 0 2px;font-variant-numeric:tabular-nums}
 .heroMetricBottom{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#d4dfcf;font-size:12px}
@@ -62,16 +62,16 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 .legLeft,.legRight{transform-origin:72px 87px;animation:strideLeg var(--walk-speed) ease-in-out infinite alternate;animation-play-state:paused}.legRight{animation-delay:calc(var(--walk-speed)*-1)}.armLeft,.armRight{transform-origin:72px 58px;animation:strideArm var(--walk-speed) ease-in-out infinite alternate;animation-play-state:paused}.armRight{animation-delay:calc(var(--walk-speed)*-1)}
 .walkFigure.isWalking .legLeft,.walkFigure.isWalking .legRight,.walkFigure.isWalking .armLeft,.walkFigure.isWalking .armRight{animation-play-state:running}
 @keyframes strideLeg{from{transform:rotate(-20deg)}to{transform:rotate(20deg)}}@keyframes strideArm{from{transform:rotate(17deg)}to{transform:rotate(-17deg)}}
-.visualTitle{color:#c3ff60;font-weight:800;font-size:12px;letter-spacing:.7px}.visualSub{color:#acb7b0;font-size:11px;margin:6px 0 13px}.motionStat{display:flex;justify-content:space-between;gap:8px;margin:8px 0;font-size:12px}.motionStat span{color:#9ba8a4}.motionStat strong{font-size:12px}.liveWave{background:#151c1c;border:1px solid #354638;border-radius:20px;padding:15px;margin-bottom:12px}.waveHead{display:flex;justify-content:space-between;color:#d9e3dc;font-size:12px;margin-bottom:10px}.liveWave canvas{height:160px;background:#0d1413;border-radius:12px}
+.visualTitle{color:var(--lime);font-weight:800;font-size:12px;letter-spacing:.7px}.visualSub{color:#acb7b0;font-size:11px;margin:6px 0 13px}.motionStat{display:flex;justify-content:space-between;gap:8px;margin:8px 0;font-size:12px}.motionStat span{color:#9ba8a4}.motionStat strong{font-size:12px}.liveWave{background:#151c1c;border:1px solid #354638;border-radius:20px;padding:15px;margin-bottom:12px}.waveHead{display:flex;justify-content:space-between;color:#d9e3dc;font-size:12px;margin-bottom:10px}.liveWave canvas{height:160px;background:#0d1413;border-radius:12px}
 .settingGroup{display:grid;gap:12px}.settingGroup label{display:block;margin-top:2px}.voiceBox{background:#1b2125;border:1px solid #303a40;padding:14px;border-radius:14px}
 @media(max-width:390px){.motionVisual{grid-template-columns:120px 1fr;padding:12px;gap:8px}.walkFigure{width:110px}.motionStat{font-size:11px}}
 
 /* v1.7: visible gait motion and mandatory event-driven coaching */
 .motionVisual{grid-template-columns:minmax(140px,1fr) 1fr;min-height:238px}
-.walkFigure{width:min(100%,190px);height:205px;filter:drop-shadow(0 0 16px #c3ff6025)}
+.walkFigure{width:min(100%,190px);height:205px;filter:drop-shadow(0 0 12px color-mix(in srgb, var(--lime) 25%, transparent))}
 .walkBody{transform-origin:72px 78px}
 .walkFigure.isWalking{animation:walkerBounce var(--walk-speed) ease-in-out infinite alternate}
-.walkFigure.stepHit{filter:drop-shadow(0 0 22px #c3ff6088)}
+.walkFigure.stepHit{filter:drop-shadow(0 0 22px color-mix(in srgb, var(--lime) 65%, transparent))}
 .walkFigure.stepHit .walkBody{stroke:#efffcb}
 .legLeft,.legRight{animation-timing-function:cubic-bezier(.45,0,.55,1)}
 @keyframes strideLeg{from{transform:rotate(-37deg)}to{transform:rotate(37deg)}}
@@ -95,7 +95,7 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 .savedSession small{display:block;color:#9dac9d}
 
 .authGate{position:fixed;inset:0;z-index:200;background:#0b0d10;display:flex;align-items:center;justify-content:center;overflow:auto;padding:22px 18px env(safe-area-inset-bottom)}
-.authGate[hidden]{display:none!important}.authBox{width:min(100%,420px);background:#171b20;border:1px solid #30363d;border-radius:24px;padding:24px;box-shadow:0 22px 80px #0008}.authLogo{font-size:38px;font-weight:900;letter-spacing:5px;text-align:center;margin-bottom:20px}.authBox h2{text-align:center}.authBox>p{text-align:center}.authSwitch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:22px 0}.authSwitch button{background:#30363d;color:#fff;margin:0}.authSwitch button.authActive{background:var(--lime);color:#101410}.authBox label{display:block;color:#cbd1d7;font-size:13px;margin:13px 0 6px}.authBox input{width:100%;background:#262e34;border:1px solid #505961;border-radius:10px;color:white;font:inherit;padding:12px}.authBox .authSubmit{width:100%;margin:19px 0 4px}.authBox .authLink{background:transparent;color:#c3ff60;display:block;margin:10px auto;font-size:13px}#passwordResetPanel[hidden]{display:none}.authBox #authStatus{min-height:24px;color:#c3ff60}.accountCard{border-radius:14px;border:1px solid #30363d;padding:14px;margin-bottom:20px}
+.authGate[hidden]{display:none!important}.authBox{width:min(100%,420px);background:#171b20;border:1px solid #30363d;border-radius:24px;padding:24px;box-shadow:0 22px 80px #0008}.authLogo{font-size:38px;font-weight:900;letter-spacing:5px;text-align:center;margin-bottom:20px}.authBox h2{text-align:center}.authBox>p{text-align:center}.authSwitch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:22px 0}.authSwitch button{background:#30363d;color:#fff;margin:0}.authSwitch button.authActive{background:var(--lime);color:#101410}.authBox label{display:block;color:#cbd1d7;font-size:13px;margin:13px 0 6px}.authBox input{width:100%;background:#262e34;border:1px solid #505961;border-radius:10px;color:white;font:inherit;padding:12px}.authBox .authSubmit{width:100%;margin:19px 0 4px}.authBox .authLink{background:transparent;color:var(--lime);display:block;margin:10px auto;font-size:13px}#passwordResetPanel[hidden]{display:none}.authBox #authStatus{min-height:24px;color:var(--lime)}.accountCard{border-radius:14px;border:1px solid #30363d;padding:14px;margin-bottom:20px}
 
 /* v2.0 participant-first navigation and personalisation */
 .topControls{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:13px 18px;margin-bottom:13px}
@@ -122,6 +122,29 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 :root[data-theme="light"] .liveWave canvas{background:#f7faf5}
 :root[data-theme="light"] .profilePreview{background:linear-gradient(145deg,#f8fbf5,#eef6e5)}
 @media(max-width:390px){.roundStop{width:82px;height:82px}.topControls{gap:12px}.startInline{font-size:12px;padding:11px}}
+
+/* v2.2: dynamic accent colors for motion UI and accessible feedback */
+.visualTitle,.liveWave .waveHead strong,.alwaysOn,.authBox .authLink,.authBox #authStatus{color:var(--lime)}
+.walkBody{stroke:var(--lime)} .walkBody circle,.walkBody>path{stroke:var(--lime)}
+.walkFigure{filter:drop-shadow(0 0 14px color-mix(in srgb, var(--lime) 26%, transparent))}
+.walkFigure.stepHit{filter:drop-shadow(0 0 24px color-mix(in srgb, var(--lime) 65%, transparent))}
+.heroMetric:after{border-color:color-mix(in srgb,var(--lime) 20%,transparent)}
+:root[data-theme="light"] .motionVisual svg circle{fill:#e9f2e5}
+
+/* v2.3 participant-facing movement summary */
+.insightCard{background:var(--card);border:1px solid var(--line);border-radius:21px;padding:19px;margin:16px 0}
+.insightHead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}
+.insightHead strong{font-size:16px}.insightHead span{color:var(--dim);font-size:11px}
+.insightRow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}
+.insightRow strong{font-size:13px;display:block}.insightRow small{color:var(--dim);font-size:11px;display:block;margin-top:4px}
+.insightRow>span{font-size:13px;font-weight:800;color:var(--lime);text-align:right;max-width:44%}
+.insightAdvice{padding:13px;margin:16px 0 0;border-radius:13px;background:color-mix(in srgb,var(--lime) 12%,var(--card));color:var(--white);font-size:13px;line-height:1.6}
+:root[data-theme="light"] .insightCard{background:#fff;border-color:#d5ded4;color:#152019}
+:root[data-theme="light"] .insightAdvice{background:#edf6e3;color:#284025}
+
+/* STRIDE v2.4 — exploratory gait dashboard and future hardware concept */
+.featurePage{max-width:900px;margin:20px auto;padding:12px 0 36px}.featurePage h1{font-size:clamp(28px,5vw,42px);margin:6px 0 8px;letter-spacing:-1.4px}.featurePage h2{margin:0 0 8px}.featureEyebrow,.featureLabel{color:var(--lime);font-size:11px;letter-spacing:1.7px;font-weight:800}.featureGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.featureCard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;min-width:0}.featureWide{grid-column:1/-1}.analysisMetrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}.analysisMetrics>div{background:color-mix(in srgb,var(--card) 88%,var(--lime) 12%);padding:13px;border:1px solid var(--line);border-radius:14px}.analysisMetrics span{color:var(--dim);display:block;font-size:12px}.analysisMetrics strong{display:block;margin-top:8px;font-size:24px;color:var(--white);font-variant-numeric:tabular-nums}.chartWrap{min-height:160px;margin:14px 0 0}.chartWrap svg{display:block;width:100%;height:180px;overflow:visible;color:var(--dim)}.chartNote{font-size:11px;color:var(--dim);line-height:1.5;margin:10px 0 0}.featureTitleRow{display:flex;align-items:start;justify-content:space-between;gap:12px}.featureTitleRow h2{margin-top:7px}.simBadge,.futureBadge{display:inline-block;white-space:normal;background:#4a3224;color:#ffcf9a;border:1px solid #a46a3b;border-radius:100px;padding:7px 10px;font-size:10px;font-weight:800;letter-spacing:.3px}.pressureOptions,.componentGrid{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.pressureBtn,.componentButton{background:transparent;color:var(--white);border:1px solid var(--line);font-size:12px;border-radius:999px;padding:11px 13px;margin:0}.pressureBtn.selected,.componentButton.selected{background:var(--lime);color:#111611;border-color:var(--lime)}.pressureFeet{display:flex;justify-content:space-evenly;gap:20px;margin:20px 0}.pressureFeet>div{text-align:center;display:grid;justify-items:center;gap:8px}.pressureFeet strong{font-size:12px}.sole{height:180px;max-width:110px;fill:#22382d;stroke:#739481;stroke-width:3}.sole .pressureDots{fill:#eac068;stroke:none;filter:blur(8px);opacity:.65;transition:opacity .25s ease}.sole.more .pressureDots{opacity:1;fill:#ff7b59}.sole.less .pressureDots{opacity:.24;fill:#c7ff65}.simCaption{color:var(--dim);font-size:12px;text-align:center}.conceptLead{font-size:19px;line-height:1.4;max-width:650px;margin:13px 0}.conceptStage{margin:20px 0;background:radial-gradient(circle at 48% 35%,#526e581f,transparent 66%),var(--card);border:1px solid var(--line);border-radius:28px;padding:14px}.sneakerArtwork{width:100%;height:auto;display:block;max-height:500px}.componentDetail{padding:16px;border-radius:15px;background:color-mix(in srgb,var(--card) 88%,var(--lime) 12%);border:1px solid var(--line)}.componentDetail p{font-size:13px;color:var(--dim);line-height:1.5;margin:9px 0 0}.techPath,.pillGrid{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:17px 0}.techPath span,.pillGrid span{padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--card) 85%,var(--lime) 15%);font-size:12px;border:1px solid var(--line)}.techPath b{color:var(--lime)}.progressCharts{grid-template-columns:1fr;margin:12px 0}.progressCharts .featureCard{padding:16px}.bottomNav{overflow-x:auto;justify-content:flex-start;scrollbar-width:none;gap:1px}.bottomNav::-webkit-scrollbar{display:none}.bottomNav .navItem{min-width:62px;flex:1 0 62px;font-size:9px}.bottomNav .navItem svg{width:21px;height:21px}.bottomNav .navItem.active{color:var(--lime)}:root[data-theme="light"] .featurePage,:root[data-theme="light"] .featureCard,:root[data-theme="light"] .featureCard .componentDetail{color:#152019}:root[data-theme="light"] .featureCard{background:#fff;border-color:#d5ded4}:root[data-theme="light"] .pressureBtn,:root[data-theme="light"] .componentButton{color:#152019}:root[data-theme="light"] .pressureBtn.selected,:root[data-theme="light"] .componentButton.selected{color:#142010}:root[data-theme="light"] .sole{fill:#c4d7ca}:root[data-theme="light"] .conceptStage{background:#f7faf5}
+@media(max-width:700px){.featureGrid{grid-template-columns:1fr}.featureWide{grid-column:auto}.featurePage{padding:12px 0}.featureCard{padding:17px}.bottomNav{width:100%}.bottomNav .navItem{min-width:56px;flex:1 0 56px}.pressureFeet .sole{height:160px}}
 </style>
 </head>
 <body>
@@ -154,9 +177,9 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
       <div class="motionVisual" aria-label="Illustrative animated walker driven by estimated cadence; not full-body pose tracking">
         <svg id="walkFigure" class="walkFigure" viewBox="0 0 145 170" role="img" aria-label="Animated walking figure with independently moving arms, knees, and legs driven by detected steps">
           <ellipse cx="72" cy="156" rx="37" ry="5" fill="#314b34" opacity=".5"/>
-          <g class="walkBody" fill="none" stroke="#c3ff60" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="72" cy="29" r="13" fill="#263a25" stroke="#d3ffa0" stroke-width="4"/>
-            <path d="M72 44 L72 89" stroke="#d3ffa0" stroke-width="7"/>
+          <g class="walkBody" fill="none" stroke="var(--lime)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="72" cy="29" r="13" fill="#263a25" stroke="var(--lime)" stroke-width="4"/>
+            <path d="M72 44 L72 89" stroke="var(--lime)" stroke-width="7"/>
             <path id="walkArmLeft" d="M72 52 L55 75 L45 89" stroke-width="6"/>
             <path id="walkArmRight" d="M72 52 L88 75 L98 89" stroke-width="6"/>
             <path id="walkLegLeft" d="M72 89 L59 121 L48 150" stroke-width="8"/>
@@ -171,11 +194,11 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
       <div class="liveWave"><div class="waveHead"><strong>MOVEMENT GRAPH</strong><span id="waveStatus">Waiting for signal</span></div>
         <canvas id="plot" width="850" height="220" aria-label="Recent movement signal chart"></canvas>
       </div>
-      <div class="alertMessage" id="currentCue" role="status" aria-live="polite">Start walking to receive real-time motion feedback.</div>
+      <div class="alertMessage" id="currentCue" role="status" aria-live="polite">No alert yet. Coaching activates only when sustained changes are detected.</div>
       <div class="sessionActions" hidden><button id="start">Start Tracking</button><button id="stop" class="alt" disabled>Stop</button></div>
       <button id="summaryLive" type="button" class="summaryAction">See my walking summary →</button><div id="status" class="status" aria-live="polite">Ready · Sensor not running</div>
       <div class="coachControl">
-        <div class="alwaysCoach"><span class="soundGlyph">♫</span><span><strong>Voice coaching is on</strong><small>Chime + bilingual voice cue whenever a persistent motion alert is detected.</small></span><span class="alwaysOn">ON</span></div>
+        <div class="alwaysCoach"><span class="soundGlyph">♫</span><span><strong>Voice alerts are ready</strong><small>Alerts play only for sustained changes in step timing or phone orientation. No alert during steady walking is normal.</small></span><span class="alwaysOn">ON</span></div>
         <p id="liveCoachInfo" class="muted" style="margin:8px 0 0;font-size:11px">Voice and language settings are in Profile. Alerts concern motion patterns, not medical posture assessment.</p>
       </div>
       <details class="advanced">
@@ -196,7 +219,7 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
           <div><label for="displayName" class="muted">Display name</label><input id="displayName" maxlength="50" placeholder="Your name" autocomplete="nickname"></div>
           <div><label for="profileTag" class="muted">Short label</label><input id="profileTag" maxlength="20" placeholder="walker" autocomplete="off"></div>
           <div><label for="stepGoal" class="muted">Daily step goal</label><input id="stepGoal" type="number" min="1000" max="50000" step="500" placeholder="6000"></div>
-          <div><label for="coachStyle" class="muted">Coaching style</label><select id="coachStyle"><option value="gentle">Gentle</option><option value="balanced">Balanced</option><option value="active">Active</option></select></div>
+          <div><label for="durationGoal" class="muted">Walking duration goal (minutes)</label><input id="durationGoal" type="number" min="1" max="240" value="15"></div><div><label for="consistencyGoal" class="muted">Target step variation (%)</label><input id="consistencyGoal" type="number" min="5" max="60" value="20"></div><div><label for="coachFrequency" class="muted">Coaching frequency</label><select id="coachFrequency"><option value="normal">Normal</option><option value="less">Less often</option><option value="more">More often</option></select></div><div><label for="coachStyle" class="muted">Coaching style</label><select id="coachStyle"><option value="gentle">Gentle</option><option value="balanced">Balanced</option><option value="active">Active</option></select></div>
           <div><label for="accentChoice" class="muted">Accent color</label><select id="accentChoice"><option value="lime">Lime</option><option value="blue">Ocean Blue</option><option value="coral">Coral</option><option value="violet">Violet</option></select></div>
           <div><label for="themeChoice" class="muted">Appearance</label><select id="themeChoice"><option value="dark">Dark mode</option><option value="light">Light mode</option><option value="system">Match device</option></select></div>
           <div class="fullSpan profilePreview"><strong id="previewName">Your Name</strong><span id="previewTag">@walker</span><span id="previewGoal">Goal · 6,000 steps/day</span><div class="chipRow"><span class="profileChip" id="previewAccent">Accent · Lime</span><span class="profileChip" id="previewCoach">Coach · Balanced</span></div></div>
@@ -211,20 +234,78 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
       <label for="voiceRate" class="muted" style="display:block;margin-top:14px">Speaking speed: <span id="rateValue">0.95×</span></label>
       <input id="voiceRate" type="range" min="0.75" max="1.15" step="0.05" value="0.95">
       <p id="voiceStatus" class="muted" aria-live="polite">Loading device voices…</p>
-      <button id="coach">Test Coaching Voice</button><button id="quiet" class="alt">Stop Voice</button>
+      <button id="coach">Test Coaching Voice</button><button id="testAlert" type="button" class="alt">Test Chime + Voice</button><button id="quiet" class="alt">Stop Voice</button>
       <p id="message" style="min-height:30px">Voice settings apply to automatic walking alerts.</p></details>
       <div class="accountCard"><strong>Account</strong><p id="accountEmail" class="muted">Checking session…</p><button id="signOut" class="alt">Sign Out</button></div>
     </section>
 
     <section class="card tab-panel" data-tab="sessions" id="sessionsPanel" hidden>
-      <h2>My Walking Summary</h2><p class="muted">A simple view of your saved walking sessions.</p>
+      <h2>Movement & Coaching Summary</h2><p class="muted">Understand your movement patterns and the feedback you received. These are phone-based observations, not medical posture assessments.</p>
       <p id="syncStatus" class="muted" role="status" aria-live="polite">Loading your sessions…</p>
+      <section class="insightCard" aria-label="Latest movement insights">
+        <div class="insightHead"><strong>Latest Walk · Movement Insights</strong><span id="insightDate">—</span></div>
+        <div class="insightRow"><div><strong>Walking rhythm</strong><small>Consistency of detected step timing</small></div><span id="insightRhythm">Not measured</span></div>
+        <div class="insightRow"><div><strong>Phone tilt changes</strong><small>Device angle, not spinal alignment</small></div><span id="insightTilt">Not measured</span></div>
+        <div class="insightRow"><div><strong>Side-to-side phone motion</strong><small>Relative movement signal, not body balance</small></div><span id="insightSway">Not measured</span></div>
+        <div class="insightRow"><div><strong>Voice coaching alerts</strong><small>Detected events during this session</small></div><span id="insightCues">Not measured</span></div>
+        <p class="insightAdvice" id="insightAdvice">Complete a new walk to see movement insights here.</p>
+      </section>
       <div class="summaryMetrics"><div class="metricTile"><span class="metricTileLabel">Total walks</span><strong id="totalWalks">0</strong></div><div class="metricTile"><span class="metricTileLabel">Total steps</span><strong id="totalSteps">0</strong></div><div class="metricTile"><span class="metricTileLabel">Total time</span><strong id="totalMinutes">0 min</strong></div><div class="metricTile"><span class="metricTileLabel">Average pace</span><strong id="averagePace">—</strong></div><div class="metricTile"><span class="metricTileLabel">Goal check</span><strong id="goalCheck">—</strong></div></div>
-      <div class="liveWave"><div class="waveHead"><strong>YOUR RECENT WALKS</strong><span>Steps per session</span></div><div id="historyBars" class="historyBars" aria-label="Steps in recent walking sessions"></div></div>
-      <h2>Walking history</h2><div id="sessionHistory"><p class="muted">No saved sessions yet.</p></div>
+      <div class="liveWave"><div class="waveHead"><strong>YOUR RECENT WALKS</strong><span>Estimated steps · supporting metric</span></div><div id="historyBars" class="historyBars" aria-label="Steps in recent walking sessions"></div></div>
+      <div class="featureGrid progressCharts">
+<article class="featureCard"><span class="featureLabel">PACE OVER TIME</span><div class="chartWrap"><svg id="historyPaceChart" viewBox="0 0 600 180" role="img" aria-label="Walking cadence by session"></svg></div></article>
+<article class="featureCard"><span class="featureLabel">RHYTHM CONSISTENCY TREND</span><div class="chartWrap"><svg id="historyRhythmChart" viewBox="0 0 600 180" role="img" aria-label="Step rhythm variation by session"></svg></div></article>
+<article class="featureCard"><span class="featureLabel">DURATION BY SESSION</span><div class="chartWrap"><svg id="historyDurationChart" viewBox="0 0 600 180" role="img" aria-label="Minutes per walking session"></svg></div></article>
+</div><h2>Walking history</h2><div id="sessionHistory"><p class="muted">No saved sessions yet.</p></div>
       <p class="muted">Walking metrics are experimental estimates and are not medical assessments.</p>
-      <button id="exportHistory" hidden>Export Saved Sessions CSV</button><button id="csv" hidden>Export Event CSV</button><button id="clear" hidden>Clear Log</button><div id="log" hidden></div>
+      <button id="exportHistory" class="alt">Export Saved Sessions CSV</button><button id="csv" hidden>Export Event CSV</button><button id="clear" hidden>Clear Log</button><div id="log" hidden></div>
     </section>
+
+
+<section class="tab-panel featurePage" data-tab="analysis" id="analysisPanel" hidden>
+ <div class="featureEyebrow">STRIDE / INSIGHTS</div><h1>Gait Analysis</h1>
+ <p class="muted">Experimental, phone-based movement signals. No orthopedic diagnosis or left/right foot loading measurement.</p>
+ <div class="featureGrid">
+  <article class="featureCard"><span class="featureLabel">CURRENT WALK · LIVE ESTIMATES</span>
+   <div class="analysisMetrics"><div><span>Steps</span><strong id="aSteps">0</strong></div><div><span>Walking pace</span><strong id="aPace">—</strong></div><div><span>Step steadiness</span><strong id="aConsistency">—</strong></div><div><span>Duration</span><strong id="aDuration">0:00</strong></div></div>
+   <small class="muted">Figures update from the same iPhone motion sensor as Live Tracking. No sensor values are simulated.</small>
+  </article>
+  <article class="featureCard"><span class="featureLabel">LIVE RHYTHM TREND</span><div class="chartWrap"><svg id="liveRhythmChart" viewBox="0 0 600 180" role="img" aria-label="Recent detected walking cadence trend"><text x="300" y="92" text-anchor="middle" fill="currentColor">Start a walk to collect a rhythm trend.</text></svg></div><p class="chartNote">Recent estimated steps per minute. Changes depend on phone position and step detection quality.</p></article>
+  <article class="featureCard"><span class="featureLabel">MOVEMENT STABILITY · EXPERIMENTAL</span><div class="analysisMetrics"><div><span>Phone tilt shift</span><strong id="aTilt">—</strong></div><div><span>Side-motion signal</span><strong id="aSway">—</strong></div></div><p class="chartNote">These describe movement of your phone, not pelvic alignment or clinical walking symmetry.</p></article>
+  <article class="featureCard"><span class="featureLabel">SESSION-TO-SESSION RHYTHM</span><div class="chartWrap"><svg id="sessionRhythmChart" viewBox="0 0 600 180" role="img" aria-label="Saved session rhythm variability trend"></svg></div><p class="chartNote">Lower variability means detected steps were more evenly spaced. It is not a health score.</p></article>
+  <article class="featureCard featureWide"><div class="featureTitleRow"><div><span class="featureLabel">FOOT PRESSURE EXPLORER</span><h2>Pressure simulation</h2></div><span class="simBadge">SIMULATION MODE</span></div>
+   <p class="muted">Interactive design demonstration only. The smartphone cannot read left- or right-foot pressure.</p>
+   <div class="pressureOptions" role="group" aria-label="Choose a simulated foot pressure scenario"><button type="button" data-pressure="balanced" class="pressureBtn selected">Even loading</button><button type="button" data-pressure="left" class="pressureBtn">More on left</button><button type="button" data-pressure="right" class="pressureBtn">More on right</button></div>
+   <div class="pressureFeet"><div><svg class="sole" id="soleLeft" viewBox="0 0 100 210" role="img" aria-label="Left foot simulated pressure heatmap"><path d="M49 9 C17 10 7 34 14 64 L23 112 C21 137 7 159 16 184 C24 211 74 213 83 182 C93 151 74 126 78 101 L85 51 C87 24 70 8 49 9Z"/><g class="pressureDots"><circle cx="38" cy="49" r="22"/><circle cx="65" cy="53" r="22"/><circle cx="45" cy="107" r="22"/><circle cx="49" cy="172" r="28"/></g></svg><strong>Left foot</strong></div><div><svg class="sole" id="soleRight" viewBox="0 0 100 210" role="img" aria-label="Right foot simulated pressure heatmap"><path d="M49 9 C17 10 7 34 14 64 L23 112 C21 137 7 159 16 184 C24 211 74 213 83 182 C93 151 74 126 78 101 L85 51 C87 24 70 8 49 9Z"/><g class="pressureDots"><circle cx="38" cy="49" r="22"/><circle cx="65" cy="53" r="22"/><circle cx="45" cy="107" r="22"/><circle cx="49" cy="172" r="28"/></g></svg><strong>Right foot</strong></div></div><p class="simCaption" id="pressureCaption">Illustrative balanced loading. No pressure data was measured.</p>
+  </article>
+ </div>
+</section>
+<section class="tab-panel featurePage" data-tab="sneaker" id="sneakerPanel" hidden>
+ <div class="featureEyebrow">STRIDE / PRODUCT VISION</div><h1>Smart Sneaker</h1>
+ <p class="conceptLead">Orthopedic-Inspired Technology Meets Everyday Fashion.</p><span class="futureBadge">FUTURE HARDWARE CONCEPT · NOT BUILT</span>
+ <div class="conceptStage">
+ <svg class="sneakerArtwork" viewBox="0 0 720 420" role="img" aria-label="Illustrative fashion sneaker and proposed sensor insole, exploded view">
+  <defs><linearGradient id="shoeGrad" x1="0" x2="1"><stop stop-color="#ecf0ea"/><stop offset=".48" stop-color="#d5ddd8"/><stop offset="1" stop-color="#b9c6bd"/></linearGradient><linearGradient id="midsoleGrad" x1="0" x2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#aab9b0"/></linearGradient></defs>
+  <path d="M75 214 Q119 164 182 154 L229 99 L287 111 L317 160 Q395 198 480 195 L546 239 Q588 263 646 269 L663 315 Q582 344 434 336 L142 324 Q76 318 75 281Z" fill="url(#shoeGrad)" stroke="#81948a" stroke-width="5"/>
+  <path d="M95 283 Q222 289 342 287 L643 289 L661 316 Q567 346 422 336 L141 322 Q85 315 95 283Z" fill="url(#midsoleGrad)" stroke="#94a49a" stroke-width="3"/>
+  <path d="M159 160 L227 120 L278 133 L303 190 L265 231 L161 214Z" fill="#374942" opacity=".95"/>
+  <path d="M187 172 L230 141 M184 191 L244 153 M212 209 L258 170 M236 227 L272 189" stroke="#f0f5ef" stroke-width="6" stroke-linecap="round"/>
+  <path d="M325 214 Q371 193 405 208 L481 240 Q434 240 396 262Z" fill="var(--lime)" opacity=".75"/>
+  <path d="M118 294 L635 302" stroke="#83938b" stroke-width="3" stroke-dasharray="8 11"/>
+  <path d="M129 354 Q350 368 622 353" fill="none" stroke="var(--lime)" stroke-width="14" stroke-linecap="round" opacity=".55"/>
+  <g class="conceptDot" fill="var(--lime)"><circle cx="435" cy="303" r="9"/><circle cx="279" cy="310" r="9"/><circle cx="152" cy="304" r="9"/></g>
+  <text x="45" y="54" fill="currentColor" font-size="15" font-weight="700" letter-spacing="3">STRIDE / FUTURE SYSTEM</text>
+  <text x="367" y="389" fill="currentColor" font-size="14" text-anchor="middle">Concept illustration · not a manufactured prototype</text>
+ </svg></div>
+ <article class="featureCard"><span class="featureLabel">EXPLODED SYSTEM VIEW</span><h2>Where the technology could live</h2><p class="muted">Select a proposed component to see its role in the future shoe. All hardware below is conceptual.</p>
+  <div class="componentGrid" id="componentButtons">
+   <button class="componentButton selected" data-component="insole">Sensor-integrated insole</button><button class="componentButton" data-component="pressure">Pressure sensor matrix</button><button class="componentButton" data-component="accelerometer">Accelerometer</button><button class="componentButton" data-component="gyro">Gyroscope</button><button class="componentButton" data-component="ble">BLE module</button><button class="componentButton" data-component="power">Battery & electronics</button>
+  </div>
+  <div id="componentDetail" class="componentDetail" aria-live="polite"><strong>Sensor-integrated insole</strong><p>Proposed removable layer that could house sensors while maintaining everyday fit and comfort.</p></div>
+ </article>
+ <article class="featureCard"><span class="featureLabel">PROPOSED TECHNOLOGY PATHWAY</span><div class="techPath"><span>In-shoe sensors</span><b>→</b><span>Bluetooth connection</span><b>→</b><span>Gait analysis</span><b>→</b><span>Personalized coaching</span><b>→</b><span>Progress</span></div><p class="chartNote">Future development requires sensor engineering, calibration, power testing and clinical validation before orthopedic claims.</p></article>
+ <article class="featureCard"><span class="featureLabel">FASHION × FUNCTION</span><div class="pillGrid"><span>Everyday silhouette</span><span>Hidden electronics</span><span>Lightweight goal</span><span>Comfort-first insole</span><span>Replaceable components</span></div><p class="chartNote">These are design objectives, not tested product specifications.</p></article>
+</section>
 
 <section id="authGate" class="authGate" aria-labelledby="authTitle">
   <div class="authBox">
@@ -244,10 +325,12 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
   </div>
 </section>
 <nav class="bottomNav" aria-label="Main navigation">
-  <button type="button" class="navItem active" data-target="home" aria-label="Home" aria-current="page"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Home</span></button>
-  <button type="button" class="navItem" data-target="live" aria-label="Live tracking"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg><span>Live</span></button>
-  <button type="button" class="navItem" data-target="sessions" aria-label="Summary"><svg viewBox="0 0 24 24"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19v-8"/><path d="M22 19V11"/></svg><span>Summary</span></button>
-  <button type="button" class="navItem" data-target="profile" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profile</span></button>
+<button type="button" class="navItem active" data-target="home" aria-current="page" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9H3Z"/></svg><span>Home</span></button>
+<button type="button" class="navItem" data-target="live" aria-label="Live"><svg viewBox="0 0 24 24"><path d="M2 13h5l3-8 4 14 3-7h5"/></svg><span>Live</span></button>
+<button type="button" class="navItem" data-target="analysis" aria-label="Gait Analysis"><svg viewBox="0 0 24 24"><path d="M3 18l5-5 4 3 8-10"/><path d="M4 5v14h16"/></svg><span>Analysis</span></button>
+<button type="button" class="navItem" data-target="sessions" aria-label="Walking History"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-8m5 8v-5"/></svg><span>History</span></button>
+<button type="button" class="navItem" data-target="sneaker" aria-label="Smart Sneaker"><svg viewBox="0 0 24 24"><path d="M3 14c3 0 4-4 5-7l4 5 7 2 2 4H3z"/><path d="M4 20h16"/></svg><span>Sneaker</span></button>
+<button type="button" class="navItem" data-target="profile" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profile</span></button>
 </nav>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -261,6 +344,8 @@ const MAX_ROWS=18000;
 const figure=$('walkFigure');
 let tiltReference=null, lastTilt=null, swayEnergy=0, lastAlertKind='', alertClearAt=0, irregularSince=0, tiltSince=0, stepFlashTimer=null;
 let audioContext=null, lastCueAt=-Infinity, alertActive=false;
+let movementStats={tiltSum:0,tiltSamples:0,swaySum:0,swaySamples:0,cvSum:0,cvSamples:0,cueCount:0,tiltCueCount:0,rhythmCueCount:0};
+function resetMovementStats(){movementStats={tiltSum:0,tiltSamples:0,swaySum:0,swaySamples:0,cvSum:0,cvSamples:0,cueCount:0,tiltCueCount:0,rhythmCueCount:0};}
 function unlockChime(){
   try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
     if(!audioContext)audioContext=new AudioCtx();if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});
@@ -279,8 +364,12 @@ function triggerMotionCue(kind, msgEN, msgKO, t){
   // Event-driven: no fixed 30-second interval. Require a new persistent episode;
   // a short safety gap prevents overlapping speech or one noisy episode from repeatedly triggering.
   const styleCfg=getCoachStyleSettings();
+  const freq=$('coachFrequency')?.value||'normal';
+  styleCfg.cooldown=Math.round(styleCfg.cooldown*(freq==='less'?2:freq==='more'?.65:1));
   if(!running||alertActive||t-lastCueAt<styleCfg.cooldown)return;
   lastCueAt=t;alertActive=true;lastAlertKind=kind;
+  sessionCoachingEvents.push({at_seconds:sessionStart==null?0:Math.round((t-sessionStart)/1000),kind});
+  movementStats.cueCount++;if(kind==='device-tilt')movementStats.tiltCueCount++;if(kind==='rhythm')movementStats.rhythmCueCount++;
   const lang=$('voiceLanguage').value, msg=lang==='ko-KR'?msgKO:msgEN;
   $('currentCue').textContent=msg;$('liveCoachInfo').textContent=`Motion cue: ${msg}`;
   record('motion-alert',`${kind} | ${lang} | experimental`);
@@ -290,12 +379,14 @@ function triggerMotionCue(kind, msgEN, msgKO, t){
 }
 function clearMotionAlert(){alertActive=false;lastAlertKind='';irregularSince=0;tiltSince=0;}
 
-function visualReset(){tiltReference=null;lastTilt=null;swayEnergy=0;figure.classList.remove('isWalking');figure.style.setProperty('--body-lean','0deg');figure.style.setProperty('--side-shift','0px');$('tiltStat').textContent='—';$('swayStat').textContent='—';$('rhythmStat').textContent='Waiting';$('waveStatus').textContent='Waiting for signal';$('currentCue').textContent='Start walking to receive real-time motion feedback.';clearMotionAlert();}
+function visualReset(){tiltReference=null;lastTilt=null;swayEnergy=0;figure.classList.remove('isWalking');figure.style.setProperty('--body-lean','0deg');figure.style.setProperty('--side-shift','0px');$('tiltStat').textContent='—';$('swayStat').textContent='—';$('rhythmStat').textContent='Waiting';$('waveStatus').textContent='Waiting for signal';$('currentCue').textContent='No alert yet. Coaching activates only when sustained changes are detected.';clearMotionAlert();}
 function orientationHandler(e){
   if(!running||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;
   if(!tiltReference)tiltReference={beta:e.beta,gamma:e.gamma};
   const db=Math.max(-35,Math.min(35,e.beta-tiltReference.beta));
   lastTilt=db;
+  // Downsample to avoid weighting high-frequency orientation events excessively.
+  if(!movementStats.lastTiltSample || performance.now()-movementStats.lastTiltSample>250){movementStats.tiltSum+=Math.abs(db);movementStats.tiltSamples++;movementStats.lastTiltSample=performance.now();}
   $('tiltStat').textContent=`${db>0?'+':''}${db.toFixed(0)}° relative`;
   figure.style.setProperty('--body-lean',`${Math.max(-16,Math.min(16,db*.55))}deg`);
   // Phone orientation, not human posture. Alert only after sustained change while walking.
@@ -319,7 +410,7 @@ function draw(){
   ctx.clearRect(0,0,850,220);ctx.strokeStyle='#29323b';ctx.lineWidth=1;
   for(let y=40;y<220;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(850,y);ctx.stroke()}
   ctx.beginPath();values.forEach((v,i)=>{const x=i*850/(values.length-1), y=205-Math.min(6,v)*30;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});
-  ctx.strokeStyle='#c3ff60';ctx.lineWidth=3;ctx.stroke();
+  ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--lime').trim()||'#c3ff60';ctx.lineWidth=3;ctx.stroke();
 }
 draw();
 let availableVoices=[];
@@ -356,16 +447,27 @@ function updateRhythm(t){
   stepTimes=stepTimes.filter(s=>t-s<=16000);
   const intervals=[];
   for(let i=1;i<stepTimes.length;i++)intervals.push(stepTimes[i]-stepTimes[i-1]);
-  if(intervals.length<3){$('cadence').textContent='—';$('variation').textContent='—';return}
+  if(intervals.length<3){$('cadence').textContent='—';$('variation').textContent='—';if(running)$('currentCue').textContent='Collecting steps — voice alerts will activate if a sustained change is detected.';return}
   const mean=intervals.reduce((a,b)=>a+b,0)/intervals.length;
   const std=Math.sqrt(intervals.reduce((a,b)=>a+(b-mean)**2,0)/intervals.length);
   const cv=100*std/mean;
   $('cadence').textContent=(60000/mean).toFixed(0);
+  if(Number.isFinite(60000/mean)){
+    const sec=sessionStart==null?0:(t-sessionStart)/1000;
+    if(!cadenceSeries.length||sec-cadenceSeries[cadenceSeries.length-1].s>=3){
+      cadenceSeries.push({s:Math.round(sec),v:Math.round(60000/mean)});
+      if(cadenceSeries.length>MAX_TIMELINE)cadenceSeries.shift();
+      chartLine('liveRhythmChart',cadenceSeries.map(p=>p.v),'Steps/min');
+    }
+  }
+  snapshotAnalysis();
   $('variation').textContent=cv.toFixed(1);
+  movementStats.cvSum+=cv;movementStats.cvSamples++;
   $('rhythmStat').textContent=cv<15?'Steady':cv<25?'Variable':'Highly variable';
+  if(!alertActive && cv<15)$('currentCue').textContent='Steady movement detected. No alert needed.';
   figure.style.setProperty('--walk-speed',Math.max(.35,Math.min(1.15,mean/1000)).toFixed(2)+'s');
   const styleCfg=getCoachStyleSettings();
-  if(intervals.length>=5 && cv>styleCfg.rhythmThreshold){
+  if(intervals.length>=5 && cv>Math.min(60,Math.max(5,Number($('consistencyGoal')?.value)||styleCfg.rhythmThreshold))){
     if(!irregularSince)irregularSince=t;
     if(t-irregularSince>=styleCfg.persistence && !alertActive){
       triggerMotionCue('rhythm',
@@ -388,6 +490,7 @@ function sensorHandler(e){
   lastReceived=t;
   $('mag').textContent=filtered.toFixed(2);
   swayEnergy=.92*swayEnergy+.08*Math.abs(a.x);
+  if(!movementStats.lastSwaySample || t-movementStats.lastSwaySample>250){movementStats.swaySum+=swayEnergy;movementStats.swaySamples++;movementStats.lastSwaySample=t;}
   $('swayStat').textContent=swayEnergy<1.4?'Low*':swayEnergy<3.5?'Moderate*':'Elevated*';
   figure.style.setProperty('--side-shift',Math.max(-6,Math.min(6,a.x*.8)).toFixed(1)+'px');
   $('waveStatus').textContent='Sensor streaming';
@@ -417,12 +520,12 @@ async function startSensor(){
       const orientationPermission=typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function' ? DeviceOrientationEvent.requestPermission().catch(()=> 'denied') : Promise.resolve('unavailable');
       const p=await motionPermission;await orientationPermission;if(p!=='granted')throw Error('Motion sensor permission denied');
     }
-    unlockChime();visualReset();baseline=null;filtered=0;armed=true;lastStep=0;stepTimes=[];lastLiveCoach=0;lastEventAt=0;lastReceived=0;sessionSteps=0;motionRows.length=0;values.fill(0);
+    unlockChime();visualReset();resetMovementStats();cadenceSeries.length=0;sessionCoachingEvents.length=0;sessionGoalAnnounced=false;chartLine('liveRhythmChart',[],'Steps/min');baseline=null;filtered=0;armed=true;lastStep=0;stepTimes=[];lastLiveCoach=0;lastEventAt=0;lastReceived=0;sessionSteps=0;motionRows.length=0;values.fill(0);
     $('steps').textContent='0';$('cadence').textContent='—';$('variation').textContent='—';$('elapsed').textContent='0:00';$('mag').textContent='—';draw();
     sessionStart=performance.now();window.addEventListener('devicemotion',sensorHandler);window.addEventListener('deviceorientation',orientationHandler);running=true;
     $('start').disabled=true;$('stop').disabled=false;$('stopQuick').disabled=false;$('startQuick').disabled=true;$('topHint').textContent='Tracking in progress';$('status').textContent='Listening for motion data…';setLiveBadge('STARTING','waiting');record('system','Sensor started');
     tick=setInterval(()=>{
-      const elapsed=Math.floor((performance.now()-sessionStart)/1000);
+      const elapsed=Math.floor((performance.now()-sessionStart)/1000);snapshotAnalysis();checkWalkingGoal(elapsed);
       $('elapsed').textContent=`${Math.floor(elapsed/60)}:${String(elapsed%60).padStart(2,'0')}`;
       if(!lastReceived){$('status').textContent='Waiting for sensor data…';setLiveBadge('WAITING','waiting');}
       else if(performance.now()-lastReceived>3000){$('status').textContent='No recent sensor data; check browser and screen state.';setLiveBadge('NO SIGNAL','error');}
@@ -459,6 +562,7 @@ $('startWalkingHero').onclick=async()=>{
 };
 $('voiceLanguage').onchange=refreshVoices;
 $('coach').onclick=()=>{unlockChime();const lang=$('voiceLanguage').value;const msg=lang==='ko-KR'?'음성 코칭이 준비되었습니다.':'Your voice coach is ready.';$('message').textContent=msg;speak(msg,lang);};
+$('testAlert').onclick=()=>{unlockChime();const lang=$('voiceLanguage').value;playChime();$('message').textContent='Audio test only — not a sensor alert.';const m=lang==='ko-KR'?'음성 알림 테스트입니다.':'This is a test of your voice notification.';setTimeout(()=>speak(m,lang),420);};
 $('quiet').onclick=()=>{if('speechSynthesis' in window)speechSynthesis.cancel()};
 function downloadCsv(name,headers,rows){
   const esc=s=>'"'+String(s).replaceAll('"','""')+'"';
@@ -546,6 +650,7 @@ const accentMap={lime:'#c3ff60',blue:'#67c6ff',coral:'#ff8d6b',violet:'#b596ff'}
 function applyAccent(choice){
   const accent=accentMap[choice]||accentMap.lime;
   document.documentElement.style.setProperty('--lime',accent);
+  if(typeof draw==='function')draw();
   if($('accentChoice'))$('accentChoice').value=choice;
   try{localStorage.setItem(accentKey,choice)}catch(e){}
 }
@@ -587,11 +692,14 @@ $('saveProfile').onclick=async()=>{
  const goal=Math.max(1000,Math.min(50000,Number($('stepGoal').value)||6000));
  const accent=$('accentChoice').value||'lime';
  const coachStyle=$('coachStyle').value||'balanced';
+ const durationGoal=Math.max(1,Math.min(240,Number($('durationGoal').value)||15));
+ const consistencyGoal=Math.max(5,Math.min(60,Number($('consistencyGoal').value)||20));
+ const coachFrequency=$('coachFrequency').value||'normal';
  const appearance=$('themeChoice').value||'dark';
  if(!name||name.length>50){$('nameStatus').textContent='Enter a display name up to 50 characters.';return;}
  $('saveProfile').disabled=true;
  applyTheme(appearance);applyAccent(accent);
- const payload={display_name:name,profile_tag:tag||'walker',step_goal:goal,accent_color:accent,coach_style:coachStyle,appearance};
+ const payload={display_name:name,profile_tag:tag||'walker',step_goal:goal,accent_color:accent,coach_style:coachStyle,duration_goal:durationGoal,consistency_goal:consistencyGoal,coach_frequency:coachFrequency,appearance};
  const {data,error}=await db.auth.updateUser({data:payload});
  $('nameStatus').textContent=error?error.message:'Profile saved.';
  if(!error&&data?.user)activeUser=data.user;$('saveProfile').disabled=false;updateProfilePreview();
@@ -600,7 +708,28 @@ $('signOut').onclick=async()=>{
  if(running)return $('syncStatus').textContent='Stop tracking before signing out.';
  $('syncStatus').textContent='Signing out…';const {error}=await db.auth.signOut();if(error)$('syncStatus').textContent=error.message;
 };
+function renderMovementInsights(){
+ const v=savedHistory[0];
+ const set=(id,value)=>$(id).textContent=value;
+ if(!v){['insightRhythm','insightTilt','insightSway','insightCues'].forEach(id=>set(id,'Not measured'));set('insightDate','—');set('insightAdvice','Complete a new walk to see movement insights here.');return;}
+ set('insightDate',new Date(v.created_at).toLocaleDateString());
+ const cv=v.avg_rhythm_cv==null?null:Number(v.avg_rhythm_cv);
+ const tilt=v.avg_tilt_deg==null?null:Number(v.avg_tilt_deg);
+ const sway=v.avg_side_signal==null?null:Number(v.avg_side_signal);
+ set('insightRhythm',cv==null?'Not measured':cv<15?'Mostly steady':cv<25?'Some variation':'More variable');
+ set('insightTilt',tilt==null?'Not measured':`${tilt.toFixed(1)}° avg. change`);
+ set('insightSway',sway==null?'Not measured':sway<1.4?'Lower motion':sway<3.5?'Moderate motion':'Higher motion');
+ set('insightCues',v.coaching_alerts==null?'Not measured':String(v.coaching_alerts)+' alerts');
+ const notes=[];
+ if(cv!=null&&cv>=25)notes.push('Detected step timing varied during this walk. Consider comparing another walk at a similar pace.');
+ else if(cv!=null)notes.push('Detected step timing was relatively consistent in this session.');
+ if(tilt!=null&&tilt>15)notes.push('Phone orientation changed noticeably; first check that the phone stayed securely attached.');
+ if(sway!=null&&sway>=3.5)notes.push('Side-to-side phone movement was higher; phone placement can strongly affect this measure.');
+ if(!notes.length)notes.push('These movement insights are exploratory; no reliable posture or orthopedic diagnosis can be made from one phone.');
+ set('insightAdvice',notes.join(' '));
+}
 function renderSummary(){
+ renderMovementInsights();
  const data=savedHistory;const total=data.reduce((a,x)=>a+(Number(x.estimated_steps)||0),0);
  const seconds=data.reduce((a,x)=>a+(Number(x.duration_seconds)||0),0);
  const pace=data.map(x=>Number(x.estimated_cadence)).filter(x=>Number.isFinite(x)&&x>0);
@@ -618,22 +747,23 @@ function renderSummary(){
 function renderSessions(){
  const container=$('sessionHistory');container.replaceChildren();
  if(!savedHistory.length){renderSummary();const p=document.createElement('p');p.className='muted';p.textContent='No cloud sessions yet.';container.appendChild(p);return;}
- renderSummary();savedHistory.forEach(item=>{const row=document.createElement('div');row.className='savedSession';row.textContent=`${item.estimated_steps} estimated steps · ${item.duration_seconds}s · ${item.estimated_cadence??'—'} steps/min`;
- const small=document.createElement('small');small.textContent=new Date(item.created_at).toLocaleString()+' · research estimates, not clinically validated';row.appendChild(small);container.appendChild(row);});
+ renderSummary();refreshVisualHistory();savedHistory.forEach(item=>{const row=document.createElement('div');row.className='savedSession';row.textContent=`${new Date(item.created_at).toLocaleDateString()} · ${item.coaching_alerts==null?'No coaching history':item.coaching_alerts+' coaching alerts'} · ${item.avg_rhythm_cv==null?'No rhythm summary':Number(item.avg_rhythm_cv).toFixed(1)+'% rhythm variability'}`;
+ const small=document.createElement('small');small.textContent=new Date(item.created_at).toLocaleString()+' · research estimates, not clinically validated';row.appendChild(small);const ev=Array.isArray(item.coaching_events)?item.coaching_events:[];if(ev.length){const detail=document.createElement('small');detail.textContent=ev.slice(0,8).map(e=>`${e.kind} at ${e.at_seconds}s`).join(' · ');row.appendChild(detail);}container.appendChild(row);});
 }
 async function loadSessions(){
  if(!db||!activeUser)return;
  $('syncStatus').textContent='Loading sessions…';
- const {data,error}=await db.from('walking_sessions').select('id,created_at,estimated_steps,duration_seconds,estimated_cadence,rhythm_cv').order('created_at',{ascending:false}).limit(100);
- if(error){$('syncStatus').textContent='Could not load sessions: '+error.message;return}
- savedHistory=data||[];renderSessions();$('syncStatus').textContent='Your sessions are synced to your account.';
+ const {data,error}=await db.from('walking_sessions').select('id,created_at,estimated_steps,duration_seconds,estimated_cadence,rhythm_cv,avg_rhythm_cv,avg_tilt_deg,avg_side_signal,coaching_alerts,coaching_events,cadence_timeline').order('created_at',{ascending:false}).limit(100);
+ if(error){$('syncStatus').textContent='Could not load sessions: '+error.message+' — run the included migration.sql in Supabase first.';return}
+ savedHistory=data||[];renderSessions();refreshVisualHistory();$('syncStatus').textContent='Your sessions are synced to your account.';
 }
 async function saveCurrentSession(){
  if(!sessionStart||!db||!activeUser)return;
  const durationSeconds=Math.max(0,Math.round((performance.now()-sessionStart)/1000));
  if(durationSeconds<3)return;
  const numberOrNull=s=>Number.isFinite(Number(s))&&s!=='—'?Number(s):null;
- const entry={user_id:activeUser.id,estimated_steps:sessionSteps,duration_seconds:durationSeconds,estimated_cadence:numberOrNull($('cadence').textContent),rhythm_cv:numberOrNull($('variation').textContent)};
+ const mean=(sum,n)=>n?Math.round((sum/n)*100)/100:null;
+ const entry={user_id:activeUser.id,estimated_steps:sessionSteps,duration_seconds:durationSeconds,estimated_cadence:numberOrNull($('cadence').textContent),rhythm_cv:numberOrNull($('variation').textContent),avg_rhythm_cv:mean(movementStats.cvSum,movementStats.cvSamples),avg_tilt_deg:mean(movementStats.tiltSum,movementStats.tiltSamples),avg_side_signal:mean(movementStats.swaySum,movementStats.swaySamples),coaching_alerts:movementStats.cueCount,coaching_events:sessionCoachingEvents.slice(0,150),cadence_timeline:cadenceSeries.slice(0,MAX_TIMELINE)};
  $('syncStatus').textContent='Saving session…';
  const userAtSave=activeUser.id;
  sessionSavePromise=db.from('walking_sessions').insert(entry).then(({error})=>{
@@ -642,12 +772,12 @@ async function saveCurrentSession(){
  });
  await sessionSavePromise;
 }
-$('exportHistory').onclick=()=>downloadCsv('stride-cloud-sessions.csv','timestamp,estimated_steps,duration_seconds,estimated_cadence,rhythm_cv',savedHistory.map(x=>[x.created_at,x.estimated_steps,x.duration_seconds,x.estimated_cadence??'',x.rhythm_cv??'']));
+$('exportHistory').onclick=()=>downloadCsv('stride-cloud-sessions.csv','timestamp,estimated_steps,duration_seconds,estimated_cadence,rhythm_cv,avg_tilt_deg,avg_side_signal,coaching_alerts',savedHistory.map(x=>[x.created_at,x.estimated_steps,x.duration_seconds,x.estimated_cadence??'',x.rhythm_cv??'',x.avg_tilt_deg??'',x.avg_side_signal??'',x.coaching_alerts??'']));
 renderSessions();
 async function handleAuthSession(session){
  activeUser=session?.user||null;
  $('authGate').hidden=!!activeUser;
- if(activeUser){$('accountEmail').textContent=activeUser.email||'Signed-in account';const meta=activeUser.user_metadata||{};$('displayName').value=meta.display_name||'';$('profileTag').value=meta.profile_tag||'';$('stepGoal').value=meta.step_goal||6000;$('coachStyle').value=meta.coach_style||'balanced';applyAccent(meta.accent_color||localStorage.getItem(accentKey)||'lime');applyTheme(meta.appearance||localStorage.getItem(themeKey)||'dark');updateProfilePreview();await loadSessions();}
+ if(activeUser){$('accountEmail').textContent=activeUser.email||'Signed-in account';const meta=activeUser.user_metadata||{};$('displayName').value=meta.display_name||'';$('profileTag').value=meta.profile_tag||'';$('stepGoal').value=meta.step_goal||6000;$('coachStyle').value=meta.coach_style||'balanced';$('durationGoal').value=meta.duration_goal||15;$('consistencyGoal').value=meta.consistency_goal||20;$('coachFrequency').value=meta.coach_frequency||'normal';applyAccent(meta.accent_color||localStorage.getItem(accentKey)||'lime');applyTheme(meta.appearance||localStorage.getItem(themeKey)||'dark');updateProfilePreview();await loadSessions();}
  else{savedHistory=[];renderSessions();$('accountEmail').textContent='Not signed in';$('displayName').value='';$('profileTag').value='';$('stepGoal').value=6000;$('coachStyle').value='balanced';updateProfilePreview();selectTab('home');}
 }
 if(!db){authMessage('Setup required: enter your Supabase URL and publishable/anon key in config.js, and run setup.sql.');}
@@ -661,5 +791,79 @@ else{
  });
  db.auth.getSession().then(({data,error})=>{if(error)authMessage(error.message);else handleAuthSession(data.session)});
 }
+
+// v2.4 research visualizations. No synthetic values ever enter live charts or cloud history.
+const cadenceSeries=[];
+const sessionCoachingEvents=[];
+let sessionGoalAnnounced=false;
+const MAX_TIMELINE=120;
+function chartLine(id, input, ylabel=''){
+ const svg=$(id);if(!svg)return;
+ svg.replaceChildren();
+ const NS='http://www.w3.org/2000/svg';
+ const make=(name,attrs,text)=>{const n=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text!=null)n.textContent=text;svg.appendChild(n);return n};
+ const values=input.map(x=>x==null||x===''?NaN:Number(x)).filter(Number.isFinite);
+ if(!values.length){make('text',{x:300,y:92,'text-anchor':'middle',fill:'currentColor','font-size':16},'No measured sessions yet');return}
+ const lo=Math.min(...values),hi=Math.max(...values),diff=Math.max(1,hi-lo);
+ [35,85,135].forEach(y=>make('line',{x1:42,x2:580,y1:y,y2:y,stroke:'currentColor','stroke-opacity':'.15'}));
+ make('text',{x:42,y:18,fill:'currentColor','font-size':12},ylabel);
+ const pts=values.map((v,i)=>[42+(values.length===1?.5:i/(values.length-1))*538,151-(v-lo)/diff*112]);
+ make('polyline',{points:pts.map(p=>p.join(',')).join(' '),fill:'none',stroke:'var(--lime)','stroke-width':4,'stroke-linejoin':'round','stroke-linecap':'round'});
+ pts.forEach(([x,y])=>make('circle',{cx:x,cy:y,r:3.6,fill:'var(--lime)'}));
+ make('text',{x:580,y:172,'text-anchor':'end',fill:'currentColor','font-size':11},`${values.length} sample${values.length===1?'':'s'}`);
+}
+function snapshotAnalysis(){
+ if(!$('aSteps'))return;
+ $('aSteps').textContent=$('steps').textContent;
+ $('aPace').textContent=$('cadence').textContent==='—'?'—':$('cadence').textContent+' /min';
+ $('aConsistency').textContent=$('variation').textContent==='—'?'—':$('variation').textContent+'% var.';
+ $('aDuration').textContent=$('elapsed').textContent;
+ $('aTilt').textContent=$('tiltStat').textContent;
+ $('aSway').textContent=$('swayStat').textContent;
+}
+function refreshVisualHistory(){
+ const sessions=savedHistory.slice().reverse();
+ chartLine('historyPaceChart',sessions.map(s=>s.estimated_cadence), 'Steps/min');
+ chartLine('historyRhythmChart',sessions.map(s=>s.avg_rhythm_cv??s.rhythm_cv),'Step interval CV%');
+ chartLine('historyDurationChart',sessions.map(s=>s.duration_seconds==null?null:Number(s.duration_seconds)/60),'Minutes');
+ chartLine('sessionRhythmChart',sessions.map(s=>s.avg_rhythm_cv??s.rhythm_cv),'CV%');
+}
+function updateSimulation(mode){
+ document.querySelectorAll('.pressureBtn').forEach(b=>b.classList.toggle('selected',b.dataset.pressure===mode));
+ const l=$('soleLeft'),r=$('soleRight');l.classList.remove('more','less');r.classList.remove('more','less');
+ if(mode==='left'){l.classList.add('more');r.classList.add('less')}
+ if(mode==='right'){r.classList.add('more');l.classList.add('less')}
+ $('pressureCaption').textContent={balanced:'Illustrative balanced loading. No pressure data was measured.',left:'SIMULATED left-side loading. This is not a sensor result.',right:'SIMULATED right-side loading. This is not a sensor result.'}[mode];
+}
+document.querySelectorAll('.pressureBtn').forEach(b=>b.addEventListener('click',()=>updateSimulation(b.dataset.pressure)));
+const components={
+ insole:['Sensor-integrated insole','Proposed removable layer housing electronics underneath the foot while preserving everyday cushioning.'],
+ pressure:['Pressure sensor matrix','Future flexible sensors might sample loads at defined foot locations. Calibration is required; these sensors are not yet connected.'],
+ accelerometer:['Accelerometer','A proposed shoe-based sensor could track acceleration during steps; placement and validation matter.'],
+ gyro:['Gyroscope','A proposed rotational-motion sensor could help estimate shoe orientation, not independently diagnose spinal alignment.'],
+ ble:['Bluetooth Low Energy module','A future BLE transmitter could relay shoe sensor values to a supported mobile app or receiver.'],
+ power:['Battery & electronics','A protected power source, signal processing and safe enclosure are required; energy harvesting remains a research goal.']};
+document.querySelectorAll('.componentButton').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.componentButton').forEach(x=>x.classList.toggle('selected',x===b));
+ const entry=components[b.dataset.component];$('componentDetail').replaceChildren();const strong=document.createElement('strong'),p=document.createElement('p');strong.textContent=entry[0];p.textContent=entry[1];$('componentDetail').append(strong,p);
+}));
+
+function checkWalkingGoal(elapsed){
+ if(sessionGoalAnnounced||!running)return;
+ const goalMin=Math.min(240,Math.max(1,Number($('durationGoal')?.value)||15));
+ const goalSteps=Math.min(50000,Math.max(1000,Number($('stepGoal')?.value)||6000));
+ if(elapsed>=goalMin*60||sessionSteps>=goalSteps){
+  sessionGoalAnnounced=true;
+  const ko=$('voiceLanguage').value==='ko-KR';
+  const msg=ko?'설정한 걷기 목표에 도달했습니다. 수고하셨어요!':'You have reached your walking goal. Nice work!';
+  sessionCoachingEvents.push({at_seconds:elapsed,kind:'goal'});
+  $('currentCue').textContent=msg;record('goal-reached','User-defined duration or step goal');playChime();
+  setTimeout(()=>{if(running)speak(msg,$('voiceLanguage').value)},420);
+ }
+}
+const oldSelectTab=selectTab;
+// The original tab controller remains authoritative; the two new panels use the same data-tab contract.
+const oldRenderSessions=renderSessions;
+// We update graphs at the end of loadSessions rather than manufacturing progress data.
 </script>
 </body></html>
