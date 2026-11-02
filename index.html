@@ -65,7 +65,24 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 .visualTitle{color:#c3ff60;font-weight:800;font-size:12px;letter-spacing:.7px}.visualSub{color:#acb7b0;font-size:11px;margin:6px 0 13px}.motionStat{display:flex;justify-content:space-between;gap:8px;margin:8px 0;font-size:12px}.motionStat span{color:#9ba8a4}.motionStat strong{font-size:12px}.liveWave{background:#151c1c;border:1px solid #354638;border-radius:20px;padding:15px;margin-bottom:12px}.waveHead{display:flex;justify-content:space-between;color:#d9e3dc;font-size:12px;margin-bottom:10px}.liveWave canvas{height:160px;background:#0d1413;border-radius:12px}
 .settingGroup{display:grid;gap:12px}.settingGroup label{display:block;margin-top:2px}.voiceBox{background:#1b2125;border:1px solid #303a40;padding:14px;border-radius:14px}
 @media(max-width:390px){.motionVisual{grid-template-columns:120px 1fr;padding:12px;gap:8px}.walkFigure{width:110px}.motionStat{font-size:11px}}
-@media(prefers-reduced-motion:reduce){.walkFigure *{animation:none!important}}
+
+/* v1.7: visible gait motion and mandatory event-driven coaching */
+.motionVisual{grid-template-columns:minmax(140px,1fr) 1fr;min-height:238px}
+.walkFigure{width:min(100%,190px);height:205px;filter:drop-shadow(0 0 16px #c3ff6025)}
+.walkBody{transform-origin:72px 78px}
+.walkFigure.isWalking{animation:walkerBounce var(--walk-speed) ease-in-out infinite alternate}
+.walkFigure.stepHit{filter:drop-shadow(0 0 22px #c3ff6088)}
+.walkFigure.stepHit .walkBody{stroke:#efffcb}
+.legLeft,.legRight{animation-timing-function:cubic-bezier(.45,0,.55,1)}
+@keyframes strideLeg{from{transform:rotate(-37deg)}to{transform:rotate(37deg)}}
+@keyframes strideArm{from{transform:rotate(33deg)}to{transform:rotate(-33deg)}}
+@keyframes walkerBounce{from{translate:0 0}to{translate:0 -10px}}
+.alwaysCoach{display:flex;align-items:center;gap:11px}.alwaysCoach strong{font-size:13px}.alwaysCoach small{display:block;color:#9ca9a2;font-size:11px;margin-top:3px}
+.alwaysOn{margin-left:auto;color:var(--lime);font-size:11px;font-weight:800}
+.soundGlyph{width:35px;height:35px;display:grid;place-items:center;background:#29391c;border-radius:12px;color:var(--lime);font-size:22px;flex:none}
+.alertMessage{border-radius:15px;padding:12px 14px;border:1px solid #3d4b35;background:#1d271c;color:#e7f9da;margin:0 0 12px;font-size:13px}
+@media(max-width:390px){.motionVisual{grid-template-columns:140px 1fr}.walkFigure{width:135px}}
+@media(prefers-reduced-motion:reduce){.walkFigure,.walkFigure *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -113,12 +130,12 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
       <div class="liveWave"><div class="waveHead"><strong>LIVE MOTION</strong><span id="waveStatus">Waiting for signal</span></div>
         <canvas id="plot" width="850" height="220" aria-label="Recent movement signal chart"></canvas>
       </div>
+      <div class="alertMessage" id="currentCue" role="status" aria-live="polite">Start walking to receive real-time motion feedback.</div>
       <div class="sessionActions"><button id="start">Start Tracking</button><button id="stop" class="alt" disabled>Stop</button></div>
       <div id="status" class="status" aria-live="polite">Ready · Sensor not running</div>
       <div class="coachControl">
-        <label><input type="checkbox" id="liveCoach" style="width:20px;height:20px"><span class="muted">Live voice coaching</span></label>
-        <small>Experimental rhythm alerts, at most once every 30 seconds.</small>
-        <p id="liveCoachInfo" class="muted" style="margin:8px 0 0;font-size:11px">Voice and language settings are in Settings.</p>
+        <div class="alwaysCoach"><span class="soundGlyph">♫</span><span><strong>Voice coaching is on</strong><small>Chime + bilingual voice cue whenever a persistent motion alert is detected.</small></span><span class="alwaysOn">ON</span></div>
+        <p id="liveCoachInfo" class="muted" style="margin:8px 0 0;font-size:11px">Voice and language settings are in Settings. Alerts concern motion patterns, not medical posture assessment.</p>
       </div>
       <details class="advanced">
         <summary>Advanced data &amp; tools</summary>
@@ -168,15 +185,52 @@ const values = Array(130).fill(0), events = [], motionRows = [];
 let running=false, baseline=null, filtered=0, armed=true, lastStep=0, stepTimes=[], sessionStart=null, lastReceived=0, lastLiveCoach=0, lastEventAt=0, tick=null, sessionSteps=0;
 const MAX_ROWS=18000;
 const figure=$('walkFigure');
-let tiltReference=null, lastTilt=null, swayEnergy=0;
-function visualReset(){tiltReference=null;lastTilt=null;swayEnergy=0;figure.classList.remove('isWalking');figure.style.setProperty('--body-lean','0deg');figure.style.setProperty('--side-shift','0px');$('tiltStat').textContent='—';$('swayStat').textContent='—';$('rhythmStat').textContent='Waiting';$('waveStatus').textContent='Waiting for signal';}
+let tiltReference=null, lastTilt=null, swayEnergy=0, lastAlertKind='', alertClearAt=0, irregularSince=0, tiltSince=0, stepFlashTimer=null;
+let audioContext=null, lastCueAt=-Infinity, alertActive=false;
+function unlockChime(){
+  try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
+    if(!audioContext)audioContext=new AudioCtx();if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});
+  }catch(e){}
+}
+function playChime(){
+  if(!audioContext)return;
+  try{const now=audioContext.currentTime;
+    [660,880].forEach((hz,i)=>{const osc=audioContext.createOscillator(),gain=audioContext.createGain(),start=now+i*.13;
+      osc.type='sine';osc.frequency.value=hz;gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(.13,start+.012);
+      gain.gain.exponentialRampToValueAtTime(.0001,start+.19);osc.connect(gain);gain.connect(audioContext.destination);osc.start(start);osc.stop(start+.20);
+    });
+  }catch(e){}
+}
+function triggerMotionCue(kind, msgEN, msgKO, t){
+  // Event-driven: no fixed 30-second interval. Require a new persistent episode;
+  // a short safety gap prevents overlapping speech or one noisy episode from repeatedly triggering.
+  if(!running||alertActive||t-lastCueAt<6500)return;
+  lastCueAt=t;alertActive=true;lastAlertKind=kind;
+  const lang=$('voiceLanguage').value, msg=lang==='ko-KR'?msgKO:msgEN;
+  $('currentCue').textContent=msg;$('liveCoachInfo').textContent=`Motion cue: ${msg}`;
+  record('motion-alert',`${kind} | ${lang} | experimental`);
+  playChime();
+  // Wait for the two-note signal to finish before speaking.
+  setTimeout(()=>{if(running)speak(msg,lang);},420);
+}
+function clearMotionAlert(){alertActive=false;lastAlertKind='';irregularSince=0;tiltSince=0;}
+
+function visualReset(){tiltReference=null;lastTilt=null;swayEnergy=0;figure.classList.remove('isWalking');figure.style.setProperty('--body-lean','0deg');figure.style.setProperty('--side-shift','0px');$('tiltStat').textContent='—';$('swayStat').textContent='—';$('rhythmStat').textContent='Waiting';$('waveStatus').textContent='Waiting for signal';$('currentCue').textContent='Start walking to receive real-time motion feedback.';clearMotionAlert();}
 function orientationHandler(e){
   if(!running||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;
   if(!tiltReference)tiltReference={beta:e.beta,gamma:e.gamma};
   const db=Math.max(-35,Math.min(35,e.beta-tiltReference.beta));
   lastTilt=db;
   $('tiltStat').textContent=`${db>0?'+':''}${db.toFixed(0)}° relative`;
-  figure.style.setProperty('--body-lean',`${Math.max(-12,Math.min(12,db*.35))}deg`);
+  figure.style.setProperty('--body-lean',`${Math.max(-16,Math.min(16,db*.55))}deg`);
+  // Phone orientation, not human posture. Alert only after sustained change while walking.
+  const t=performance.now();
+  if(Math.abs(db)>19 && t-lastStep<2000){
+    if(!tiltSince)tiltSince=t;
+    if(t-tiltSince>2300 && !alertActive)triggerMotionCue('device-tilt',
+      'Your phone orientation has shifted. If safe, check that your device is secured.',
+      '휴대전화 기울기가 변했습니다. 안전한 상황에서 휴대전화가 잘 고정되었는지 확인해 주세요.',t);
+  }else{tiltSince=0;if(lastAlertKind==='device-tilt'&&Math.abs(db)<11)clearMotionAlert();}
 }
 
 function record(type, detail){
@@ -234,11 +288,16 @@ function updateRhythm(t){
   $('variation').textContent=cv.toFixed(1);
   $('rhythmStat').textContent=cv<15?'Steady':cv<25?'Variable':'Highly variable';
   figure.style.setProperty('--walk-speed',Math.max(.35,Math.min(1.15,mean/1000)).toFixed(2)+'s');
-  if($('liveCoach').checked && intervals.length>=6 && cv>25 && t-lastLiveCoach>30000 && t-(sessionStart||t)>10000){
-    const lang=$('voiceLanguage').value;
-    const msg=lang==='ko-KR'?'걸음 간격이 불규칙하게 추정됩니다. 안전한 장소에서 편안한 속도로 걸어보세요.':'Your step timing appears variable. If it is safe, try walking at a comfortable, steady pace.';
-    $('liveCoachInfo').textContent='Experimental live cue: '+msg;
-    speak(msg,lang);lastLiveCoach=t;record('live-coaching',`rhythm variability ${cv.toFixed(1)}% | ${lang}`);
+  if(intervals.length>=5 && cv>25){
+    if(!irregularSince)irregularSince=t;
+    if(t-irregularSince>=1200 && !alertActive){
+      triggerMotionCue('rhythm',
+        'Your walking rhythm seems irregular. If safe, return to a comfortable, steady pace.',
+        '걸음 리듬이 불규칙하게 추정됩니다. 안전하다면 편안하고 일정한 속도로 걸어보세요.',t);
+    }
+  }else if(cv<19){
+    irregularSince=0;
+    if(lastAlertKind==='rhythm')clearMotionAlert();
   }
 }
 function sensorHandler(e){
@@ -260,13 +319,13 @@ function sensorHandler(e){
   if(filtered<.55)armed=true;
   if(armed&&filtered>1.05&&t-lastStep>340){
     armed=false;lastStep=t;sessionSteps++;stepTimes.push(t);
-    $('steps').textContent=String(sessionSteps);figure.classList.add('isWalking');updateRhythm(t);
+    $('steps').textContent=String(sessionSteps);figure.classList.add('isWalking');figure.classList.remove('stepHit');void figure.getBoundingClientRect();figure.classList.add('stepHit');clearTimeout(stepFlashTimer);stepFlashTimer=setTimeout(()=>figure.classList.remove('stepHit'),220);updateRhythm(t);
     if(t-lastEventAt>5500){record('sensor','Candidate step event detected');lastEventAt=t}
   }
 }
 function setLiveBadge(text,state){const b=$('liveBadge');b.textContent=text;b.className='liveIndicator'+(state?' '+state:'');}
 function stopSensor(){
-  window.removeEventListener('devicemotion',sensorHandler);window.removeEventListener('deviceorientation',orientationHandler);figure.classList.remove('isWalking');running=false;clearInterval(tick);tick=null;
+  window.removeEventListener('devicemotion',sensorHandler);window.removeEventListener('deviceorientation',orientationHandler);figure.classList.remove('isWalking');running=false;clearMotionAlert();if('speechSynthesis' in window)speechSynthesis.cancel();clearInterval(tick);tick=null;
   $('start').disabled=false;$('stop').disabled=true;
   $('status').textContent='Tracking stopped · data retained for export';setLiveBadge('STOPPED','waiting');record('system','Sensor stopped');
 }
@@ -279,7 +338,7 @@ async function startSensor(){
       const orientationPermission=typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function' ? DeviceOrientationEvent.requestPermission().catch(()=> 'denied') : Promise.resolve('unavailable');
       const p=await motionPermission;await orientationPermission;if(p!=='granted')throw Error('Motion sensor permission denied');
     }
-    visualReset();baseline=null;filtered=0;armed=true;lastStep=0;stepTimes=[];lastLiveCoach=0;lastEventAt=0;lastReceived=0;sessionSteps=0;motionRows.length=0;values.fill(0);
+    unlockChime();visualReset();baseline=null;filtered=0;armed=true;lastStep=0;stepTimes=[];lastLiveCoach=0;lastEventAt=0;lastReceived=0;sessionSteps=0;motionRows.length=0;values.fill(0);
     $('steps').textContent='0';$('cadence').textContent='—';$('variation').textContent='—';$('elapsed').textContent='0:00';$('mag').textContent='—';draw();
     sessionStart=performance.now();window.addEventListener('devicemotion',sensorHandler);window.addEventListener('deviceorientation',orientationHandler);running=true;
     $('start').disabled=true;$('stop').disabled=false;$('status').textContent='Listening for motion data…';setLiveBadge('STARTING','waiting');record('system','Sensor started');
@@ -294,7 +353,7 @@ async function startSensor(){
     return true;
   }catch(err){$('status').textContent='Could not start sensor: '+err.message;setLiveBadge('ERROR','error');return false}
 }
-$('start').onclick=startSensor;
+$('start').onclick=()=>{unlockChime();startSensor();};
 $('stop').onclick=stopSensor;
 $('reset').onclick=()=>{
   if(running)stopSensor();visualReset();stepTimes=[];baseline=null;filtered=0;lastStep=0;armed=true;sessionSteps=0;sessionStart=null;lastReceived=0;motionRows.length=0;values.fill(0);
@@ -311,6 +370,7 @@ function selectTab(name){
 }
 document.querySelectorAll('.navItem').forEach(button=>button.addEventListener('click',()=>selectTab(button.dataset.target)));
 $('startWalkingHero').onclick=async()=>{
+  unlockChime();
   // Call directly within the tap handler so iOS motion-permission prompts remain available.
   selectTab('live');
   await startSensor();
@@ -321,7 +381,7 @@ const scripts={
 };
 function updatePreview(){$('message').textContent=scripts[$('voiceLanguage').value][$('scenario').value]}
 $('voiceLanguage').onchange=()=>{updatePreview();refreshVoices()};$('scenario').onchange=updatePreview;
-$('coach').onclick=()=>{const lang=$('voiceLanguage').value,key=$('scenario').value,msg=scripts[lang][key];$('message').textContent=msg;record('simulation',`${key} | ${lang}`);if(!speak(msg,lang))$('message').textContent+=' (Speech unavailable in this browser.)'};
+$('coach').onclick=()=>{unlockChime();const lang=$('voiceLanguage').value,key=$('scenario').value,msg=scripts[lang][key];$('message').textContent=msg;record('simulation',`${key} | ${lang}`);if(!speak(msg,lang))$('message').textContent+=' (Speech unavailable in this browser.)'};
 $('quiet').onclick=()=>{if('speechSynthesis' in window)speechSynthesis.cancel()};updatePreview();
 function downloadCsv(name,headers,rows){
   const esc=s=>'"'+String(s).replaceAll('"','""')+'"';
