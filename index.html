@@ -83,6 +83,19 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 .alertMessage{border-radius:15px;padding:12px 14px;border:1px solid #3d4b35;background:#1d271c;color:#e7f9da;margin:0 0 12px;font-size:13px}
 @media(max-width:390px){.motionVisual{grid-template-columns:140px 1fr}.walkFigure{width:135px}}
 @media(prefers-reduced-motion:reduce){.walkFigure,.walkFigure *{animation:none!important}}
+
+/* v1.8 — true articulated gait illustration, independently animated knees and feet */
+.walkFigure.isWalking{animation:none!important}
+.walkBody{transform-origin:72px 89px;transition:none}
+.walkFigure path[id^="walkLeg"],.walkFigure path[id^="walkArm"]{animation:none!important;transition:none}
+.walkFigure{height:210px}
+.accountCard{background:#1a2220;border:1px solid #34463b;border-radius:17px;padding:15px;margin-bottom:13px}
+.accountCard input{display:block;width:100%;background:#101619;color:#fff;border:1px solid #46534b;border-radius:10px;padding:12px;margin:10px 0}
+.savedSession{border-bottom:1px solid #354039;padding:10px 0;font-size:13px;color:#d9e5dc}
+.savedSession small{display:block;color:#9dac9d}
+
+.authGate{position:fixed;inset:0;z-index:200;background:#0b0d10;display:flex;align-items:center;justify-content:center;overflow:auto;padding:22px 18px env(safe-area-inset-bottom)}
+.authGate[hidden]{display:none!important}.authBox{width:min(100%,420px);background:#171b20;border:1px solid #30363d;border-radius:24px;padding:24px;box-shadow:0 22px 80px #0008}.authLogo{font-size:38px;font-weight:900;letter-spacing:5px;text-align:center;margin-bottom:20px}.authBox h2{text-align:center}.authBox>p{text-align:center}.authSwitch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:22px 0}.authSwitch button{background:#30363d;color:#fff;margin:0}.authSwitch button.authActive{background:var(--lime);color:#101410}.authBox label{display:block;color:#cbd1d7;font-size:13px;margin:13px 0 6px}.authBox input{width:100%;background:#262e34;border:1px solid #505961;border-radius:10px;color:white;font:inherit;padding:12px}.authBox .authSubmit{width:100%;margin:19px 0 4px}.authBox .authLink{background:transparent;color:#c3ff60;display:block;margin:10px auto;font-size:13px}#passwordResetPanel[hidden]{display:none}.authBox #authStatus{min-height:24px;color:#c3ff60}.accountCard{border-radius:14px;border:1px solid #30363d;padding:14px;margin-bottom:20px}
 </style>
 </head>
 <body>
@@ -112,14 +125,15 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
       </div>
 
       <div class="motionVisual" aria-label="Illustrative animated walker driven by estimated cadence; not full-body pose tracking">
-        <svg id="walkFigure" class="walkFigure" viewBox="0 0 145 170" role="img" aria-label="Animated walking figure based on detected step rhythm">
-          <ellipse cx="72" cy="154" rx="39" ry="5" fill="#314b34" opacity=".5"/>
-          <g class="walkBody" stroke="#c3ff60" stroke-width="6" stroke-linecap="round" fill="none">
-            <circle cx="72" cy="35" r="15" fill="#263a25" stroke="#d3ffa0" stroke-width="4"/>
-            <path d="M72 53 L72 87" stroke="#d3ffa0" stroke-width="7"/>
-            <g class="armLeft"><path d="M72 59 L49 90"/></g><g class="armRight"><path d="M72 59 L95 88"/></g>
-            <g class="legLeft"><path d="M72 88 L51 133 L41 143" stroke-width="7"/></g>
-            <g class="legRight"><path d="M72 88 L93 133 L104 142" stroke-width="7"/></g>
+        <svg id="walkFigure" class="walkFigure" viewBox="0 0 145 170" role="img" aria-label="Animated walking figure with independently moving arms, knees, and legs driven by detected steps">
+          <ellipse cx="72" cy="156" rx="37" ry="5" fill="#314b34" opacity=".5"/>
+          <g class="walkBody" fill="none" stroke="#c3ff60" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="72" cy="29" r="13" fill="#263a25" stroke="#d3ffa0" stroke-width="4"/>
+            <path d="M72 44 L72 89" stroke="#d3ffa0" stroke-width="7"/>
+            <path id="walkArmLeft" d="M72 52 L55 75 L45 89" stroke-width="6"/>
+            <path id="walkArmRight" d="M72 52 L88 75 L98 89" stroke-width="6"/>
+            <path id="walkLegLeft" d="M72 89 L59 121 L48 150" stroke-width="8"/>
+            <path id="walkLegRight" d="M72 89 L85 121 L96 150" stroke-width="8"/>
           </g>
         </svg>
         <div><div class="visualTitle">MOTION VIEW</div><div class="visualSub">Illustrative gait animation</div>
@@ -149,10 +163,7 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
   </div>
 </section>
     <section class="card tab-panel" data-tab="settings" id="coachPanel" hidden>
-      <h2>Settings</h2><p class="muted">Voice preferences and research simulation controls.</p><h2 style="margin-top:20px">Coaching Simulation <span class="pill">SIMULATION</span></h2>
-      <p class="muted">These scenarios are manually selected, not detected by the sensors. They are intended for Wizard-of-Oz UX research.</p>
-      <label for="scenario" class="muted">Choose a simulated gait condition</label>
-      <select id="scenario"><option value="steady">Stable walking rhythm</option><option value="uneven">Irregular walking rhythm</option><option value="right">Right-foot loading (simulated)</option><option value="posture">Forward trunk lean (simulated)</option></select>
+      <h2>Settings</h2><p class="muted">Choose your coaching language, device voice, and speaking speed.</p>
       <label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label>
       <select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select>
       <label for="voiceChoice" class="muted" style="display:block;margin-top:14px">Available voice</label>
@@ -160,17 +171,41 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
       <label for="voiceRate" class="muted" style="display:block;margin-top:14px">Speaking speed: <span id="rateValue">0.95×</span></label>
       <input id="voiceRate" type="range" min="0.75" max="1.15" step="0.05" value="0.95">
       <p id="voiceStatus" class="muted" aria-live="polite">Loading device voices…</p>
-      <button id="coach">Play Voice Coaching</button><button id="quiet" class="alt">Stop Voice</button>
-      <p id="message" style="color:#fff;min-height:44px">Your coaching message will appear here.</p>
+      <button id="coach">Test Coaching Voice</button><button id="quiet" class="alt">Stop Voice</button>
+      <p id="message" style="color:#fff;min-height:30px">Voice settings apply to automatic walking alerts.</p>
     </section>
 
     <section class="card tab-panel" data-tab="sessions" id="sessionsPanel" hidden>
-      <h2>03 / Session Notes</h2>
+      <h2>My Sessions</h2>
+      <div class="accountCard"><strong>Signed-in account</strong>
+      <p id="accountEmail" class="muted">Checking session…</p>
+      <button id="signOut" class="alt">Sign Out</button>
+      <p id="syncStatus" class="muted" role="status" aria-live="polite">Sessions are stored in your account.</p></div>
+      <h2>Cloud walking sessions</h2><div id="sessionHistory"><p class="muted">No saved sessions yet.</p></div>
+      <button id="exportHistory" class="alt">Export Saved Sessions CSV</button>
+      <h2 style="margin-top:20px">Event Notes</h2>
       <p class="muted">Compare coaching messages and export recorded events. Data stays in this browser until you choose to export it.</p>
       <button id="csv" class="alt">Export Event CSV</button><button id="clear" class="alt">Clear Log</button>
       <div id="log" class="log" aria-live="polite"><div>No events recorded yet.</div></div>
     </section>
 
+<section id="authGate" class="authGate" aria-labelledby="authTitle">
+  <div class="authBox">
+    <div class="authLogo">STRIDE<span style="color:var(--lime)">.</span></div>
+    <h2 id="authTitle">Welcome to STRIDE</h2>
+    <p class="muted">Sign in to save your walking sessions securely across devices.</p>
+    <div class="authSwitch"><button id="modeSignIn" type="button" class="authActive">Sign In</button><button id="modeSignUp" type="button">Create Account</button></div>
+    <form id="authForm" autocomplete="on">
+      <label for="authEmail">Email address</label><input id="authEmail" type="email" required autocomplete="email" placeholder="you@example.com" />
+      <label for="authPassword">Password</label><input id="authPassword" type="password" minlength="8" required autocomplete="current-password" placeholder="At least 8 characters" />
+      <button id="authSubmit" type="submit" class="authSubmit">Sign In</button>
+    </form>
+    <button id="forgotPassword" type="button" class="authLink">Forgot password?</button>
+    <div id="passwordResetPanel" hidden><p class="muted">Password reset link opened? Enter a new password below.</p><input id="newPassword" type="password" minlength="8" placeholder="New password (8+ characters)"/><button id="saveNewPassword" type="button">Update Password</button></div>
+    <p id="authStatus" class="muted" role="status" aria-live="polite"></p>
+    <p class="muted" style="font-size:11px">Research prototype · Experimental motion estimates, not medical assessments. Do not upload medical diagnoses or identifying notes.</p>
+  </div>
+</section>
 <nav class="bottomNav" aria-label="Main navigation">
   <button type="button" class="navItem active" data-target="home" aria-label="Home" aria-current="page"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Home</span></button>
   <button type="button" class="navItem" data-target="live" aria-label="Live tracking"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg><span>Live</span></button>
@@ -178,6 +213,8 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
   <button type="button" class="navItem" data-target="sessions" aria-label="Sessions"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Sessions</span></button>
 </nav>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 const graph = $('plot'), ctx = graph.getContext('2d');
@@ -325,11 +362,13 @@ function sensorHandler(e){
 }
 function setLiveBadge(text,state){const b=$('liveBadge');b.textContent=text;b.className='liveIndicator'+(state?' '+state:'');}
 function stopSensor(){
+  if(running)saveCurrentSession();
   window.removeEventListener('devicemotion',sensorHandler);window.removeEventListener('deviceorientation',orientationHandler);figure.classList.remove('isWalking');running=false;clearMotionAlert();if('speechSynthesis' in window)speechSynthesis.cancel();clearInterval(tick);tick=null;
   $('start').disabled=false;$('stop').disabled=true;
   $('status').textContent='Tracking stopped · data retained for export';setLiveBadge('STOPPED','waiting');record('system','Sensor stopped');
 }
 async function startSensor(){
+  if(!activeUser){$('authGate').hidden=false;return false;}
   if(running)return true;
   if(!('DeviceMotionEvent' in window)){$('status').textContent='Motion sensors unavailable in this browser.';setLiveBadge('UNAVAILABLE','error');return false}
   try{
@@ -375,14 +414,9 @@ $('startWalkingHero').onclick=async()=>{
   selectTab('live');
   await startSensor();
 };
-const scripts={
-  'en-US':{steady:'Your walking rhythm appears steady in this simulation.',uneven:'Simulated irregular rhythm. Stay aware of your surroundings and try walking at a comfortable, consistent pace.',right:'Simulation only: Increased right-foot loading is shown. This is not a measured imbalance or diagnosis.',posture:'Simulation only: Forward trunk lean is shown. This is not a measured posture assessment.'},
-  'ko-KR':{steady:'시뮬레이션에서 안정적인 보행 리듬이 표시되었습니다.',uneven:'가상 상황에서 보행 리듬이 불규칙하게 나타났습니다. 주변을 살피며 편안하고 일정한 속도로 걸어보세요.',right:'시뮬레이션 전용: 오른발 하중 집중 상황이 표시되었습니다. 실제 측정이나 진단 결과는 아닙니다.',posture:'시뮬레이션 전용: 상체 전방 기울임이 표시되었습니다. 실제 자세 측정이나 진단 결과는 아닙니다.'}
-};
-function updatePreview(){$('message').textContent=scripts[$('voiceLanguage').value][$('scenario').value]}
-$('voiceLanguage').onchange=()=>{updatePreview();refreshVoices()};$('scenario').onchange=updatePreview;
-$('coach').onclick=()=>{unlockChime();const lang=$('voiceLanguage').value,key=$('scenario').value,msg=scripts[lang][key];$('message').textContent=msg;record('simulation',`${key} | ${lang}`);if(!speak(msg,lang))$('message').textContent+=' (Speech unavailable in this browser.)'};
-$('quiet').onclick=()=>{if('speechSynthesis' in window)speechSynthesis.cancel()};updatePreview();
+$('voiceLanguage').onchange=refreshVoices;
+$('coach').onclick=()=>{unlockChime();const lang=$('voiceLanguage').value;const msg=lang==='ko-KR'?'음성 코칭이 준비되었습니다.':'Your voice coach is ready.';$('message').textContent=msg;speak(msg,lang);};
+$('quiet').onclick=()=>{if('speechSynthesis' in window)speechSynthesis.cancel()};
 function downloadCsv(name,headers,rows){
   const esc=s=>'"'+String(s).replaceAll('"','""')+'"';
   const csv=[headers,...rows.map(row=>row.map(esc).join(','))].join('\n');
@@ -392,5 +426,126 @@ function downloadCsv(name,headers,rows){
 $('csv').onclick=()=>downloadCsv('stride-events.csv','timestamp,type,detail',events.map(e=>[e.timestamp,e.type,e.detail]));
 $('exportSensor').onclick=()=>downloadCsv('stride-motion.csv','timestamp,elapsed_seconds,accel_x,accel_y,accel_z,motion_signal,estimated_steps',motionRows);
 $('clear').onclick=()=>{events.length=0;$('log').replaceChildren();const d=document.createElement('div');d.textContent='No events recorded yet.';$('log').appendChild(d)};
+
+// A walking illustration driven by estimated cadence and recently detected steps.
+// Articulated SVG geometry is not an actual body-pose measurement.
+let walkerPhase=0, walkerFrameAt=0;
+const limbPaths={ll:$('walkLegLeft'),lr:$('walkLegRight'),al:$('walkArmLeft'),ar:$('walkArmRight')};
+function limbPoint(angle,length,x,y){return [x+Math.sin(angle)*length,y+Math.cos(angle)*length]}
+function gaitLimb(path,phase,left){
+  const swing=Math.sin(phase)*(left?1:-1);
+  const thighAngle=swing*.60;
+  const knee=limbPoint(thighAngle,35,72,89);
+  const bend=Math.max(0,-swing)*.70;
+  const shinAngle=thighAngle-bend;
+  const ankle=limbPoint(shinAngle,34,knee[0],knee[1]);
+  path.setAttribute('d',`M72 89 L${knee[0].toFixed(1)} ${knee[1].toFixed(1)} L${ankle[0].toFixed(1)} ${ankle[1].toFixed(1)}`);
+}
+function gaitArm(path,phase,left){
+  const a=Math.sin(phase)*(left?-1:1)*.53;
+  const elbow=limbPoint(a,24,72,53),wrist=limbPoint(a+.22,21,elbow[0],elbow[1]);
+  path.setAttribute('d',`M72 53 L${elbow[0].toFixed(1)} ${elbow[1].toFixed(1)} L${wrist[0].toFixed(1)} ${wrist[1].toFixed(1)}`);
+}
+function walkerLoop(now){
+  const dt=walkerFrameAt?Math.min((now-walkerFrameAt)/1000,.06):0;walkerFrameAt=now;
+  const moving=running && performance.now()-lastStep<1700 && sessionSteps>0;
+  if(moving){
+    const cadence=Number($('cadence').textContent);
+    const spm=Number.isFinite(cadence)&&cadence>35?Math.max(50,Math.min(cadence,175)):100;
+    walkerPhase+=(Math.PI*2*spm/120)*dt; // one complete left+right gait cycle per two steps
+  }else{walkerPhase+=Math.min(dt*1.8,.1);}
+  const amplitude=moving?1:Math.max(0,1-Math.abs(Math.sin(walkerPhase))); // gently relax toward rest
+  const phase=moving?walkerPhase:0;
+  gaitLimb(limbPaths.ll,phase,true);gaitLimb(limbPaths.lr,phase,false);
+  gaitArm(limbPaths.al,phase,true);gaitArm(limbPaths.ar,phase,false);
+  figure.style.transform=moving?`translateY(${(-4*Math.abs(Math.sin(phase))).toFixed(1)}px)`:'translateY(0)';
+  requestAnimationFrame(walkerLoop);
+}
+requestAnimationFrame(walkerLoop);
+
+// Supabase Auth + cloud-only session history. No participant profiles or local saved history.
+let db=null, activeUser=null, authMode='signin', savedHistory=[], sessionSavePromise=Promise.resolve();
+const settings=window.STRIDE_SUPABASE||{};
+const configured=Boolean(settings.url && settings.anonKey && !settings.url.includes('YOUR_') && !settings.anonKey.includes('YOUR_'));
+if(configured && window.supabase?.createClient){db=window.supabase.createClient(settings.url,settings.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}})}
+function authMessage(msg){$('authStatus').textContent=msg;}
+function setMode(mode){authMode=mode;$('modeSignIn').classList.toggle('authActive',mode==='signin');$('modeSignUp').classList.toggle('authActive',mode==='signup');$('authSubmit').textContent=mode==='signin'?'Sign In':'Create Account';$('authPassword').autocomplete=mode==='signin'?'current-password':'new-password';$('forgotPassword').hidden=mode!=='signin';authMessage('');}
+$('modeSignIn').onclick=()=>setMode('signin');$('modeSignUp').onclick=()=>setMode('signup');
+$('authForm').onsubmit=async e=>{
+ e.preventDefault();if(!db)return authMessage('Supabase is not configured. See README.md.');
+ const email=$('authEmail').value.trim(),password=$('authPassword').value;
+ $('authSubmit').disabled=true;authMessage('Please wait…');
+ try{
+  if(authMode==='signup'){
+   const {data,error}=await db.auth.signUp({email,password,options:{emailRedirectTo:location.origin+location.pathname}});
+   if(error)throw error;
+   authMessage(data.session?'Account created and signed in.':'Check your email to confirm your account, then sign in.');
+  }else{
+   const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;
+  }
+ }catch(err){authMessage(err.message||'Authentication failed.');}
+ finally{$('authSubmit').disabled=false;}
+};
+$('forgotPassword').onclick=async()=>{
+ if(!db)return authMessage('Configure Supabase first.');const email=$('authEmail').value.trim();if(!email)return authMessage('Enter your email address first.');
+ const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+ authMessage(error?error.message:'If the address is registered, a password reset email will be sent.');
+};
+$('saveNewPassword').onclick=async()=>{
+ if(!db)return;const password=$('newPassword').value;
+ if(password.length<8)return authMessage('Use at least 8 characters.');
+ const {error}=await db.auth.updateUser({password});
+ authMessage(error?error.message:'Password changed.');if(!error)$('passwordResetPanel').hidden=true;
+};
+$('signOut').onclick=async()=>{
+ if(running)return $('syncStatus').textContent='Stop tracking before signing out.';
+ $('syncStatus').textContent='Signing out…';const {error}=await db.auth.signOut();if(error)$('syncStatus').textContent=error.message;
+};
+function renderSessions(){
+ const container=$('sessionHistory');container.replaceChildren();
+ if(!savedHistory.length){const p=document.createElement('p');p.className='muted';p.textContent='No cloud sessions yet.';container.appendChild(p);return;}
+ savedHistory.forEach(item=>{const row=document.createElement('div');row.className='savedSession';row.textContent=`${item.estimated_steps} estimated steps · ${item.duration_seconds}s · ${item.estimated_cadence??'—'} steps/min`;
+ const small=document.createElement('small');small.textContent=new Date(item.created_at).toLocaleString()+' · research estimates, not clinically validated';row.appendChild(small);container.appendChild(row);});
+}
+async function loadSessions(){
+ if(!db||!activeUser)return;
+ $('syncStatus').textContent='Loading sessions…';
+ const {data,error}=await db.from('walking_sessions').select('id,created_at,estimated_steps,duration_seconds,estimated_cadence,rhythm_cv').order('created_at',{ascending:false}).limit(100);
+ if(error){$('syncStatus').textContent='Could not load sessions: '+error.message;return}
+ savedHistory=data||[];renderSessions();$('syncStatus').textContent='Your sessions are synced to your account.';
+}
+async function saveCurrentSession(){
+ if(!sessionStart||!db||!activeUser)return;
+ const durationSeconds=Math.max(0,Math.round((performance.now()-sessionStart)/1000));
+ if(durationSeconds<3)return;
+ const numberOrNull=s=>Number.isFinite(Number(s))&&s!=='—'?Number(s):null;
+ const entry={user_id:activeUser.id,estimated_steps:sessionSteps,duration_seconds:durationSeconds,estimated_cadence:numberOrNull($('cadence').textContent),rhythm_cv:numberOrNull($('variation').textContent)};
+ $('syncStatus').textContent='Saving session…';
+ const userAtSave=activeUser.id;
+ sessionSavePromise=db.from('walking_sessions').insert(entry).then(({error})=>{
+  if(error){$('syncStatus').textContent='Cloud save failed: '+error.message+' — export motion CSV as backup.';return}
+  if(activeUser?.id===userAtSave)loadSessions();
+ });
+ await sessionSavePromise;
+}
+$('exportHistory').onclick=()=>downloadCsv('stride-cloud-sessions.csv','timestamp,estimated_steps,duration_seconds,estimated_cadence,rhythm_cv',savedHistory.map(x=>[x.created_at,x.estimated_steps,x.duration_seconds,x.estimated_cadence??'',x.rhythm_cv??'']));
+renderSessions();
+async function handleAuthSession(session){
+ activeUser=session?.user||null;
+ $('authGate').hidden=!!activeUser;
+ if(activeUser){$('accountEmail').textContent=activeUser.email||'Signed-in account';await loadSessions();}
+ else{savedHistory=[];renderSessions();$('accountEmail').textContent='Not signed in';selectTab('home');}
+}
+if(!db){authMessage('Setup required: enter your Supabase URL and publishable/anon key in config.js, and run setup.sql.');}
+else{
+ db.auth.onAuthStateChange((event,session)=>{
+  // Avoid awaiting other Supabase calls inside this callback.
+  if(event==='PASSWORD_RECOVERY'){$('passwordResetPanel').hidden=false;$('authGate').hidden=false;authMessage('Enter your new password below.');return;}
+  if(event==='SIGNED_IN'||event==='SIGNED_OUT'||event==='INITIAL_SESSION'){
+   setTimeout(()=>{if(event==='SIGNED_OUT'&&running)stopSensor();handleAuthSession(session);},0);
+  }
+ });
+ db.auth.getSession().then(({data,error})=>{if(error)authMessage(error.message);else handleAuthSession(data.session)});
+}
 </script>
 </body></html>
