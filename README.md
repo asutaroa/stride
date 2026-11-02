@@ -1,11 +1,6 @@
-[README.md](https://github.com/user-attachments/files/34271971/README.md)
-# STRIDE v2.7 — Natural Korean + Accent Surface Update
+[README.md](https://github.com/user-attachments/files/34272324/README.md)
+# STRIDE v2.8 — Settings Navigation
 
-What changed:
-- Refined Korean UI copy for more natural tone and clearer labels
-- Applied accent color tinting to major cards and content boxes
-- Kept bilingual interface and automatic EN/KR voice behavior
+Profile tab now opens a compact Settings menu with Profile, Preferences, Notifications, and Privacy Settings detail pages. Existing controls and account data are retained.
 
-Deployment:
-- Replace the current `index.html` in your GitHub Pages repository with this version.
-- Keep your existing `config.js` unchanged.
+Deploy by replacing only index.html; retain existing config.js and Supabase database settings.
