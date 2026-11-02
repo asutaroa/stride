@@ -104,18 +104,23 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 .startWrap{display:flex;flex-direction:column;align-items:flex-start;gap:7px}.startWrap #topHint{font-size:12px;color:var(--dim)}.startInline{border-radius:999px}.summaryAction{width:100%;background:var(--card);color:var(--white);border:1px solid var(--line);padding:15px;border-radius:14px;margin:4px 0 12px;text-align:center}
 .summaryMetrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.summaryMetrics .metricTile{min-height:100px}.summaryMetrics strong{display:block;font-size:27px;color:var(--lime);margin-top:10px}
 .historyBars{height:146px;display:flex;gap:10px;align-items:flex-end;justify-content:center;color:var(--dim);font-size:12px}.barColumn{height:100%;flex:1;max-width:42px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}.historyBar{background:linear-gradient(180deg,var(--lime),#6c9e36);width:100%;min-height:6px;border-radius:7px 7px 3px 3px}.barColumn small{margin-top:5px;font-size:10px}
-.profilePanel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0}.profilePanel label{display:block;margin-bottom:8px}.profilePanel input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;color:var(--white);background:var(--bg);font:inherit}.profileSettings{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:15px;margin:16px 0}.profileSettings summary{cursor:pointer;font-weight:750}.profileSettings select{margin:6px 0}
+.profilePanel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0}.profilePanel label{display:block;margin-bottom:8px}.profilePanel input,.profilePanel select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;color:var(--white);background:var(--bg);font:inherit}.profileSettings{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:15px;margin:16px 0}.profileSettings summary{cursor:pointer;font-weight:750}.profileSettings select{margin:6px 0}.customGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.customGrid .fullSpan{grid-column:1/-1}.profilePreview{margin-top:14px;padding:14px;border-radius:14px;border:1px dashed var(--line);background:color-mix(in srgb, var(--card) 86%, var(--lime) 14%)}.profilePreview strong{display:block;font-size:18px}.profilePreview span{display:block;color:var(--dim);font-size:13px;margin-top:4px}.profileSaveRow{display:flex;gap:10px;align-items:center;margin-top:14px}.chipRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.profileChip{padding:7px 10px;border-radius:999px;background:color-mix(in srgb, var(--lime) 18%, var(--card) 82%);border:1px solid color-mix(in srgb, var(--lime) 40%, var(--line) 60%);font-size:12px}@media(max-width:610px){.customGrid{grid-template-columns:1fr}}
 :root[data-theme="light"]{color-scheme:light;--bg:#f5f7f1;--card:#ffffff;--line:#d5ded4;--dim:#5d6a65;--lime:#547e08;--white:#152019}
-:root[data-theme="light"] .liveWave,:root[data-theme="light"] .metricTile,:root[data-theme="light"] .motionVisual,:root[data-theme="light"] .coachControl,:root[data-theme="light"] .accountCard,:root[data-theme="light"] .advanced{background:#fff;border-color:#d5ded4;color:#152019}
+:root[data-theme="light"] body{background:var(--bg);color:var(--white)}
+:root[data-theme="light"] .liveWave,:root[data-theme="light"] .metricTile,:root[data-theme="light"] .motionVisual,:root[data-theme="light"] .coachControl,:root[data-theme="light"] .accountCard,:root[data-theme="light"] .advanced,:root[data-theme="light"] .profilePanel,:root[data-theme="light"] .profileSettings,:root[data-theme="light"] .summaryAction,:root[data-theme="light"] .savedSession,:root[data-theme="light"] .topControls{background:#fff;border-color:#d5ded4;color:#152019}
 :root[data-theme="light"] .heroMetric{background:linear-gradient(145deg,#e8f4d5,#f5faed);border-color:#b6c89d}
-:root[data-theme="light"] .heroMetricLabel,:root[data-theme="light"] .heroMetricBottom,:root[data-theme="light"] .metricTileLabel,:root[data-theme="light"] .motionStat span,:root[data-theme="light"] .visualSub{color:#536658}
+:root[data-theme="light"] .heroMetricLabel,:root[data-theme="light"] .heroMetricBottom,:root[data-theme="light"] .metricTileLabel,:root[data-theme="light"] .motionStat span,:root[data-theme="light"] .visualSub,:root[data-theme="light"] .muted,:root[data-theme="light"] #topHint,:root[data-theme="light"] .savedSession small,:root[data-theme="light"] .coachControl small,:root[data-theme="light"] .alwaysOn{color:#536658}
 :root[data-theme="light"] .bottomNav{background:#fff;border-color:#d5ded4;box-shadow:0 -6px 24px #273d181c}
 :root[data-theme="light"] .bottomNav .navItem:not(.active){color:#617169}
-:root[data-theme="light"] .liveHeading,:root[data-theme="light"] .motionStat strong,:root[data-theme="light"] .metricTileNum,:root[data-theme="light"] .waveHead,:root[data-theme="light"] .alwaysCoach strong,:root[data-theme="light"] .advanced summary{color:#152019}
+:root[data-theme="light"] .liveHeading,:root[data-theme="light"] .motionStat strong,:root[data-theme="light"] .metricTileNum,:root[data-theme="light"] .waveHead,:root[data-theme="light"] .waveHead strong,:root[data-theme="light"] .alwaysCoach strong,:root[data-theme="light"] .advanced summary,:root[data-theme="light"] .summaryAction,:root[data-theme="light"] .profilePreview strong,:root[data-theme="light"] .profilePanel label,:root[data-theme="light"] .profileSettings summary{color:#152019}
 :root[data-theme="light"] .alertMessage{background:#ecf6df;color:#274326;border-color:#b1c9a4}
-:root[data-theme="light"] .authGate{background:#f5f7f1}:root[data-theme="light"] .authBox{background:#fff;color:#152019;border-color:#d5ded4;box-shadow:0 12px 55px #21362125}:root[data-theme="light"] .authBox input{background:#f3f7f0;color:#152019;border-color:#cdd6c6}:root[data-theme="light"] .authBox label{color:#425248}
-:root[data-theme="light"] select{background:#eff5e8;color:#152019;border-color:#cdd6c6}
+:root[data-theme="light"] .authGate{background:#f5f7f1}:root[data-theme="light"] .authBox{background:#fff;color:#152019;border-color:#d5ded4;box-shadow:0 12px 55px #21362125}:root[data-theme="light"] .authBox input{background:#f3f7f0;color:#152019;border-color:#cdd6c6}:root[data-theme="light"] .authBox label{color:#425248}:root[data-theme="light"] .authSwitch button{background:#edf2eb;color:#1a2620}
+:root[data-theme="light"] select,:root[data-theme="light"] .profilePanel input{background:#eff5e8;color:#152019;border-color:#cdd6c6}
 :root[data-theme="light"] #message{color:#152019}
+:root[data-theme="light"] .roundStop:disabled{background:#e3e8e2!important;border-color:#c8d0c7!important;color:#6e7c73!important}
+:root[data-theme="light"] .liveIndicator.waiting{background:#f1f4f1;border-color:#d4ddd3;color:#5c6d63}
+:root[data-theme="light"] .liveWave canvas{background:#f7faf5}
+:root[data-theme="light"] .profilePreview{background:linear-gradient(145deg,#f8fbf5,#eef6e5)}
 @media(max-width:390px){.roundStop{width:82px;height:82px}.topControls{gap:12px}.startInline{font-size:12px;padding:11px}}
 </style>
 </head>
@@ -143,7 +148,7 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
       </div>
       <div class="metricTiles">
         <div class="metricTile"><div class="metricTileLabel">Walking pace</div><div class="metricTileNum"><span id="cadence">—</span><span class="metricTileUnit">steps/min</span></div></div>
-        <div class="metricTile"><div class="metricTileLabel">Walking consistency</div><div class="metricTileNum"><span id="variation">—</span><span class="metricTileUnit">timing variation %</span></div></div>
+        <div class="metricTile"><div class="metricTileLabel">Step steadiness</div><div class="metricTileNum"><span id="variation">—</span><span class="metricTileUnit">variation %</span></div></div>
       </div>
 
       <div class="motionVisual" aria-label="Illustrative animated walker driven by estimated cadence; not full-body pose tracking">
@@ -159,19 +164,19 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
           </g>
         </svg>
         <div><div class="visualTitle">YOUR MOVEMENT</div><div class="visualSub">Animated guide · not body tracking</div>
-        <div class="motionStat"><span>Phone angle*</span><strong id="tiltStat">—</strong></div>
-        <div class="motionStat"><span>Side-to-side movement*</span><strong id="swayStat">—</strong></div>
-        <div class="motionStat"><span>Walking rhythm</span><strong id="rhythmStat">Waiting</strong></div></div>
+        <div class="motionStat"><span>Phone position*</span><strong id="tiltStat">—</strong></div>
+        <div class="motionStat"><span>Movement balance*</span><strong id="swayStat">—</strong></div>
+        <div class="motionStat"><span>Step pattern</span><strong id="rhythmStat">Waiting</strong></div></div>
       </div>
-      <div class="liveWave"><div class="waveHead"><strong>LIVE MOTION</strong><span id="waveStatus">Waiting for signal</span></div>
+      <div class="liveWave"><div class="waveHead"><strong>MOVEMENT GRAPH</strong><span id="waveStatus">Waiting for signal</span></div>
         <canvas id="plot" width="850" height="220" aria-label="Recent movement signal chart"></canvas>
       </div>
       <div class="alertMessage" id="currentCue" role="status" aria-live="polite">Start walking to receive real-time motion feedback.</div>
       <div class="sessionActions" hidden><button id="start">Start Tracking</button><button id="stop" class="alt" disabled>Stop</button></div>
-      <button id="summaryLive" type="button" class="summaryAction">View my walking summary →</button><div id="status" class="status" aria-live="polite">Ready · Sensor not running</div>
+      <button id="summaryLive" type="button" class="summaryAction">See my walking summary →</button><div id="status" class="status" aria-live="polite">Ready · Sensor not running</div>
       <div class="coachControl">
         <div class="alwaysCoach"><span class="soundGlyph">♫</span><span><strong>Voice coaching is on</strong><small>Chime + bilingual voice cue whenever a persistent motion alert is detected.</small></span><span class="alwaysOn">ON</span></div>
-        <p id="liveCoachInfo" class="muted" style="margin:8px 0 0;font-size:11px">Voice and language settings are in Settings. Alerts concern motion patterns, not medical posture assessment.</p>
+        <p id="liveCoachInfo" class="muted" style="margin:8px 0 0;font-size:11px">Voice and language settings are in Profile. Alerts concern motion patterns, not medical posture assessment.</p>
       </div>
       <details class="advanced">
         <summary>Advanced data &amp; tools</summary>
@@ -185,9 +190,19 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
   </div>
 </section>
     <section class="card tab-panel" data-tab="profile" id="coachPanel" hidden>
-      <h2>My Profile</h2><p class="muted">Personalize your STRIDE experience.</p>
-      <div class="profilePanel"><label for="displayName" class="muted">Display name</label><input id="displayName" maxlength="50" placeholder="Your name" autocomplete="nickname"><button id="saveName" type="button">Save name</button><p id="nameStatus" class="muted" role="status"></p></div>
-      <div class="profilePanel"><label for="themeChoice" class="muted">Appearance</label><select id="themeChoice"><option value="dark">Dark mode</option><option value="light">Light mode</option></select></div>
+      <h2>My Profile</h2><p class="muted">Personalize your STRIDE experience and how feedback feels.</p>
+      <div class="profilePanel">
+        <div class="customGrid">
+          <div><label for="displayName" class="muted">Display name</label><input id="displayName" maxlength="50" placeholder="Your name" autocomplete="nickname"></div>
+          <div><label for="profileTag" class="muted">Short label</label><input id="profileTag" maxlength="20" placeholder="walker" autocomplete="off"></div>
+          <div><label for="stepGoal" class="muted">Daily step goal</label><input id="stepGoal" type="number" min="1000" max="50000" step="500" placeholder="6000"></div>
+          <div><label for="coachStyle" class="muted">Coaching style</label><select id="coachStyle"><option value="gentle">Gentle</option><option value="balanced">Balanced</option><option value="active">Active</option></select></div>
+          <div><label for="accentChoice" class="muted">Accent color</label><select id="accentChoice"><option value="lime">Lime</option><option value="blue">Ocean Blue</option><option value="coral">Coral</option><option value="violet">Violet</option></select></div>
+          <div><label for="themeChoice" class="muted">Appearance</label><select id="themeChoice"><option value="dark">Dark mode</option><option value="light">Light mode</option><option value="system">Match device</option></select></div>
+          <div class="fullSpan profilePreview"><strong id="previewName">Your Name</strong><span id="previewTag">@walker</span><span id="previewGoal">Goal · 6,000 steps/day</span><div class="chipRow"><span class="profileChip" id="previewAccent">Accent · Lime</span><span class="profileChip" id="previewCoach">Coach · Balanced</span></div></div>
+        </div>
+        <div class="profileSaveRow"><button id="saveProfile" type="button">Save profile</button><p id="nameStatus" class="muted" role="status" style="margin:0"></p></div>
+      </div>
       <details class="profileSettings"><summary>Coaching settings</summary><p class="muted">Language, voice and speaking speed for automatic feedback.</p>
       <label for="voiceLanguage" class="muted" style="display:block;margin-top:14px">Coaching voice language</label>
       <select id="voiceLanguage" aria-label="Coaching voice language"><option value="en-US">English</option><option value="ko-KR">한국어 (Korean)</option></select>
@@ -204,7 +219,7 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
     <section class="card tab-panel" data-tab="sessions" id="sessionsPanel" hidden>
       <h2>My Walking Summary</h2><p class="muted">A simple view of your saved walking sessions.</p>
       <p id="syncStatus" class="muted" role="status" aria-live="polite">Loading your sessions…</p>
-      <div class="summaryMetrics"><div class="metricTile"><span class="metricTileLabel">Total walks</span><strong id="totalWalks">0</strong></div><div class="metricTile"><span class="metricTileLabel">Total steps</span><strong id="totalSteps">0</strong></div><div class="metricTile"><span class="metricTileLabel">Total time</span><strong id="totalMinutes">0 min</strong></div><div class="metricTile"><span class="metricTileLabel">Average pace</span><strong id="averagePace">—</strong></div></div>
+      <div class="summaryMetrics"><div class="metricTile"><span class="metricTileLabel">Total walks</span><strong id="totalWalks">0</strong></div><div class="metricTile"><span class="metricTileLabel">Total steps</span><strong id="totalSteps">0</strong></div><div class="metricTile"><span class="metricTileLabel">Total time</span><strong id="totalMinutes">0 min</strong></div><div class="metricTile"><span class="metricTileLabel">Average pace</span><strong id="averagePace">—</strong></div><div class="metricTile"><span class="metricTileLabel">Goal check</span><strong id="goalCheck">—</strong></div></div>
       <div class="liveWave"><div class="waveHead"><strong>YOUR RECENT WALKS</strong><span>Steps per session</span></div><div id="historyBars" class="historyBars" aria-label="Steps in recent walking sessions"></div></div>
       <h2>Walking history</h2><div id="sessionHistory"><p class="muted">No saved sessions yet.</p></div>
       <p class="muted">Walking metrics are experimental estimates and are not medical assessments.</p>
@@ -231,8 +246,8 @@ html{scroll-behavior:auto}body{overflow-x:hidden}main{padding-bottom:calc(90px +
 <nav class="bottomNav" aria-label="Main navigation">
   <button type="button" class="navItem active" data-target="home" aria-label="Home" aria-current="page"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Home</span></button>
   <button type="button" class="navItem" data-target="live" aria-label="Live tracking"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg><span>Live</span></button>
-  <button type="button" class="navItem" data-target="profile" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9l2.1 2.1m10 10 2.1 2.1M19.1 4.9 17 7m-10 10-2.1 2.1"/></svg><span>Profile</span></button>
-  <button type="button" class="navItem" data-target="sessions" aria-label="Summary"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Summary</span></button>
+  <button type="button" class="navItem" data-target="sessions" aria-label="Summary"><svg viewBox="0 0 24 24"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19v-8"/><path d="M22 19V11"/></svg><span>Summary</span></button>
+  <button type="button" class="navItem" data-target="profile" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profile</span></button>
 </nav>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -263,7 +278,8 @@ function playChime(){
 function triggerMotionCue(kind, msgEN, msgKO, t){
   // Event-driven: no fixed 30-second interval. Require a new persistent episode;
   // a short safety gap prevents overlapping speech or one noisy episode from repeatedly triggering.
-  if(!running||alertActive||t-lastCueAt<6500)return;
+  const styleCfg=getCoachStyleSettings();
+  if(!running||alertActive||t-lastCueAt<styleCfg.cooldown)return;
   lastCueAt=t;alertActive=true;lastAlertKind=kind;
   const lang=$('voiceLanguage').value, msg=lang==='ko-KR'?msgKO:msgEN;
   $('currentCue').textContent=msg;$('liveCoachInfo').textContent=`Motion cue: ${msg}`;
@@ -284,9 +300,10 @@ function orientationHandler(e){
   figure.style.setProperty('--body-lean',`${Math.max(-16,Math.min(16,db*.55))}deg`);
   // Phone orientation, not human posture. Alert only after sustained change while walking.
   const t=performance.now();
-  if(Math.abs(db)>19 && t-lastStep<2000){
+  const styleCfg=getCoachStyleSettings();
+  if(Math.abs(db)>styleCfg.tiltThreshold && t-lastStep<2000){
     if(!tiltSince)tiltSince=t;
-    if(t-tiltSince>2300 && !alertActive)triggerMotionCue('device-tilt',
+    if(t-tiltSince>styleCfg.persistence+1100 && !alertActive)triggerMotionCue('device-tilt',
       'Your phone orientation has shifted. If safe, check that your device is secured.',
       '휴대전화 기울기가 변했습니다. 안전한 상황에서 휴대전화가 잘 고정되었는지 확인해 주세요.',t);
   }else{tiltSince=0;if(lastAlertKind==='device-tilt'&&Math.abs(db)<11)clearMotionAlert();}
@@ -347,9 +364,10 @@ function updateRhythm(t){
   $('variation').textContent=cv.toFixed(1);
   $('rhythmStat').textContent=cv<15?'Steady':cv<25?'Variable':'Highly variable';
   figure.style.setProperty('--walk-speed',Math.max(.35,Math.min(1.15,mean/1000)).toFixed(2)+'s');
-  if(intervals.length>=5 && cv>25){
+  const styleCfg=getCoachStyleSettings();
+  if(intervals.length>=5 && cv>styleCfg.rhythmThreshold){
     if(!irregularSince)irregularSince=t;
-    if(t-irregularSince>=1200 && !alertActive){
+    if(t-irregularSince>=styleCfg.persistence && !alertActive){
       triggerMotionCue('rhythm',
         'Your walking rhythm seems irregular. If safe, return to a comfortable, steady pace.',
         '걸음 리듬이 불규칙하게 추정됩니다. 안전하다면 편안하고 일정한 속도로 걸어보세요.',t);
@@ -522,17 +540,62 @@ $('saveNewPassword').onclick=async()=>{
  const {error}=await db.auth.updateUser({password});
  authMessage(error?error.message:'Password changed.');if(!error)$('passwordResetPanel').hidden=true;
 };
-$('saveName').onclick=async()=>{
- if(!db||!activeUser)return;
- const name=$('displayName').value.trim();if(!name||name.length>50){$('nameStatus').textContent='Enter a name up to 50 characters.';return;}
- $('saveName').disabled=true;const {data,error}=await db.auth.updateUser({data:{display_name:name}});
- $('nameStatus').textContent=error?error.message:'Name saved to your account.';
- if(!error&&data?.user)activeUser=data.user;$('saveName').disabled=false;
-};
 const themeKey='stride-theme';
-function applyTheme(t){document.documentElement.dataset.theme=t;$('themeChoice').value=t;try{localStorage.setItem(themeKey,t)}catch(e){}}
+const accentKey='stride-accent';
+const accentMap={lime:'#c3ff60',blue:'#67c6ff',coral:'#ff8d6b',violet:'#b596ff'};
+function applyAccent(choice){
+  const accent=accentMap[choice]||accentMap.lime;
+  document.documentElement.style.setProperty('--lime',accent);
+  if($('accentChoice'))$('accentChoice').value=choice;
+  try{localStorage.setItem(accentKey,choice)}catch(e){}
+}
+function applyTheme(choice){
+  const resolved=choice==='system'?(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):choice;
+  document.documentElement.dataset.theme=resolved;
+  if($('themeChoice'))$('themeChoice').value=choice;
+  try{localStorage.setItem(themeKey,choice)}catch(e){}
+}
+function updateProfilePreview(){
+  const name=($('displayName').value.trim()||'Your Name');
+  const tag=($('profileTag').value.trim()||'walker').replace(/^@+/,'');
+  const goal=Math.max(1000,Number($('stepGoal').value)||6000);
+  const accentLabel={'lime':'Lime','blue':'Ocean Blue','coral':'Coral','violet':'Violet'}[$('accentChoice').value||'lime'];
+  const coachLabel={'gentle':'Gentle','balanced':'Balanced','active':'Active'}[$('coachStyle').value||'balanced'];
+  $('previewName').textContent=name;
+  $('previewTag').textContent='@'+tag;
+  $('previewGoal').textContent='Goal · '+goal.toLocaleString()+' steps/day';
+  $('previewAccent').textContent='Accent · '+accentLabel;
+  $('previewCoach').textContent='Coach · '+coachLabel;
+}
+['displayName','profileTag','stepGoal','accentChoice','coachStyle'].forEach(id=>$(id).addEventListener('input',updateProfilePreview));
+$('accentChoice').addEventListener('change',e=>{applyAccent(e.target.value);updateProfilePreview();});
+$('coachStyle').addEventListener('change',updateProfilePreview);
 $('themeChoice').addEventListener('change',e=>applyTheme(e.target.value));
-try{applyTheme(localStorage.getItem(themeKey)==='light'?'light':'dark')}catch(e){applyTheme('dark')}
+try{applyTheme(localStorage.getItem(themeKey)||'dark')}catch(e){applyTheme('dark')}
+try{applyAccent(localStorage.getItem(accentKey)||'lime')}catch(e){applyAccent('lime')}
+updateProfilePreview();
+function getCoachStyleSettings(){
+  const style=$('coachStyle')?.value||'balanced';
+  if(style==='gentle')return {cooldown:9000, rhythmThreshold:29, tiltThreshold:22, persistence:1600};
+  if(style==='active')return {cooldown:4200, rhythmThreshold:22, tiltThreshold:17, persistence:900};
+  return {cooldown:6500, rhythmThreshold:25, tiltThreshold:19, persistence:1200};
+}
+$('saveProfile').onclick=async()=>{
+ if(!db||!activeUser)return;
+ const name=$('displayName').value.trim();
+ const tag=$('profileTag').value.trim().replace(/^@+/,'');
+ const goal=Math.max(1000,Math.min(50000,Number($('stepGoal').value)||6000));
+ const accent=$('accentChoice').value||'lime';
+ const coachStyle=$('coachStyle').value||'balanced';
+ const appearance=$('themeChoice').value||'dark';
+ if(!name||name.length>50){$('nameStatus').textContent='Enter a display name up to 50 characters.';return;}
+ $('saveProfile').disabled=true;
+ applyTheme(appearance);applyAccent(accent);
+ const payload={display_name:name,profile_tag:tag||'walker',step_goal:goal,accent_color:accent,coach_style:coachStyle,appearance};
+ const {data,error}=await db.auth.updateUser({data:payload});
+ $('nameStatus').textContent=error?error.message:'Profile saved.';
+ if(!error&&data?.user)activeUser=data.user;$('saveProfile').disabled=false;updateProfilePreview();
+};
 $('signOut').onclick=async()=>{
  if(running)return $('syncStatus').textContent='Stop tracking before signing out.';
  $('syncStatus').textContent='Signing out…';const {error}=await db.auth.signOut();if(error)$('syncStatus').textContent=error.message;
@@ -544,6 +607,7 @@ function renderSummary(){
  $('totalWalks').textContent=String(data.length);$('totalSteps').textContent=total.toLocaleString();
  $('totalMinutes').textContent=Math.round(seconds/60)+' min';
  $('averagePace').textContent=pace.length?Math.round(pace.reduce((a,b)=>a+b,0)/pace.length)+' /min':'—';
+ const latest=data[0];const goal=Math.max(1000,Number(($('stepGoal')?.value)||6000));$('goalCheck').textContent=latest?`${Math.round((Number(latest.estimated_steps)||0)/goal*100)}% of goal`:'—';
  const root=$('historyBars');root.replaceChildren();const recent=data.slice(0,8).reverse();
  const max=Math.max(1,...recent.map(x=>Number(x.estimated_steps)||0));
  recent.forEach(x=>{const wrap=document.createElement('div');wrap.className='barColumn';
@@ -583,8 +647,8 @@ renderSessions();
 async function handleAuthSession(session){
  activeUser=session?.user||null;
  $('authGate').hidden=!!activeUser;
- if(activeUser){$('accountEmail').textContent=activeUser.email||'Signed-in account';$('displayName').value=activeUser.user_metadata?.display_name||'';await loadSessions();}
- else{savedHistory=[];renderSessions();$('accountEmail').textContent='Not signed in';selectTab('home');}
+ if(activeUser){$('accountEmail').textContent=activeUser.email||'Signed-in account';const meta=activeUser.user_metadata||{};$('displayName').value=meta.display_name||'';$('profileTag').value=meta.profile_tag||'';$('stepGoal').value=meta.step_goal||6000;$('coachStyle').value=meta.coach_style||'balanced';applyAccent(meta.accent_color||localStorage.getItem(accentKey)||'lime');applyTheme(meta.appearance||localStorage.getItem(themeKey)||'dark');updateProfilePreview();await loadSessions();}
+ else{savedHistory=[];renderSessions();$('accountEmail').textContent='Not signed in';$('displayName').value='';$('profileTag').value='';$('stepGoal').value=6000;$('coachStyle').value='balanced';updateProfilePreview();selectTab('home');}
 }
 if(!db){authMessage('Setup required: enter your Supabase URL and publishable/anon key in config.js, and run setup.sql.');}
 else{
